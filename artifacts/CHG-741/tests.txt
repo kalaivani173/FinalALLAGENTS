@@ -1,0 +1,36 @@
+=== LLM-generated unit tests (saved to GeneratedTest.java) ===
+
+package com.payer.PayerPSP.dto;
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+class ReqPayTest {
+
+    @Test
+    void testDelegateAttribute() {
+        ReqPay reqPay = new ReqPay();
+        
+        // Test setting and getting the delegate attribute
+        reqPay.setDelegate("Y");
+        assertEquals("Y", reqPay.getDelegate());
+
+        reqPay.setDelegate("N");
+        assertEquals("N", reqPay.getDelegate());
+
+        // Test setting an invalid value (not part of the allowed values)
+        reqPay.setDelegate(null);
+        assertNull(reqPay.getDelegate());
+    }
+
+    @Test
+    void testPayeesList() {
+        ReqPay reqPay = new ReqPay();
+        List<Payee> payees = new ArrayList<>();
+        Payee payee = new Payee(); // Assuming Payee has a default constructor
+        payees.add(payee);
+        
+        reqPay.setPayees(payees);
+        assertEquals(payees, reqPay.getPayees());
+    }
+}

@@ -1,0 +1,13 @@
+```diff
+--- existing/ReqPay.java
++++ updated/ReqPay.java
+@@ -12,6 +12,7 @@
+ 
+     @XmlElement(name = "Payer")
+     private Payer payer;
+ 
++    @XmlAttribute(name = "delegate")
+     @XmlElementWrapper(name = "Payees")
+     @XmlElement(name = "Payee")
+     private List<Payee> payees;
+```

@@ -1,0 +1,39 @@
+{
+  "gitPatch": "```diff\n--- Existing Code\n+++ Updated Code\n@@ -1,6 +1,7 @@\n package com.payer.PayerPSP.dto;\n \n import jakarta.xml.bind.annotation.*;\n+import jakarta.xml.bind.annotation.XmlAttribute;\n import java.util.List;\n \n @XmlRootElement(name = \"Payer\")\n@@ -20,6 +21,10 @@\n \n     // -------- Getters & Setters --------\n     public String getAddr() { return addr; }\n     public void setAddr(String addr) { this.addr = addr; }\n \n     public String getCode() { return code; }\n     public void setCode(String code) { this.code = code; }\n+\n+    @XmlAttribute(name = \"BINDINGMODE\", required = true)\n+    private String bindingMode;\n+\n+    public String getBindingMode() { return bindingMode; }\n+    public void setBindingMode(String bindingMode) { this.bindingMode = bindingMode; }\n```",
+  "xsd": "",
+  "tests": "C:\\Users\\kalai\\OneDrive\\Desktop\\TechConclave\\Allagents\\Payer-agent\\artifacts\\CHG-644\\tests.txt",
+  "manifest": {
+    "changeId": "CHG-644",
+    "issuer": "NPCI_UPI_SWITCH",
+    "changeType": "ADD_XML_ATTRIBUTE",
+    "apiName": "ReqPay",
+    "summary": "Addition of new bindingmode",
+    "impactedPaths": [
+      {
+        "xmlPath": "ReqPay.Payer.Device",
+        "change": "ADD_XML_ATTRIBUTE",
+        "attribute": {
+          "name": "BINDINGMODE",
+          "datatype": "xs:string",
+          "mandatory": true,
+          "allowedValues": [
+            "MMS",
+            "SMS"
+          ]
+        }
+      }
+    ],
+    "xsd": {
+      "path": "http://localhost:8000/npciswitch/xsd/CHG-644/ReqPay.xsd"
+    },
+    "npciStatus": "READY_FOR_ADOPTION",
+    "timestamp": "2026-03-13T12:46:03.310208",
+    "openapi": {
+      "path": "http://localhost:8000/npciswitch/openapi-ui/CHG-644"
+    },
+    "productNote": {
+      "path": "http://localhost:8000/npciswitch/product-note/CHG-644/product_note.md",
+      "summary": "Addition of new bindingmode"
+    }
+  }
+}

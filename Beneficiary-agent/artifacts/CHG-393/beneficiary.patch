@@ -1,0 +1,284 @@
+```diff
+--- ExistingCode.java
++++ UpdatedCode.java
+@@ -1,6 +1,7 @@
+ package com.Bene.BeneficiaryBank.dto;
+ 
+ import java.util.List;
+ import jakarta.xml.bind.annotation.*;
++import jakarta.xml.bind.annotation.XmlAttribute;
+ 
+ @XmlRootElement(name = "Payer")
+ @XmlAccessorType(XmlAccessType.FIELD)
+@@ -10,6 +11,7 @@
+ 
+     @XmlAttribute(name = "BINDINGMODE")
+     private String bindingMode;
++    
+     @XmlAttribute(name = "seqNum")
+     private String seqNum;
+ 
+     @XmlAttribute(name = "type")
+@@ -12,6 +14,7 @@
+     public String getBindingMode() { return bindingMode; }
+     public void setBindingMode(String bindingMode) { this.bindingMode = bindingMode; }
+ 
++    @XmlAttribute(name = "BINDINGMODE", required = true)
+     private String bindingMode;
+     @XmlAttribute(name = "name")
+     private String name;
+@@ -20,6 +23,7 @@
+     @XmlAttribute(name = "seqNum")
+     private String seqNum;
+ 
+     // FILE: C:\Users\kalai\OneDrive\Desktop\TechConclave\Allagents\javacoderepo\BeneficiaryBank\src\main\java\com\Bene\BeneficiaryBank\dto\ReqPay.java
+     package com.Bene.BeneficiaryBank.dto;
+ 
+     import jakarta.xml.bind.annotation.XmlAccessorType;
+     import jakarta.xml.bind.annotation.*;
+ 
+     import java.util.List;
+ 
+     @XmlRootElement(name = "ReqPay", namespace = "http://npci.org/upi/schema/")
+     @XmlAccessorType(XmlAccessType.FIELD)
+     public class ReqPay {
+ 
+         @XmlElement(name = "Head")
+         private Head head;
+ 
+         @XmlElement(name = "Txn")
+         private Txn txn;
+ 
+         @XmlElement(name = "Payer")
+         private Payer payer;
+ 
+         @XmlElementWrapper(name = "Payees")
+         @XmlElement(name = "Payee")
+         private List<Payee> payees;
+ 
+         // getters/setters
+ 
+ 
+         public Head getHead() {
+             return head;
+         }
+ 
+         public void setHead(Head head) {
+             this.head = head;
+         }
+ 
+         public Txn getTxn() {
+             return txn;
+         }
+ 
+         public void setTxn(Txn txn) {
+             this.txn = txn;
+         }
+ 
+         public Payer getPayer() {
+             return payer;
+         }
+ 
+         public void setPayer(Payer payer) {
+             this.payer = payer;
+         }
+ 
+         public List<Payee> getPayees() {
+             return payees;
+         }
+ 
+         public void setPayees(List<Payee> payees) {
+             this.payees = payees;
+         }
+     }
+ 
+     // FILE: C:\Users\kalai\OneDrive\Desktop\TechConclave\Allagents\javacoderepo\BeneficiaryBank\src\main\java\com\Bene\BeneficiaryBank\dto\RespPay.java
+     package com.Bene.BeneficiaryBank.dto;
+ 
+     import jakarta.xml.bind.annotation.XmlAccessType;
+     import jakarta.xml.bind.annotation.XmlAccessorType;
+     import jakarta.xml.bind.annotation.XmlElement;
+     import jakarta.xml.bind.annotation.XmlRootElement;
+ 
+     @XmlRootElement(name = "RespPay", namespace = "http://npci.org/upi/schema/")
+     @XmlAccessorType(XmlAccessType.FIELD)
+     public class RespPay {
+ 
+         @XmlElement(name = "Head")
+         private Head head;
+ 
+         @XmlElement(name= "RiskScores")
+         private RiskScores riskScores;
+ 
+         @XmlElement(name = "Txn")
+         private Txn txn;
+ 
+         @XmlElement(name = "Resp")
+         private Resp resp;
+ 
+         // Getters & setters
+         public Head getHead() { return head; }
+         public void setHead(Head head) { this.head = head; }
+ 
+         public Txn getTxn() { return txn; }
+         public void setTxn(Txn txn) { this.txn = txn; }
+ 
+         public Resp getResp() { return resp; }
+         public void setResp(Resp resp) { this.resp = resp; }
+ 
+         public RiskScores getRiskScores() {
+             return riskScores;
+         }
+ 
+         public void setRiskScores(RiskScores riskScores) {
+             this.riskScores = riskScores;
+         }
+     }
+ 
+     // FILE: C:\Users\kalai\OneDrive\Desktop\TechConclave\Allagents\javacoderepo\BeneficiaryBank\src\main\java\com\Bene\BeneficiaryBank\dto\Payee.java
+     package com.Bene.BeneficiaryBank.dto;
+     import jakarta.xml.bind.annotation.*;
+ 
+     @XmlAccessorType(XmlAccessType.FIELD)
+     public class Payee {
+         @XmlAttribute private String addr;
+         @XmlAttribute private String code;
+         @XmlAttribute private String name;
+         @XmlAttribute private String seqNum;
+         @XmlAttribute private String type;
+ 
+         @XmlElement(name = "Ac")
+         private Ac ac;
+ 
+ 
+         @XmlElement(name="Amount")
+         private Amount amount;
+ 
+         // getters and setters
+ 
+         public String getAddr() {
+             return addr;
+         }
+ 
+         public void setAddr(String addr) {
+             this.addr = addr;
+         }
+ 
+         public String getCode() {
+             return code;
+         }
+ 
+         public void setCode(String code) {
+             this.code = code;
+         }
+ 
+         public Payee() {
+         }
+ 
+         public String getName() {
+             return name;
+         }
+ 
+         public Ac getAc() {
+             return ac;
+         }
+ 
+         public void setAc(Ac ac) {
+             this.ac = ac;
+         }
+ 
+         public void setName(String name) {
+             this.name = name;
+         }
+ 
+         public String getSeqNum() {
+             return seqNum;
+         }
+ 
+         public void setSeqNum(String seqNum) {
+             this.seqNum = seqNum;
+         }
+ 
+         public String getType() {
+             return type;
+         }
+ 
+     // FILE: C:\Users\kalai\OneDrive\Desktop\TechConclave\Allagents\javacoderepo\BeneficiaryBank\src\main\java\com\Bene\BeneficiaryBank\dto\Resp.java
+     package com.Bene.BeneficiaryBank.dto;
+     import jakarta.xml.bind.annotation.*;
+     import java.util.List;
+ 
+     @XmlAccessorType(XmlAccessType.FIELD)
+     public class Resp {
+ 
+         @XmlAttribute private String reqMsgId;
+         @XmlAttribute private String result;
+ 
+         @XmlElement(name = "Ref")
+         private List<Ref> refs;
+ 
+         // Getters & setters
+         public String getReqMsgId() { return reqMsgId; }
+         public void setReqMsgId(String reqMsgId) { this.reqMsgId = reqMsgId; }
+ 
+         public String getResult() { return result; }
+         public void setResult(String result) { this.result = result; }
+ 
+         public List<Ref> getRefs() { return refs; }
+         public void setRefs(List<Ref> refs) { this.refs = refs; }
+     }
+ 
+     // FILE: C:\Users\kalai\OneDrive\Desktop\TechConclave\Allagents\javacoderepo\BeneficiaryBank\src\main\java\com\Bene\BeneficiaryBank\dto\Ack.java
+     package com.Bene.BeneficiaryBank.dto;
+ 
+     import jakarta.xml.bind.annotation.XmlAccessType;
+     import jakarta.xml.bind.annotation.XmlAccessorType;
+     import jakarta.xml.bind.annotation.XmlAttribute;
+     import jakarta.xml.bind.annotation.XmlRootElement;
+ 
+     @XmlRootElement(name = "Ack", namespace = "http://npci.org/upi/schema/")
+     @XmlAccessorType(XmlAccessType.FIELD)
+     public class Ack {
+         @XmlAttribute
+         private String api;
+ 
+         public Ack() {
+         }
+ 
+         @XmlAttribute private String reqMsgId;
+         @XmlAttribute private String ts;
+         @XmlAttribute private String err;
+ 
+         public String getApi() {
+             return api;
+         }
+ 
+         public void setApi(String api) {
+             this.api = api;
+         }
+ 
+         public String getReqMsgId() {
+             return reqMsgId;
+         }
+ 
+         public void setReqMsgId(String reqMsgId) {
+             this.reqMsgId = reqMsgId;
+         }
+ 
+         public String getTs() {
+             return ts;
+         }
+ 
+         public void setTs(String ts) {
+             this.ts = ts;
+         }
+ 
+         public String getErr() {
+             return err;
+         }
+ 
+         public void setErr(String err) {
+             this.err = err;
+         }
+     }
+```

@@ -1,0 +1,54 @@
+```diff
+--- ExistingCode.java
++++ UpdatedCode.java
+@@ -1,6 +1,7 @@
+ package com.payer.PayerPSP.dto;
+ 
+ import jakarta.xml.bind.annotation.*;
+ import java.util.List;
+ 
+ @XmlRootElement(name = "Payer")
+ @XmlAccessorType(XmlAccessType.FIELD)
+ @XmlType(propOrder = {"info", "device", "ac", "creds", "amount"})
+ public class Payer {
+ 
+     @XmlAttribute(name = "addr")
+     private String addr;
+ 
+     @XmlAttribute(name = "code")
+     private String code;
+ 
+     @XmlAttribute(name = "name")
+     private String name;
+ 
+     @XmlAttribute(name = "seqNum")
+     private String seqNum;
+ 
++    @XmlAttribute(name = "BINDINGMODE", required = true)
++    private String bindingMode;
+ 
+     // -------- Getters & Setters --------
+     @XmlAttribute(name = "type")
+     private String type;
+ 
+     @XmlElement(name = "Info")
+     private Info info;
+ 
+     @XmlElement(name = "Device")
+     private Device device;
+ 
+     @XmlElement(name = "Ac")
+     private Ac ac;
+ 
+     @XmlElementWrapper(name = "Creds")
+     @XmlElement(name = "Cred")
+     private List<Cred> creds;
+ 
+     @XmlElement(name = "Amount")
+     private Amount amount;
+ 
+     // -------- Getters & Setters --------
+     public String getAddr() { return addr; }
+     public void setAddr(String addr) { this.addr = addr; }
+ 
+```

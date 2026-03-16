@@ -1,0 +1,57 @@
+=== LLM-generated unit tests (saved to GeneratedTest.java) ===
+
+package existing;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@SpringBootTest
+class ReqPayTest {
+
+    static class ReqPay {
+        @XmlElement(name = "Payer")
+        private Payer payer;
+
+        @XmlAttribute(name = "delegate")
+        private String delegate;
+
+        @XmlElementWrapper(name = "Payees")
+        @XmlElement(name = "Payee")
+        private String[] payees;
+
+        public String getDelegate() {
+            return delegate;
+        }
+
+        public void setDelegate(String delegate) {
+            this.delegate = delegate;
+        }
+    }
+
+    static class Payer {
+        // Payer class implementation
+    }
+
+    @Test
+    void testDelegateField() {
+        ReqPay reqPay = new ReqPay();
+        reqPay.setDelegate("Y");
+        assertEquals("Y", reqPay.getDelegate());
+
+        reqPay.setDelegate("N");
+        assertEquals("N", reqPay.getDelegate());
+    }
+
+    @Test
+    void testDelegateFieldNull() {
+        ReqPay reqPay = new ReqPay();
+        reqPay.setDelegate(null);
+        assertEquals(null, reqPay.getDelegate());
+    }
+}

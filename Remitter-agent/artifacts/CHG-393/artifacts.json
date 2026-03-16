@@ -1,0 +1,40 @@
+{
+  "gitPatch": "```diff\n--- existing/ReqPay.java\n+++ updated/ReqPay.java\n@@ -10,6 +10,7 @@\n \n     @XmlElementWrapper(name = \"Payees\")\n     @XmlElement(name = \"Payee\")\n+    @XmlAttribute(name = \"BINDINGMODE\", required = true)\n     private List<Payee> payees;\n \n     // getters/setters\n--- existing/Payer.java\n+++ updated/Payer.java\n@@ -18,6 +18,7 @@\n    @XmlElement(name = \"Device\")\n    private Device device;\n \n+   @XmlAttribute(name = \"BINDINGMODE\", required = true)\n    @XmlElement(name = \"Ac\")\n    private Ac ac;\n```",
+  "xsd": "",
+  "tests": "C:\\Users\\kalai\\OneDrive\\Desktop\\TechConclave\\Allagents\\Remitter-agent\\artifacts\\CHG-393\\tests.txt",
+  "manifest": {
+    "changeId": "CHG-393",
+    "issuer": "NPCI_UPI_SWITCH",
+    "changeType": "ADD_XML_ATTRIBUTE",
+    "apiName": "ReqPay",
+    "summary": "addition of new field",
+    "impactedPaths": [
+      {
+        "xmlPath": "ReqPay.Payer.Device",
+        "change": "ADD_XML_ATTRIBUTE",
+        "attribute": {
+          "name": "BINDINGMODE",
+          "datatype": "xs:string",
+          "mandatory": true,
+          "allowedValues": [
+            "SMS",
+            "RSMS",
+            "SMV"
+          ]
+        }
+      }
+    ],
+    "xsd": {
+      "path": "http://localhost:8000/npciswitch/xsd/CHG-393/ReqPay.xsd"
+    },
+    "npciStatus": "READY_FOR_ADOPTION",
+    "timestamp": "2026-03-14T06:49:18.617517",
+    "openapi": {
+      "path": "http://localhost:8000/npciswitch/openapi-ui/CHG-393"
+    },
+    "productNote": {
+      "path": "http://localhost:8000/npciswitch/product-note/CHG-393/product_note.md",
+      "summary": "addition of new field"
+    }
+  }
+}

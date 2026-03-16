@@ -1,0 +1,41 @@
+{
+  "gitPatch": "```diff\ndiff --git a/src/main/java/com/Bene/BeneficiaryBank/dto/Payer.java b/src/main/java/com/Bene/BeneficiaryBank/dto/Payer.java\nindex abcdef1..1234567 100644\n--- a/src/main/java/com/Bene/BeneficiaryBank/dto/Payer.java\n+++ b/src/main/java/com/Bene/BeneficiaryBank/dto/Payer.java\n@@ -20,6 +20,7 @@\n    @XmlElement(name = \"Ac\")\n    private Ac ac;\n \n    @XmlElementWrapper(name = \"Creds\")\n    @XmlElement(name = \"Cred\")\n    private List<Cred> creds;\n \n    @XmlElement(name = \"Amount\")\n    private Amount amount;\n+   \n+   @XmlAttribute(name = \"BINDINGMODE\", required = true)\n+   private String bindingMode;\n\n    // -------- Getters & Setters --------\n    public String getAddr() { return addr; }\n    public void setAddr(String addr) { this.addr = addr; }\n```",
+  "xsd": "",
+  "tests": "C:\\Users\\kalai\\OneDrive\\Desktop\\TechConclave\\Allagents\\Beneficiary-agent\\artifacts\\CHG-150\\tests.txt",
+  "manifest": {
+    "changeId": "CHG-150",
+    "issuer": "NPCI_UPI_SWITCH",
+    "changeType": "ADD_XML_ATTRIBUTE",
+    "apiName": "ReqPay",
+    "summary": "Addition of new Bindingmode.",
+    "impactedPaths": [
+      {
+        "xmlPath": "ReqPay.Payer.Device",
+        "change": "ADD_XML_ATTRIBUTE",
+        "attribute": {
+          "name": "BINDINGMODE",
+          "datatype": "xs:string",
+          "mandatory": true,
+          "allowedValues": [
+            "MMS",
+            "SMS",
+            "RSMS",
+            "SMV"
+          ]
+        }
+      }
+    ],
+    "xsd": {
+      "path": "http://localhost:8000/npciswitch/xsd/CHG-150/ReqPay.xsd"
+    },
+    "npciStatus": "READY_FOR_ADOPTION",
+    "timestamp": "2026-03-13T12:02:51.140601",
+    "openapi": {
+      "path": "http://localhost:8000/npciswitch/openapi-ui/CHG-150"
+    },
+    "productNote": {
+      "path": "http://localhost:8000/npciswitch/product-note/CHG-150/product_note.md",
+      "summary": "Addition of new Bindingmode."
+    }
+  }
+}

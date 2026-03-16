@@ -1,0 +1,25 @@
+{
+  "gitPatch": "```diff\n// FILE: D:\\UPI-Hackathon-2\\UPIVerse\\BeneficiaryBank\\src\\main\\java\\com\\Bene\\BeneficiaryBank\\controller\\HbtController.java\n+    @PostMapping(value = \"/ReqMandate\", produces = MediaType.APPLICATION_XML_VALUE)\n+    public String createReqMandate(@RequestParam(name = \"custRef\", required = false, defaultValue = \"NA\") String custRef) throws Exception {\n+        // build ReqMandate XML\n+        ReqMandate reqMandate = hbtService.createReqMandate(custRef);\n+        String reqMandateXml = XmlUtils.toXml(reqMandate, ReqMandate.class);\n+        String txnId = reqMandate.getTxn().getId();\n+\n+        String upiSwitchUrl = \"http://localhost:8081/upi/ReqMandate/2.0/urn:txnid:\" + txnId;\n+\n+        HttpHeaders headers = new HttpHeaders();\n+        headers.setContentType(MediaType.APPLICATION_XML);\n+\n+        HttpEntity<String> entity = new HttpEntity<>(reqMandateXml, headers);\n+        // Add logic to send the request to UPI switch\n+    }\n\n// FILE: D:\\UPI-Hackathon-2\\UPIVerse\\BeneficiaryBank\\src\\main\\java\\com\\Bene\\BeneficiaryBank\\service\\HbtService.java\n+    public ReqMandate createReqMandate(String custRef) {\n+        ReqMandate reqMandate = new ReqMandate();\n+\n+        // Head\n+        Head head = new Head();\n+        head.setMsgId(\"MANDATE\" + UUID.randomUUID().toString().replace(\"-\", \"\").substring(0, 29));\n+        head.setOrgId(\"158888\");\n+        head.setTs(ZonedDateTime.now().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));\n+        head.setVer(\"2.0\");\n+        reqMandate.setHead(head);\n+\n+        // Txn\n+        Txn txn = new Txn();\n+        txn.setId(TxnIdGenerator.generateTxnId());\n+        txn.setCustRef(custRef);\n+        txn.setType(\"Mandate\");\n+        txn.setNote(\"ReqMandate\");\n+        txn.setRefId(custRef);\n+        txn.setRefUrl(\"www.payer.com\");\n+        txn.setTs(ZonedDateTime.now().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));\n+        reqMandate.setTxn(txn);\n+\n+        // Additional fields for ReqMandate can be set here\n+\n+        return reqMandate;\n+    }\n```",
+  "xsd": "",
+  "tests": "D:\\UPI-Hackathon-2\\Allagents\\Beneficiary-agent\\artifacts\\CHG-360\\tests.txt",
+  "manifest": {
+    "changeId": "CHG-360",
+    "issuer": "NPCI_UPI_SWITCH",
+    "changeType": "ADD_NEW_API",
+    "apiName": "ReqMandate",
+    "summary": "add new api ReqMandate",
+    "impactedPaths": [],
+    "xsd": {
+      "path": "http://localhost:8000/npciswitch/xsd/CHG-360/ReqMandate.xsd"
+    },
+    "npciStatus": "READY_FOR_ADOPTION",
+    "timestamp": "2026-02-17T08:42:33.053327",
+    "openapi": {
+      "path": "http://localhost:8000/npciswitch/openapi/CHG-360/openapi.json"
+    },
+    "productNote": {
+      "path": "http://localhost:8000/npciswitch/product-note/CHG-360/product_note.md",
+      "summary": "add new api ReqMandate"
+    }
+  }
+}

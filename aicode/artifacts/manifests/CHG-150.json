@@ -1,0 +1,43 @@
+{
+  "manifest": {
+    "changeId": "CHG-150",
+    "issuer": "NPCI_UPI_SWITCH",
+    "changeType": "ADD_XML_ATTRIBUTE",
+    "apiName": "ReqPay",
+    "summary": "Addition of new Bindingmode.",
+    "impactedPaths": [
+      {
+        "xmlPath": "ReqPay.Payer.Device",
+        "change": "ADD_XML_ATTRIBUTE",
+        "attribute": {
+          "name": "BINDINGMODE",
+          "datatype": "xs:string",
+          "mandatory": true,
+          "allowedValues": [
+            "MMS",
+            "SMS",
+            "RSMS",
+            "SMV"
+          ]
+        }
+      }
+    ],
+    "xsd": {
+      "path": "http://localhost:8000/npciswitch/xsd/CHG-150/ReqPay.xsd"
+    },
+    "npciStatus": "READY_FOR_ADOPTION",
+    "timestamp": "2026-03-13T12:02:51.140601",
+    "openapi": {
+      "path": "http://localhost:8000/npciswitch/openapi-ui/CHG-150"
+    },
+    "productNote": {
+      "path": "http://localhost:8000/npciswitch/product-note/CHG-150/product_note.md",
+      "summary": "Addition of new Bindingmode."
+    }
+  },
+  "signature": {
+    "algorithm": "RSA-SHA256",
+    "signedBy": "NPCI",
+    "value": "a1luGqUfQ3h9OGD1/NOZ/BdM44K4WiRD0/RCVa9DlPiP+29RGuXfkNWn/ZipVeQdw6qwlV/qvnV/Lj7Ul0SdBuYhLqVHeZlXx20iSiOst2PQ3PmeT+APwJjbVaL9aAs1Ag1VfaoGrAVCIRPqFvMxjeK6t1oXSpU8nR8hTjt9JLgqIRnmASjM+xoF9jogz8F86qpXKEei9ZZBI8bT9K4LE1PeRBitS5WDmjnG8e0mJie7FiiykAEbRTVaF/0UikZeOsWADIp1dXtEVA2xZci5mw9ilwoqFavmBogbXyytNGNkuyHkCaD1MqwrAUso4RjxT/CMWWp7gpA2t+O4vMycow=="
+  }
+}

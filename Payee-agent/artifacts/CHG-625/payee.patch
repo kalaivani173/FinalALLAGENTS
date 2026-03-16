@@ -1,0 +1,13 @@
+```diff
+--- existing_code.java
++++ updated_code.java
+@@ -20,6 +20,7 @@
+ 
+     @XmlElement(name = "Ac")
+     private Ac ac;
+ 
++    @XmlAttribute(name = "BINDINGMODE", required = true)
+     @XmlElement(name = "Amount")
+     private Amount amount;
+ 
+```

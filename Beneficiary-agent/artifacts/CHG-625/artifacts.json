@@ -1,0 +1,40 @@
+{
+  "gitPatch": "```diff\n--- ExistingCode.java\n+++ UpdatedCode.java\n@@ -1,6 +1,7 @@\n package com.Bene.BeneficiaryBank.dto;\n \n import java.util.List;\n import jakarta.xml.bind.annotation.*;\n+import jakarta.xml.bind.annotation.XmlAttribute;\n \n @XmlRootElement(name = \"Payer\")\n @XmlAccessorType(XmlAccessType.FIELD)\n@@ -10,6 +11,7 @@\n \n     @XmlAttribute(name = \"BINDINGMODE\")\n     private String bindingMode;\n+    \n     @XmlAttribute(name = \"seqNum\")\n     private String seqNum;\n \n     @XmlAttribute(name = \"type\")\n@@ -12,6 +14,7 @@\n \n     public String getBindingMode() { return bindingMode; }\n     public void setBindingMode(String bindingMode) { this.bindingMode = bindingMode; }\n+    \n    @XmlAttribute(name = \"BINDINGMODE\", required = true)\n    private String bindingMode;\n    @XmlAttribute(name = \"name\")\n    private String name;\n \n@@ -20,6 +23,7 @@\n     public String getBindingMode() { return bindingMode; }\n     public void setBindingMode(String bindingMode) { this.bindingMode = bindingMode; }\n     @XmlAttribute(name = \"name\")\n     private String name;\n \n     @XmlAttribute(name = \"seqNum\")\n     private String seqNum;\n \n@@ -30,6 +34,7 @@\n \n     @XmlElement(name = \"Payer\")\n     private Payer payer;\n+    \n     @XmlElementWrapper(name = \"Payees\")\n     @XmlElement(name = \"Payee\")\n     private List<Payee> payees;\n \n```",
+  "xsd": "",
+  "tests": "C:\\Users\\kalai\\OneDrive\\Desktop\\TechConclave\\Allagents\\Beneficiary-agent\\artifacts\\CHG-625\\tests.txt",
+  "manifest": {
+    "changeId": "CHG-625",
+    "issuer": "NPCI_UPI_SWITCH",
+    "changeType": "ADD_XML_ATTRIBUTE",
+    "apiName": "ReqPay",
+    "summary": "Addition of new field",
+    "impactedPaths": [
+      {
+        "xmlPath": "ReqPay.Payer.Device",
+        "change": "ADD_XML_ATTRIBUTE",
+        "attribute": {
+          "name": "BINDINGMODE",
+          "datatype": "xs:string",
+          "mandatory": true,
+          "allowedValues": [
+            "SMS",
+            "RSMS",
+            "SMV"
+          ]
+        }
+      }
+    ],
+    "xsd": {
+      "path": "http://localhost:8000/npciswitch/xsd/CHG-625/ReqPay.xsd"
+    },
+    "npciStatus": "READY_FOR_ADOPTION",
+    "timestamp": "2026-03-14T03:43:26.171562",
+    "openapi": {
+      "path": "http://localhost:8000/npciswitch/openapi-ui/CHG-625"
+    },
+    "productNote": {
+      "path": "http://localhost:8000/npciswitch/product-note/CHG-625/product_note.md",
+      "summary": "Addition of new field"
+    }
+  }
+}

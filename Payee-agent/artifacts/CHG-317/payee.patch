@@ -1,0 +1,65 @@
+```diff
+// FILE: D:\UPI-Hackathon-2\UPIVerse\PayeePSP\src\main\java\com\payee\psp\controller\AuthDetailsController.java
+package com.payee.psp.controller;
+
+import com.payee.psp.dto.Ack;
+import com.payee.psp.dto.ReqAuthDetails;
+import com.payee.psp.dto.ReqMandate; // Added import for ReqMandate
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.OffsetDateTime;
+import java.util.concurrent.CompletableFuture;
+import com.payee.psp.service.RespAuthDetailsService;
+
+@RestController
+@RequestMapping("/upi")
+public class AuthDetailsController {
+
+    private final RespAuthDetailsService respAuthDetailsService;
+
+    public AuthDetailsController(RespAuthDetailsService respAuthDetailsService) {
+        this.respAuthDetailsService = respAuthDetailsService;
+    }
+
+    @PostMapping(
+            value = "/ReqAuthDetails/2.0/urn:txnid:{txnId}",
+            consumes = "application/xml",
+            produces = "application/xml"
+    )
+    public ResponseEntity<Ack> receiveReqAuthDetails(
+            @PathVariable String txnId,
+            @RequestBody ReqAuthDetails req) {
+
+        // ✅ Async processing of ReqAuthDetails
+        CompletableFuture.runAsync(() -> respAuthDetailsService.processReqAuthDetails(req, txnId));
+
+        // ✅ Synchronous Ack back to UPI
+        Ack ack = new Ack();
+        ack.setApi("ReqAuthDetails");
+        ack.setReqMsgId(req.getHead().getMsgId());
+        ack.setTs(OffsetDateTime.now().toString());
+        return ResponseEntity.ok(ack);
+    }
+
+    @PostMapping(
+            value = "/ReqMandate/2.0/urn:txnid:{txnId}", // New endpoint for ReqMandate
+            consumes = "application/xml",
+            produces = "application/xml"
+    )
+    public ResponseEntity<Ack> receiveReqMandate(
+            @PathVariable String txnId,
+            @RequestBody ReqMandate req) { // New method to handle ReqMandate
+
+        // Async processing of ReqMandate
+        CompletableFuture.runAsync(() -> respAuthDetailsService.processReqMandate(req, txnId));
+
+        // Synchronous Ack back to UPI
+        Ack ack = new Ack();
+        ack.setApi("ReqMandate");
+        ack.setReqMsgId(req.getHead().getMsgId());
+        ack.setTs(OffsetDateTime.now().toString());
+        return ResponseEntity.ok(ack);
+    }
+}
+```

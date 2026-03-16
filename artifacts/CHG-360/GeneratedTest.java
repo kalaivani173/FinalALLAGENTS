@@ -1,0 +1,59 @@
+package com.payer.PayerPSP.controller;
+
+import com.payer.PayerPSP.dto.ReqMandate;
+import com.payer.PayerPSP.service.HbtService;
+import com.payer.PayerPSP.util.XmlUtil;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
+@SpringBootTest
+public class HbtControllerTest {
+
+    @InjectMocks
+    private HbtController hbtController;
+
+    @Mock
+    private HbtService hbtService;
+
+    @Mock
+    private RestTemplate restTemplate;
+
+    @Autowired
+    public HbtControllerTest() {
+        MockitoAnnotations.openMocks(this);
+    }
+
+    @Test
+    public void testReqMandate() {
+        ReqMandate reqMandate = new ReqMandate();
+        // Set properties for reqMandate as needed
+        String reqMandateXml = XmlUtil.toXml(reqMandate, ReqMandate.class);
+        String txnId = "12345"; // Example transaction ID
+        reqMandate.setTxn(new Txn(txnId)); // Assuming Txn is a class with a method getId()
+
+        String upiSwitchUrl = "http://localhost:8081/upi/ReqMandate/2.0/urn:txnid:" + txnId;
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_XML);
+        HttpEntity<String> entity = new HttpEntity<>(reqMandateXml, headers);
+        
+        ResponseEntity<String> responseEntity = ResponseEntity.ok("<response>Success</response>");
+        when(restTemplate.postForEntity(upiSwitchUrl, entity, String.class)).thenReturn(responseEntity);
+
+        String response = hbtController.reqMandate(reqMandate);
+        
+        verify(restTemplate, times(1)).postForEntity(upiSwitchUrl, entity, String.class);
+        assertEquals("<response>Success</response>", response);
+    }
+}

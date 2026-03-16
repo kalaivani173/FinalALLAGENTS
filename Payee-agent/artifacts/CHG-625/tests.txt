@@ -1,0 +1,17 @@
+09:16:03.222 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.payee.psp.PayeePspApplicationTests]: PayeePspApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+09:16:03.513 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.payee.psp.PayeePspApplication for test class com.payee.psp.PayeePspApplicationTests
+09:16:03.991 [main] INFO org.springframework.boot.devtools.restart.RestartApplicationListener -- Restart disabled due to context in which it is running
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.5)
+
+2026-03-14T09:16:05.716+05:30  INFO 25156 --- [Payee-PSP] [           main] com.payee.psp.PayeePspApplicationTests   : Starting PayeePspApplicationTests using Java 17.0.4.1 with PID 25156 (started by kalai in C:\Users\kalai\OneDrive\Desktop\TechConclave\Allagents\javacoderepo\PayeePSP)
+2026-03-14T09:16:05.724+05:30  INFO 25156 --- [Payee-PSP] [           main] com.payee.psp.PayeePspApplicationTests   : No active profile set, falling back to 1 default profile: "default"
+2026-03-14T09:16:14.977+05:30  INFO 25156 --- [Payee-PSP] [           main] com.payee.psp.PayeePspApplicationTests   : Started PayeePspApplicationTests in 11.021 seconds (process running for 13.6)
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended

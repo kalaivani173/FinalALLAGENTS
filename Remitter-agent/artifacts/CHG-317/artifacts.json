@@ -1,0 +1,25 @@
+{
+  "gitPatch": "```diff\n--- existing_code.java\n+++ updated_code.java\n@@ -0,0 +1,50 @@\n+// FILE: D:\\UPI-Hackathon-2\\UPIVerse\\RemitterBank\\src\\main\\java\\com\\remitter\\RemitterBank\\controller\\ReqMandateController.java\n+package com.remitter.RemitterBank.controller;\n+\n+import com.remitter.RemitterBank.dto.ReqMandate;\n+import com.remitter.RemitterBank.service.ReqMandateService;\n+import org.springframework.beans.factory.annotation.Autowired;\n+import org.springframework.http.HttpEntity;\n+import org.springframework.http.HttpHeaders;\n+import org.springframework.http.MediaType;\n+import org.springframework.http.ResponseEntity;\n+import org.springframework.web.bind.annotation.PostMapping;\n+import org.springframework.web.bind.annotation.RequestParam;\n+import org.springframework.web.bind.annotation.RestController;\n+\n+import org.slf4j.Logger;\n+import org.slf4j.LoggerFactory;\n+\n+@RestController\n+public class ReqMandateController {\n+\n+    private static final Logger log = LoggerFactory.getLogger(ReqMandateController.class);\n+\n+    @Autowired\n+    private ReqMandateService reqMandateService;\n+\n+    @PostMapping(value = \"/ReqMandate\", produces = MediaType.APPLICATION_XML_VALUE)\n+    public String createReqMandate(@RequestParam(name = \"custRef\", required = false, defaultValue = \"NA\") String custRef) throws Exception {\n+        // build ReqMandate XML\n+        ReqMandate reqMandate = reqMandateService.createReqMandate(custRef);\n+        String reqMandateXml = XmlUtils.toXml(reqMandate, ReqMandate.class);\n+        String txnId = reqMandate.getTxn().getId();\n+\n+        String upiSwitchUrl = \"http://localhost:8081/upi/ReqMandate/2.0/urn:txnid:\" + txnId;\n+\n+        HttpHeaders headers = new HttpHeaders();\n+        headers.setContentType(MediaType.APPLICATION_XML);\n+\n+        HttpEntity<String> entity = new HttpEntity<>(reqMandateXml, headers);\n+        ResponseEntity<String> response = restTemplate.postForEntity(upiSwitchUrl, entity, String.class);\n+        log.info(\"Sent ReqMandate txnId={} to UPI; Ack status={} body={}\", txnId, response.getStatusCodeValue(), response.getBody());\n+\n+        return response.getBody();\n+    }\n+}\n+\n+// FILE: D:\\UPI-Hackathon-2\\UPIVerse\\RemitterBank\\src\\main\\java\\com\\remitter\\RemitterBank\\service\\ReqMandateService.java\n+package com.remitter.RemitterBank.service;\n+\n+import com.remitter.RemitterBank.dto.ReqMandate;\n+import com.remitter.RemitterBank.util.TxnIdGenerator;\n+import org.springframework.stereotype.Service;\n+\n+import java.time.ZonedDateTime;\n+import java.time.format.DateTimeFormatter;\n+import java.util.UUID;\n+\n+@Service\n+public class ReqMandateService {\n+\n+    public ReqMandate createReqMandate(String custRef) {\n+        ReqMandate reqMandate = new ReqMandate();\n+\n+        // Head\n+        Head head = new Head();\n+        head.setMsgId(\"MANDATE\" + UUID.randomUUID().toString().replace(\"-\", \"\").substring(0, 29));\n+        head.setOrgId(\"158888\");\n+        head.setTs(ZonedDateTime.now().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));\n+        head.setVer(\"2.0\");\n+        reqMandate.setHead(head);\n+\n+        // Txn\n+        Txn txn = new Txn();\n+        txn.setId(TxnIdGenerator.generateTxnId());\n+        txn.setCustRef(custRef);\n+        txn.setType(\"Mandate\");\n+        txn.setNote(\"ReqMandate\");\n+        txn.setRefId(custRef);\n+        txn.setRefUrl(\"www.payer.com\");\n+        txn.setTs(ZonedDateTime.now().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));\n+        reqMandate.setTxn(txn);\n+\n+        return reqMandate;\n+    }\n+}\n```",
+  "xsd": "",
+  "tests": "D:\\UPI-Hackathon-2\\Allagents\\Remitter-agent\\artifacts\\CHG-317\\tests.txt",
+  "manifest": {
+    "changeId": "CHG-317",
+    "issuer": "NPCI_UPI_SWITCH",
+    "changeType": "ADD_NEW_API",
+    "apiName": "ReqMandate",
+    "summary": "adding new api",
+    "impactedPaths": [],
+    "xsd": {
+      "path": "http://localhost:8000/npciswitch/xsd/CHG-317/ReqMandate.xsd"
+    },
+    "npciStatus": "READY_FOR_ADOPTION",
+    "timestamp": "2026-03-04T07:38:05.659880",
+    "openapi": {
+      "path": "http://localhost:8000/npciswitch/openapi-ui/CHG-317"
+    },
+    "productNote": {
+      "path": "http://localhost:8000/npciswitch/product-note/CHG-317/product_note.md",
+      "summary": "adding new api"
+    }
+  }
+}

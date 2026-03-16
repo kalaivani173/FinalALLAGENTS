@@ -1,0 +1,39 @@
+{
+  "gitPatch": "```diff\n--- Existing_Code.java\n+++ Updated_Code.java\n@@ -20,6 +20,7 @@\n \n     @XmlElement(name = \"Payer\")\n     private Payer payer;\n \n+    @XmlAttribute(name = \"delegate\")\n     @XmlElementWrapper(name = \"Payees\")\n     @XmlElement(name = \"Payee\")\n     private List<Payee> payees;\n```",
+  "xsd": "",
+  "tests": "D:\\UPI-Hackathon-2\\Allagents\\Remitter-agent\\artifacts\\CHG-459\\tests.txt",
+  "manifest": {
+    "changeId": "CHG-459",
+    "issuer": "NPCI_UPI_SWITCH",
+    "changeType": "ADD_XML_ATTRIBUTE",
+    "apiName": "ReqPay",
+    "summary": "Field Addition 01",
+    "impactedPaths": [
+      {
+        "xmlPath": "ReqPay.Txn",
+        "change": "ADD_XML_ATTRIBUTE",
+        "attribute": {
+          "name": "delegate",
+          "datatype": "xs:string",
+          "mandatory": false,
+          "allowedValues": [
+            "Y",
+            "N"
+          ]
+        }
+      }
+    ],
+    "xsd": {
+      "path": "http://localhost:8000/npciswitch/xsd/CHG-459/ReqPay.xsd"
+    },
+    "npciStatus": "READY_FOR_ADOPTION",
+    "timestamp": "2026-02-25T09:04:18.433181",
+    "openapi": {
+      "path": "http://localhost:8000/npciswitch/openapi/CHG-459/openapi.json"
+    },
+    "productNote": {
+      "path": "http://localhost:8000/npciswitch/product-note/CHG-459/product_note.md",
+      "summary": "Field Addition 01"
+    }
+  }
+}

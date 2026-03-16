@@ -1,0 +1,22 @@
+package com.Bene.BeneficiaryBank.dto;
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class UpdatedCodeTest {
+
+    @Test
+    public void testDelegateAttribute() {
+        UpdatedCode updatedCode = new UpdatedCode();
+        
+        // Test setting and getting the delegate attribute
+        updatedCode.setDelegate("Y");
+        assertEquals("Y", updatedCode.getDelegate());
+        
+        updatedCode.setDelegate("N");
+        assertEquals("N", updatedCode.getDelegate());
+        
+        updatedCode.setDelegate(null);
+        assertEquals(null, updatedCode.getDelegate());
+    }
+}

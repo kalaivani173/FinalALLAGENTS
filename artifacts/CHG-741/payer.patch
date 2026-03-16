@@ -1,0 +1,40 @@
+```diff
+--- existing_code.java
++++ updated_code.java
+@@ -1,6 +1,7 @@
+ package com.payer.PayerPSP.dto;
+ 
+ import jakarta.xml.bind.annotation.*;
+ 
++import jakarta.xml.bind.annotation.XmlAttribute;
+ import java.util.List;
+ 
+ @XmlRootElement(
+@@ -12,6 +13,7 @@
+ public class ReqPay {
+     @XmlElement(name = "Head") private Head head;
+     @XmlElement(name = "Txn") private Txn txn;
+     @XmlElement(name = "Payer") private Payer payer;
+ 
++    @XmlAttribute(name = "delegate") private String delegate;
+     @XmlElementWrapper(name = "Payees")
+     @XmlElement(name = "Payee")
+     private List<Payee> payees;
+@@ -20,6 +22,10 @@
+     public List<Payee> getPayees() {
+         return payees;
+     }
+ 
+     public void setPayees(List<Payee> payees) {
+         this.payees = payees;
+     }
++
++    public String getDelegate() {
++        return delegate;
++    }
++
++    public void setDelegate(String delegate) {
++        this.delegate = delegate;
++    }
+ }
+```

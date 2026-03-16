@@ -1,0 +1,39 @@
+{
+  "gitPatch": "```diff\n--- ExistingCode.java\n+++ UpdatedCode.java\n@@ -36,6 +36,7 @@\n \n     @XmlElement(name = \"Payer\")\n     private Payer payer;\n \n+    @XmlAttribute(name = \"delegate\")\n     private String delegate;\n \n     @XmlElementWrapper(name = \"Payees\")\n     @XmlElement(name = \"Payee\")\n```",
+  "xsd": "",
+  "tests": "D:\\UPI-Hackathon-2\\Allagents\\Beneficiary-agent\\artifacts\\CHG-433\\tests.txt",
+  "manifest": {
+    "changeId": "CHG-433",
+    "issuer": "NPCI_UPI_SWITCH",
+    "changeType": "ADD_XML_ATTRIBUTE",
+    "apiName": "ReqPay",
+    "summary": "Adding the new attribute",
+    "impactedPaths": [
+      {
+        "xmlPath": "ReqPay.Txn",
+        "change": "ADD_XML_ATTRIBUTE",
+        "attribute": {
+          "name": "delegate",
+          "datatype": "xs:string",
+          "mandatory": false,
+          "allowedValues": [
+            "Y",
+            "N"
+          ]
+        }
+      }
+    ],
+    "xsd": {
+      "path": "http://localhost:8000/npciswitch/xsd/CHG-433/ReqPay.xsd"
+    },
+    "npciStatus": "READY_FOR_ADOPTION",
+    "timestamp": "2026-03-04T10:12:53.451835",
+    "openapi": {
+      "path": "http://localhost:8000/npciswitch/openapi-ui/CHG-433"
+    },
+    "productNote": {
+      "path": "http://localhost:8000/npciswitch/product-note/CHG-433/product_note.md",
+      "summary": "Adding the new attribute"
+    }
+  }
+}

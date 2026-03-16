@@ -1,0 +1,39 @@
+{
+  "gitPatch": "```diff\ndiff --git a/src/main/java/com/Bene/BeneficiaryBank/dto/Payer.java b/src/main/java/com/Bene/BeneficiaryBank/dto/Payer.java\nindex 1234567..89abcdef 100644\n--- a/src/main/java/com/Bene/BeneficiaryBank/dto/Payer.java\n+++ b/src/main/java/com/Bene/BeneficiaryBank/dto/Payer.java\n@@ -10,6 +10,7 @@\n    @XmlElement(name = \"Device\")\n    private Device device;\n\n    @XmlElement(name = \"Ac\")\n    private Ac ac;\n\n    @XmlElementWrapper(name = \"Creds\")\n    @XmlElement(name = \"Cred\")\n    private List<Cred> creds;\n\n    @XmlElement(name = \"Amount\")\n    private Amount amount;\n\n+    @XmlAttribute(name = \"BINDINGMODE\")\n+    private String bindingMode;\n\n    // -------- Getters & Setters --------\n    public String getAddr() { return addr; }\n    public void setAddr(String addr) { this.addr = addr; }\n\n    public String getCode() { return code; }\n    public void setCode(String code) { this.code = code; }\n    \n+    public String getBindingMode() { return bindingMode; }\n+    public void setBindingMode(String bindingMode) { this.bindingMode = bindingMode; }\n```",
+  "xsd": "",
+  "tests": "C:\\Users\\kalai\\OneDrive\\Desktop\\TechConclave\\Allagents\\Beneficiary-agent\\artifacts\\CHG-329\\tests.txt",
+  "manifest": {
+    "changeId": "CHG-329",
+    "issuer": "NPCI_UPI_SWITCH",
+    "changeType": "ADD_XML_ATTRIBUTE",
+    "apiName": "ReqPay",
+    "summary": "Addition of bindingmode ",
+    "impactedPaths": [
+      {
+        "xmlPath": "ReqPay.Payer.Device",
+        "change": "ADD_XML_ATTRIBUTE",
+        "attribute": {
+          "name": "BINDINGMODE",
+          "datatype": "xs:string",
+          "mandatory": false,
+          "allowedValues": [
+            "SMS",
+            "MMS"
+          ]
+        }
+      }
+    ],
+    "xsd": {
+      "path": "http://localhost:8000/npciswitch/xsd/CHG-329/ReqPay.xsd"
+    },
+    "npciStatus": "READY_FOR_ADOPTION",
+    "timestamp": "2026-03-13T10:50:44.725282",
+    "openapi": {
+      "path": "http://localhost:8000/npciswitch/openapi-ui/CHG-329"
+    },
+    "productNote": {
+      "path": "http://localhost:8000/npciswitch/product-note/CHG-329/product_note.md",
+      "summary": "Addition of bindingmode "
+    }
+  }
+}

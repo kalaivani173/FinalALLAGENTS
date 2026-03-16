@@ -1,0 +1,39 @@
+{
+  "gitPatch": "```diff\ndiff --git a/src/main/java/com/payer/PayerPSP/dto/Payer.java b/src/main/java/com/payer/PayerPSP/dto/Payer.java\nindex abcdef1..abcdef2 100644\n--- a/src/main/java/com/payer/PayerPSP/dto/Payer.java\n+++ b/src/main/java/com/payer/PayerPSP/dto/Payer.java\n@@ -20,6 +20,10 @@ public class Payer {\n    @XmlElement(name = \"Amount\")\n    private Amount amount;\n \n+    @XmlAttribute(name = \"BINDINGMODE\", required = true)\n+    private String bindingMode;\n+\n+    // -------- Getters & Setters --------\n    public String getAddr() { return addr; }\n    public void setAddr(String addr) { this.addr = addr; }\n \n```",
+  "xsd": "",
+  "tests": "C:\\Users\\kalai\\OneDrive\\Desktop\\TechConclave\\Allagents\\Payer-agent\\artifacts\\CHG-690\\tests.txt",
+  "manifest": {
+    "changeId": "CHG-690",
+    "issuer": "NPCI_UPI_SWITCH",
+    "changeType": "ADD_XML_ATTRIBUTE",
+    "apiName": "ReqPay",
+    "summary": "additon of new field",
+    "impactedPaths": [
+      {
+        "xmlPath": "ReqPay.Payer.Device",
+        "change": "ADD_XML_ATTRIBUTE",
+        "attribute": {
+          "name": "BINDINGMODE",
+          "datatype": "xs:string",
+          "mandatory": true,
+          "allowedValues": [
+            "SMS",
+            "MMS"
+          ]
+        }
+      }
+    ],
+    "xsd": {
+      "path": "http://localhost:8000/npciswitch/xsd/CHG-690/ReqPay.xsd"
+    },
+    "npciStatus": "READY_FOR_ADOPTION",
+    "timestamp": "2026-03-13T13:56:25.156535",
+    "openapi": {
+      "path": "http://localhost:8000/npciswitch/openapi-ui/CHG-690"
+    },
+    "productNote": {
+      "path": "http://localhost:8000/npciswitch/product-note/CHG-690/product_note.md",
+      "summary": "additon of new field"
+    }
+  }
+}

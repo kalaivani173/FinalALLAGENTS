@@ -1,0 +1,71 @@
+package com.example.upi;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+public class updated_code {
+
+    public static class Txn {
+        // Txn properties and methods
+    }
+
+    public static class Payer {
+        // Payer properties and methods
+    }
+
+    public static class RequestPayment {
+        @XmlElement(name = "Txn")
+        private Txn txn;
+
+        @XmlAttribute(name = "delegate")
+        private String delegate;
+
+        @XmlElement(name = "Payer")
+        private Payer payer;
+
+        // Getters and Setters
+        public Txn getTxn() {
+            return txn;
+        }
+
+        public void setTxn(Txn txn) {
+            this.txn = txn;
+        }
+
+        public String getDelegate() {
+            return delegate;
+        }
+
+        public void setDelegate(String delegate) {
+            this.delegate = delegate;
+        }
+
+        public Payer getPayer() {
+            return payer;
+        }
+
+        public void setPayer(Payer payer) {
+            this.payer = payer;
+        }
+    }
+
+    @Test
+    public void testDelegateAttribute() {
+        RequestPayment requestPayment = new RequestPayment();
+        requestPayment.setDelegate("Y");
+        assertEquals("Y", requestPayment.getDelegate());
+
+        requestPayment.setDelegate("N");
+        assertEquals("N", requestPayment.getDelegate());
+
+        requestPayment.setDelegate(null);
+        assertNull(requestPayment.getDelegate());
+    }
+}

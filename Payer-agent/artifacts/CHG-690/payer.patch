@@ -1,0 +1,17 @@
+```diff
+diff --git a/src/main/java/com/payer/PayerPSP/dto/Payer.java b/src/main/java/com/payer/PayerPSP/dto/Payer.java
+index abcdef1..abcdef2 100644
+--- a/src/main/java/com/payer/PayerPSP/dto/Payer.java
++++ b/src/main/java/com/payer/PayerPSP/dto/Payer.java
+@@ -20,6 +20,10 @@ public class Payer {
+    @XmlElement(name = "Amount")
+    private Amount amount;
+ 
++    @XmlAttribute(name = "BINDINGMODE", required = true)
++    private String bindingMode;
++
++    // -------- Getters & Setters --------
+    public String getAddr() { return addr; }
+    public void setAddr(String addr) { this.addr = addr; }
+ 
+```

@@ -1,0 +1,13 @@
+```diff
+--- Existing_Code.java
++++ Updated_Code.java
+@@ -20,6 +20,7 @@
+ 
+     @XmlElement(name = "Payer")
+     private Payer payer;
+ 
++    @XmlAttribute(name = "delegate")
+     @XmlElementWrapper(name = "Payees")
+     @XmlElement(name = "Payee")
+     private List<Payee> payees;
+```

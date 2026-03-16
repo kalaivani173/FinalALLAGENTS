@@ -1,0 +1,70 @@
+package com.example.upi.remitter;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@SpringBootTest
+class UpdatedCodeTest {
+
+    static class ReqPay {
+        @XmlAttribute(name = "delegate")
+        private String delegate;
+
+        @XmlElement(name = "Payer")
+        private Payer payer;
+
+        @XmlElementWrapper(name = "Payees")
+        @XmlElement(name = "Payee")
+        private List<Payee> payees;
+
+        // Getters and Setters
+        public String getDelegate() {
+            return delegate;
+        }
+
+        public void setDelegate(String delegate) {
+            this.delegate = delegate;
+        }
+
+        public Payer getPayer() {
+            return payer;
+        }
+
+        public void setPayer(Payer payer) {
+            this.payer = payer;
+        }
+
+        public List<Payee> getPayees() {
+            return payees;
+        }
+
+        public void setPayees(List<Payee> payees) {
+            this.payees = payees;
+        }
+    }
+
+    static class Payer {
+        // Payer fields and methods
+    }
+
+    static class Payee {
+        // Payee fields and methods
+    }
+
+    @Test
+    void testDelegateAttribute() {
+        ReqPay reqPay = new ReqPay();
+        reqPay.setDelegate("Y");
+        assertEquals("Y", reqPay.getDelegate());
+
+        reqPay.setDelegate("N");
+        assertEquals("N", reqPay.getDelegate());
+    }
+}

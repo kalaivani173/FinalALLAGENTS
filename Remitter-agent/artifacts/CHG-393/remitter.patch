@@ -1,0 +1,21 @@
+```diff
+--- existing/ReqPay.java
++++ updated/ReqPay.java
+@@ -10,6 +10,7 @@
+ 
+     @XmlElementWrapper(name = "Payees")
+     @XmlElement(name = "Payee")
++    @XmlAttribute(name = "BINDINGMODE", required = true)
+     private List<Payee> payees;
+ 
+     // getters/setters
+--- existing/Payer.java
++++ updated/Payer.java
+@@ -18,6 +18,7 @@
+    @XmlElement(name = "Device")
+    private Device device;
+ 
++   @XmlAttribute(name = "BINDINGMODE", required = true)
+    @XmlElement(name = "Ac")
+    private Ac ac;
+```

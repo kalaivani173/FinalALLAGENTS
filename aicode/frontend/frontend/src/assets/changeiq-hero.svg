@@ -1,0 +1,89 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g1" x1="120" y1="120" x2="1080" y2="680" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4F46E5" stop-opacity="0.18"/>
+      <stop offset="0.55" stop-color="#22C55E" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#8B5CF6" stop-opacity="0.16"/>
+    </linearGradient>
+    <linearGradient id="stroke" x1="200" y1="220" x2="1000" y2="600" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4F46E5" stop-opacity="0.55"/>
+      <stop offset="0.6" stop-color="#06B6D4" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#8B5CF6" stop-opacity="0.55"/>
+    </linearGradient>
+    <filter id="soft" x="-40" y="-40" width="1280" height="880" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="16"/>
+    </filter>
+    <filter id="card" x="-40" y="-40" width="1280" height="880" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#0F172A" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <!-- Soft background shapes -->
+  <g filter="url(#soft)">
+    <path d="M150 160C300 40 520 20 700 120C900 230 1080 220 1120 120V0H0V210C40 220 90 210 150 160Z" fill="url(#g1)"/>
+    <path d="M1080 720C930 860 710 880 530 780C330 670 150 680 110 780V800H1200V710C1160 700 1140 700 1080 720Z" fill="url(#g1)"/>
+  </g>
+
+  <!-- Flow graph -->
+  <path d="M260 520C350 430 420 380 520 360C650 335 710 420 805 445C885 468 980 430 1030 360" stroke="url(#stroke)" stroke-width="6" stroke-linecap="round"/>
+  <path d="M260 520C330 600 430 650 540 660C680 672 770 610 865 590C950 572 1010 600 1060 640" stroke="url(#stroke)" stroke-opacity="0.6" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- Nodes -->
+  <g filter="url(#card)">
+    <circle cx="260" cy="520" r="18" fill="#FFFFFF"/>
+    <circle cx="260" cy="520" r="10" fill="#4F46E5" fill-opacity="0.9"/>
+
+    <circle cx="520" cy="360" r="18" fill="#FFFFFF"/>
+    <circle cx="520" cy="360" r="10" fill="#06B6D4" fill-opacity="0.9"/>
+
+    <circle cx="805" cy="445" r="18" fill="#FFFFFF"/>
+    <circle cx="805" cy="445" r="10" fill="#22C55E" fill-opacity="0.9"/>
+
+    <circle cx="1030" cy="360" r="18" fill="#FFFFFF"/>
+    <circle cx="1030" cy="360" r="10" fill="#8B5CF6" fill-opacity="0.9"/>
+
+    <circle cx="540" cy="660" r="18" fill="#FFFFFF"/>
+    <circle cx="540" cy="660" r="10" fill="#F59E0B" fill-opacity="0.9"/>
+
+    <circle cx="865" cy="590" r="18" fill="#FFFFFF"/>
+    <circle cx="865" cy="590" r="10" fill="#0EA5E9" fill-opacity="0.9"/>
+  </g>
+
+  <!-- Cards: Spec, Patch, Manifest -->
+  <g filter="url(#card)">
+    <rect x="140" y="250" width="310" height="170" rx="20" fill="#FFFFFF"/>
+    <rect x="170" y="285" width="160" height="14" rx="7" fill="#E2E8F0"/>
+    <rect x="170" y="312" width="220" height="14" rx="7" fill="#E2E8F0"/>
+    <rect x="170" y="339" width="190" height="14" rx="7" fill="#E2E8F0"/>
+    <rect x="170" y="372" width="110" height="30" rx="15" fill="#EEF2FF"/>
+    <path d="M185 386h18" stroke="#4F46E5" stroke-width="3" stroke-linecap="round"/>
+    <path d="M210 386h40" stroke="#4F46E5" stroke-opacity="0.55" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <g filter="url(#card)">
+    <rect x="470" y="160" width="340" height="190" rx="22" fill="#FFFFFF"/>
+    <rect x="505" y="200" width="210" height="14" rx="7" fill="#E2E8F0"/>
+    <rect x="505" y="228" width="265" height="14" rx="7" fill="#E2E8F0"/>
+    <rect x="505" y="256" width="240" height="14" rx="7" fill="#E2E8F0"/>
+    <rect x="505" y="292" width="130" height="34" rx="17" fill="#ECFEFF"/>
+    <path d="M520 309h18" stroke="#06B6D4" stroke-width="3" stroke-linecap="round"/>
+    <path d="M545 309h55" stroke="#06B6D4" stroke-opacity="0.55" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <g filter="url(#card)">
+    <rect x="820" y="485" width="240" height="170" rx="20" fill="#FFFFFF"/>
+    <rect x="850" y="520" width="150" height="14" rx="7" fill="#E2E8F0"/>
+    <rect x="850" y="548" width="190" height="14" rx="7" fill="#E2E8F0"/>
+    <rect x="850" y="576" width="170" height="14" rx="7" fill="#E2E8F0"/>
+    <rect x="850" y="612" width="120" height="30" rx="15" fill="#F0FDF4"/>
+    <path d="M865 627h18" stroke="#22C55E" stroke-width="3" stroke-linecap="round"/>
+    <path d="M890 627h45" stroke="#22C55E" stroke-opacity="0.55" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <!-- Shield icon (security) -->
+  <g filter="url(#card)">
+    <path d="M930 170C930 170 990 195 1035 195V240C1035 305 990 355 930 385C870 355 825 305 825 240V195C870 195 930 170 930 170Z" fill="#0F172A" fill-opacity="0.03" stroke="#8B5CF6" stroke-opacity="0.35" stroke-width="3"/>
+    <path d="M900 270l18 18 42-48" stroke="#8B5CF6" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>
+

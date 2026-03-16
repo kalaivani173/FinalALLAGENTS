@@ -1,0 +1,37 @@
+{
+  "manifest": {
+    "changeId": "CHG-765",
+    "issuer": "NPCI_UPI_SWITCH",
+    "changeType": "ADD_XML_ATTRIBUTE",
+    "apiName": "ReqPay",
+    "summary": "adding new phase change",
+    "impactedPaths": [
+      {
+        "xmlPath": "ReqPay.Txn",
+        "change": "ADD_XML_ATTRIBUTE",
+        "attribute": {
+          "name": "delegate",
+          "datatype": "xs:string",
+          "mandatory": false,
+          "allowedValues": [
+            "y",
+            "n"
+          ]
+        }
+      }
+    ],
+    "xsd": {
+      "path": "http://localhost:8000/npciswitch/xsd/CHG-765/ReqPay.xsd"
+    },
+    "npciStatus": "READY_FOR_ADOPTION",
+    "timestamp": "2026-02-13T11:52:02.838399",
+    "openapi": {
+      "path": "http://localhost:8000/npciswitch/openapi/CHG-765/openapi.json"
+    }
+  },
+  "signature": {
+    "algorithm": "RSA-SHA256",
+    "signedBy": "NPCI",
+    "value": "RzThzeq7O3kUDInm3MeKVqM6yeYoyys7IYJvZNT+KI9LIsM6LWrtjhAOiPqfnRxI78GSQpiZwGehohKP8egEUdmZqMCuPy6WIyuLZyioUCXH++p+b4GTA9M53nluoIpa130drfgPK5c/XpEVNbtgT1BB6FrAycIy5y3va90jXO0XyHuTWYAEWWnEGi/Osv4WhirJYrCyRPJ/J5gxYH6xC+mchkHD6migHSzWVXB79JixilrTodaGbpl3uzRkllOm7O6T0/yznfboz1LAqs5YHIxrdvE+tGoI6hzAIOaStbybLVlbkuRFQbVdNbWHDhhdCRSOn0vCX3XGWtf6kln88Q=="
+  }
+}

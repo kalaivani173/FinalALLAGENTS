@@ -1,0 +1,6 @@
+{
+  "ReqPay.Head": "Head",
+  "ReqPay.Txn": "Txn",
+  "ReqPay.Payer": "Payer",
+  "ReqPay.Payer.Device": "Device"
+}

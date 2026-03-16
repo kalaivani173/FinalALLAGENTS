@@ -1,0 +1,41 @@
+{
+  "manifest": {
+    "changeId": "CHG-965",
+    "issuer": "NPCI_UPI_SWITCH",
+    "changeType": "ADD_XML_ATTRIBUTE",
+    "apiName": "ReqPay",
+    "summary": "Adding device binding mode with mentioned allowed values",
+    "impactedPaths": [
+      {
+        "xmlPath": "ReqPay.Payer.Device",
+        "change": "ADD_XML_ATTRIBUTE",
+        "attribute": {
+          "name": "BINDINGMODE",
+          "datatype": "xs:string",
+          "mandatory": false,
+          "allowedValues": [
+            "SMS",
+            "SMV"
+          ]
+        }
+      }
+    ],
+    "xsd": {
+      "path": "http://localhost:8000/npciswitch/xsd/CHG-965/ReqPay.xsd"
+    },
+    "npciStatus": "READY_FOR_ADOPTION",
+    "timestamp": "2026-03-12T18:20:31.963710",
+    "openapi": {
+      "path": "http://localhost:8000/npciswitch/openapi-ui/CHG-965"
+    },
+    "productNote": {
+      "path": "http://localhost:8000/npciswitch/product-note/CHG-965/product_note.md",
+      "summary": "Adding device binding mode with mentioned allowed values"
+    }
+  },
+  "signature": {
+    "algorithm": "RSA-SHA256",
+    "signedBy": "NPCI",
+    "value": "Tzib3/osHgrnBZHwwMUZ5tru41pa32BeAsLOQqy97NHMaBy1sBR+sRZv2VWJyYE+eNP9tAZv+uAP2hS5BFCQwL/PDXnViXVyT0ZLp4CeBi9iNAypOXKpiLGCRoKHCC6k/6af8QZQKwRXs6vVrNIv35A1u/o2eokrOltmL89dLYnlz9YbOi/LyUpWUuGlFC16chNvC85ll+RiSKt8klfTL83vzzjAMFvFfxp1u3L5bFqT5RCyMZfZmIqqqWC2MrqQF8FvdoPYBSrodGZnbvajaK6efjleBUH2lXpTHU94IMkKlbeic90YbYZXY8fBhH+tG/RPAOonbMcHaxo1q6Xz7A=="
+  }
+}

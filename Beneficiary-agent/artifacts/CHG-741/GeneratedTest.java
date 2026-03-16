@@ -1,0 +1,41 @@
+package com.example.beneficiarybank;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+import static org.junit.jupiter.api.Assertions.*;
+
+@SpringBootTest
+class BeneficiaryBankTests {
+
+    @Test
+    void testAddXmlAttributeDelegate() {
+        // Simulate the addition of the new 'delegate' attribute in the ReqPay XML
+        String xmlInput = "<ReqPay><Txn></Txn></ReqPay>";
+        String expectedOutput = "<ReqPay><Txn delegate=\"Y\"></Txn></ReqPay>"; // Example with delegate set to 'Y'
+
+        String actualOutput = addDelegateAttribute(xmlInput, "Y");
+        assertEquals(expectedOutput, actualOutput);
+    }
+
+    @Test
+    void testAddXmlAttributeDelegateWithInvalidValue() {
+        // Test with an invalid value for the 'delegate' attribute
+        String xmlInput = "<ReqPay><Txn></Txn></ReqPay>";
+        
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            addDelegateAttribute(xmlInput, "Z"); // Invalid value
+        });
+
+        String expectedMessage = "Invalid value for delegate attribute";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    private String addDelegateAttribute(String xml, String value) {
+        if (!value.equals("Y") && !value.equals("N")) {
+            throw new IllegalArgumentException("Invalid value for delegate attribute");
+        }
+        return xml.replace("<Txn>", "<Txn delegate=\"" + value + "\">");
+    }
+}

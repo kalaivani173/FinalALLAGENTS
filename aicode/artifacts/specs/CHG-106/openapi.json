@@ -1,0 +1,91 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "ReqPay (Change CHG-106)",
+    "version": "CHG-106",
+    "description": "Auto-generated from XSD for change communication. This spec links to the authoritative XSD; payloads are represented as XML strings.",
+    "x-generatedAt": "2026-02-26T08:07:19.232892"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000",
+      "description": "Example server (update per partner)"
+    }
+  ],
+  "paths": {
+    "/npciswitch/mock/CHG-106/ReqPay": {
+      "post": {
+        "operationId": "postReqPay",
+        "summary": "ReqPay operation",
+        "description": "Request/response are XML. Authoritative schema: http://localhost:8000/npciswitch/xsd/CHG-106/ReqPay.xsd",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/xml": {
+              "schema": {
+                "type": "object",
+                "description": "XML payload. Validate against XSD at: http://localhost:8000/npciswitch/xsd/CHG-106/ReqPay.xsd",
+                "xml": {
+                  "name": "ReqPay"
+                },
+                "additionalProperties": true
+              },
+              "example": "<ReqPay></ReqPay>",
+              "examples": {
+                "sample": {
+                  "value": "<ReqPay></ReqPay>"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "description": "XML response. Validate against XSD at: http://localhost:8000/npciswitch/xsd/CHG-106/ReqPay.xsd",
+                  "xml": {
+                    "name": "RespPay"
+                  },
+                  "additionalProperties": true
+                },
+                "example": "<RespPay></RespPay>",
+                "examples": {
+                  "sample": {
+                    "value": "<RespPay></RespPay>"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "x-npci-xsd": "http://localhost:8000/npciswitch/xsd/CHG-106/ReqPay.xsd"
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

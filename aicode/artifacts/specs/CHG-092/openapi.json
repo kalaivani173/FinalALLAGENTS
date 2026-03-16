@@ -1,0 +1,92 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "ReqMandate (Change CHG-092)",
+    "version": "CHG-092",
+    "description": "Auto-generated from XSD for change communication. This spec links to the authoritative XSD; payloads are represented as XML strings.",
+    "x-generatedAt": "2026-02-16T08:42:10.689710"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000",
+      "description": "Example server (update per partner)"
+    }
+  ],
+  "paths": {
+    "/npciswitch/mock/CHG-092/ReqMandate": {
+      "post": {
+        "operationId": "postReqMandate",
+        "summary": "ReqMandate operation",
+        "description": "Request/response are XML. Authoritative schema: http://localhost:8000/npciswitch/xsd/CHG-092/ReqMandate.xsd",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/xml": {
+              "schema": {
+                "type": "object",
+                "description": "XML payload. Validate against XSD at: http://localhost:8000/npciswitch/xsd/CHG-092/ReqMandate.xsd",
+                "xml": {
+                  "name": "ReqMandate"
+                },
+                "additionalProperties": true,
+                "example": "<ReqMandate xmlns=\"http://npci.org/upi/schema/\">\n    <Head ver=\"1.0\" ts=\"2026-01-28T12:30:00\" orgId=\"HDFC\" msgId=\"MSG123456\"/>\n    \n    <Txn id=\"TXN987654\"\n         note=\"Monthly Subscription\"\n         refId=\"REF12345\"\n         refUrl=\"https://merchant.example.com\"\n         ts=\"2026-01-28T12:30:00\"\n         type=\"MANDATE\"/>\n\n    <Mandate name=\"OTT Subscription\"\n             type=\"CREATE\"\n             recurrence=\"MONTHLY\"\n             rule=\"MAX\"\n             startDate=\"2026-02-01\"\n             endDate=\"2027-01-31\"\n             expiry=\"2027-01-31\"\n             revocable=\"Y\"\n             shareToPayee=\"Y\"/>\n\n    <Amount value=\"499.00\" curr=\"INR\"/>\n\n    <Payer addr=\"user@upi\"\n           name=\"Rahul Sharma\"\n           seqNum=\"1\"\n           type=\"PERSON\">\n        <Info>\n            <Identity type=\"ACCOUNT\" verifiedName=\"Rahul Sharma\"/>\n        </Info>\n    </Payer>\n\n    <Payee addr=\"merchant@upi\"\n           name=\"Example OTT Pvt Ltd\"\n           type=\"MERCHANT\"/>\n\n</ReqMandate>"
+              },
+              "example": "<ReqMandate xmlns=\"http://npci.org/upi/schema/\">\n    <Head ver=\"1.0\" ts=\"2026-01-28T12:30:00\" orgId=\"HDFC\" msgId=\"MSG123456\"/>\n    \n    <Txn id=\"TXN987654\"\n         note=\"Monthly Subscription\"\n         refId=\"REF12345\"\n         refUrl=\"https://merchant.example.com\"\n         ts=\"2026-01-28T12:30:00\"\n         type=\"MANDATE\"/>\n\n    <Mandate name=\"OTT Subscription\"\n             type=\"CREATE\"\n             recurrence=\"MONTHLY\"\n             rule=\"MAX\"\n             startDate=\"2026-02-01\"\n             endDate=\"2027-01-31\"\n             expiry=\"2027-01-31\"\n             revocable=\"Y\"\n             shareToPayee=\"Y\"/>\n\n    <Amount value=\"499.00\" curr=\"INR\"/>\n\n    <Payer addr=\"user@upi\"\n           name=\"Rahul Sharma\"\n           seqNum=\"1\"\n           type=\"PERSON\">\n        <Info>\n            <Identity type=\"ACCOUNT\" verifiedName=\"Rahul Sharma\"/>\n        </Info>\n    </Payer>\n\n    <Payee addr=\"merchant@upi\"\n           name=\"Example OTT Pvt Ltd\"\n           type=\"MERCHANT\"/>\n\n</ReqMandate>",
+              "examples": {
+                "sample": {
+                  "value": "<ReqMandate xmlns=\"http://npci.org/upi/schema/\">\n    <Head ver=\"1.0\" ts=\"2026-01-28T12:30:00\" orgId=\"HDFC\" msgId=\"MSG123456\"/>\n    \n    <Txn id=\"TXN987654\"\n         note=\"Monthly Subscription\"\n         refId=\"REF12345\"\n         refUrl=\"https://merchant.example.com\"\n         ts=\"2026-01-28T12:30:00\"\n         type=\"MANDATE\"/>\n\n    <Mandate name=\"OTT Subscription\"\n             type=\"CREATE\"\n             recurrence=\"MONTHLY\"\n             rule=\"MAX\"\n             startDate=\"2026-02-01\"\n             endDate=\"2027-01-31\"\n             expiry=\"2027-01-31\"\n             revocable=\"Y\"\n             shareToPayee=\"Y\"/>\n\n    <Amount value=\"499.00\" curr=\"INR\"/>\n\n    <Payer addr=\"user@upi\"\n           name=\"Rahul Sharma\"\n           seqNum=\"1\"\n           type=\"PERSON\">\n        <Info>\n            <Identity type=\"ACCOUNT\" verifiedName=\"Rahul Sharma\"/>\n        </Info>\n    </Payer>\n\n    <Payee addr=\"merchant@upi\"\n           name=\"Example OTT Pvt Ltd\"\n           type=\"MERCHANT\"/>\n\n</ReqMandate>"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "description": "XML response. Validate against XSD at: http://localhost:8000/npciswitch/xsd/CHG-092/ReqMandate.xsd",
+                  "xml": {
+                    "name": "RespMandate"
+                  },
+                  "additionalProperties": true
+                },
+                "example": "<RespMandate></RespMandate>",
+                "examples": {
+                  "sample": {
+                    "value": "<RespMandate></RespMandate>"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "x-npci-xsd": "http://localhost:8000/npciswitch/xsd/CHG-092/ReqMandate.xsd"
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

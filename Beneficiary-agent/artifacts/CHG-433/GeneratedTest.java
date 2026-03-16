@@ -1,0 +1,59 @@
+package com.example.upi;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@SpringBootTest
+public class UpdatedCodeTest {
+
+    public static class UpdatedCode {
+        @XmlElement(name = "Payer")
+        private Payer payer;
+
+        @XmlAttribute(name = "delegate")
+        private String delegate;
+
+        @XmlElementWrapper(name = "Payees")
+        @XmlElement(name = "Payee")
+        private Payee[] payees;
+
+        public String getDelegate() {
+            return delegate;
+        }
+
+        public void setDelegate(String delegate) {
+            this.delegate = delegate;
+        }
+    }
+
+    public static class Payer {
+        // Payer properties and methods
+    }
+
+    public static class Payee {
+        // Payee properties and methods
+    }
+
+    @Test
+    public void testDelegateAttribute() {
+        UpdatedCode updatedCode = new UpdatedCode();
+        updatedCode.setDelegate("Y");
+        assertEquals("Y", updatedCode.getDelegate());
+
+        updatedCode.setDelegate("N");
+        assertEquals("N", updatedCode.getDelegate());
+    }
+
+    @Test
+    public void testDelegateAttributeNull() {
+        UpdatedCode updatedCode = new UpdatedCode();
+        updatedCode.setDelegate(null);
+        assertEquals(null, updatedCode.getDelegate());
+    }
+}

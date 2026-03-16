@@ -1,0 +1,20 @@
+{
+  "changeId": "CHG-360",
+  "issuer": "NPCI_UPI_SWITCH",
+  "changeType": "ADD_NEW_API",
+  "apiName": "ReqMandate",
+  "summary": "add new api ReqMandate",
+  "impactedPaths": [],
+  "xsd": {
+    "path": "http://localhost:8000/npciswitch/xsd/CHG-360/ReqMandate.xsd"
+  },
+  "npciStatus": "READY_FOR_ADOPTION",
+  "timestamp": "2026-02-17T08:42:33.053327",
+  "openapi": {
+    "path": "http://localhost:8000/npciswitch/openapi/CHG-360/openapi.json"
+  },
+  "productNote": {
+    "path": "http://localhost:8000/npciswitch/product-note/CHG-360/product_note.md",
+    "summary": "add new api ReqMandate"
+  }
+}

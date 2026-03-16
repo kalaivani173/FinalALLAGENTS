@@ -1,0 +1,39 @@
+{
+  "gitPatch": "```diff\n--- ExistingCode.java\n+++ UpdatedCode.java\n@@ -1,6 +1,7 @@\n package com.payer.PayerPSP.dto;\n \n import jakarta.xml.bind.annotation.XmlAccessType;\n import jakarta.xml.bind.annotation.XmlAccessorType;\n import jakarta.xml.bind.annotation.XmlElement;\n+import jakarta.xml.bind.annotation.XmlAttribute;\n import jakarta.xml.bind.annotation.XmlRootElement;\n import jakarta.xml.bind.annotation.XmlElementWrapper;\n import jakarta.xml.bind.annotation.XmlType;\n@@ -15,6 +16,7 @@\n        \"payer\",\n        \"payees\"\n })\n public class ReqPay {\n+    @XmlAttribute(name = \"delegate\")\n     @XmlElement(name = \"Head\") private Head head;\n     @XmlElement(name = \"Txn\") private Txn txn;\n     @XmlElement(name = \"Payer\") private Payer payer;\n```",
+  "xsd": "",
+  "tests": "C:\\Users\\kalai\\OneDrive\\Desktop\\TechConclave\\Allagents\\Payer-agent\\artifacts\\CHG-128\\tests.txt",
+  "manifest": {
+    "changeId": "CHG-128",
+    "issuer": "NPCI_UPI_SWITCH",
+    "changeType": "ADD_XML_ATTRIBUTE",
+    "apiName": "ReqPay",
+    "summary": "Addition of new delegate field",
+    "impactedPaths": [
+      {
+        "xmlPath": "ReqPay.Txn",
+        "change": "ADD_XML_ATTRIBUTE",
+        "attribute": {
+          "name": "delegate",
+          "datatype": "xs:string",
+          "mandatory": false,
+          "allowedValues": [
+            "Y",
+            "N"
+          ]
+        }
+      }
+    ],
+    "xsd": {
+      "path": "http://localhost:8000/npciswitch/xsd/CHG-128/ReqPay.xsd"
+    },
+    "npciStatus": "READY_FOR_ADOPTION",
+    "timestamp": "2026-03-12T13:27:08.747819",
+    "openapi": {
+      "path": "http://localhost:8000/npciswitch/openapi-ui/CHG-128"
+    },
+    "productNote": {
+      "path": "http://localhost:8000/npciswitch/product-note/CHG-128/product_note.md",
+      "summary": "Addition of new delegate field"
+    }
+  }
+}

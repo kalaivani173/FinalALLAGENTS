@@ -1,0 +1,46 @@
+```diff
+// FILE: D:\UPI-Hackathon-2\UPIVerse\BeneficiaryBank\src\main\java\com\Bene\BeneficiaryBank\controller\HbtController.java
++    @PostMapping(value = "/ReqMandate", produces = MediaType.APPLICATION_XML_VALUE)
++    public String createReqMandate(@RequestParam(name = "custRef", required = false, defaultValue = "NA") String custRef) throws Exception {
++        // build ReqMandate XML
++        ReqMandate reqMandate = hbtService.createReqMandate(custRef);
++        String reqMandateXml = XmlUtils.toXml(reqMandate, ReqMandate.class);
++        String txnId = reqMandate.getTxn().getId();
++
++        String upiSwitchUrl = "http://localhost:8081/upi/ReqMandate/2.0/urn:txnid:" + txnId;
++
++        HttpHeaders headers = new HttpHeaders();
++        headers.setContentType(MediaType.APPLICATION_XML);
++
++        HttpEntity<String> entity = new HttpEntity<>(reqMandateXml, headers);
++        // Add logic to send the request to UPI switch
++    }
+
+// FILE: D:\UPI-Hackathon-2\UPIVerse\BeneficiaryBank\src\main\java\com\Bene\BeneficiaryBank\service\HbtService.java
++    public ReqMandate createReqMandate(String custRef) {
++        ReqMandate reqMandate = new ReqMandate();
++
++        // Head
++        Head head = new Head();
++        head.setMsgId("MANDATE" + UUID.randomUUID().toString().replace("-", "").substring(0, 29));
++        head.setOrgId("158888");
++        head.setTs(ZonedDateTime.now().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
++        head.setVer("2.0");
++        reqMandate.setHead(head);
++
++        // Txn
++        Txn txn = new Txn();
++        txn.setId(TxnIdGenerator.generateTxnId());
++        txn.setCustRef(custRef);
++        txn.setType("Mandate");
++        txn.setNote("ReqMandate");
++        txn.setRefId(custRef);
++        txn.setRefUrl("www.payer.com");
++        txn.setTs(ZonedDateTime.now().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
++        reqMandate.setTxn(txn);
++
++        // Additional fields for ReqMandate can be set here
++
++        return reqMandate;
++    }
+```

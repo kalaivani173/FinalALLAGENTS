@@ -1,0 +1,149 @@
+```diff
+// FILE: D:\UPI-Hackathon-2\UPIVerse\BeneficiaryBank\src\main\java\com\Bene\BeneficiaryBank\controller\HbtController.java
+@@ -1,6 +1,7 @@
+ private static final Logger log = LoggerFactory.getLogger(HbtController.class);
+ 
+     @Autowired
+     private HbtService hbtService;
+ 
+     @Autowired
+     private RestTemplate restTemplate;
+ 
++    @PostMapping(value = "/ReqMandate", produces = MediaType.APPLICATION_XML_VALUE)
++    public String createReqMandate(@RequestParam(name = "custRef", required = false, defaultValue = "NA") String custRef) throws Exception {
++        // build ReqMandate XML
++        ReqMandate reqMandate = hbtService.createReqMandate(custRef);
++        String reqMandateXml = XmlUtils.toXml(reqMandate, ReqMandate.class);
++        String txnId = reqMandate.getTxn().getId();
++        
++        String upiSwitchUrl = "http://localhost:8081/upi/ReqMandate/2.0/urn:txnid:" + txnId;
++        
++        HttpHeaders headers = new HttpHeaders();
++        headers.setContentType(MediaType.APPLICATION_XML);
++        
++        HttpEntity<String> entity = new HttpEntity<>(reqMandateXml, headers);
++        // Add logic to send the request to UPI switch
++    }
+ 
+ // FILE: D:\UPI-Hackathon-2\UPIVerse\BeneficiaryBank\src\main\java\com\Bene\BeneficiaryBank\service\HbtService.java
+@@ -1,6 +1,7 @@
+ package com.Bene.BeneficiaryBank.service;
+ 
+ import com.Bene.BeneficiaryBank.service.*;
+ import com.Bene.BeneficiaryBank.util.*;
+ import com.Bene.BeneficiaryBank.dto.*;
+ import org.springframework.stereotype.Service;
+ 
+ import java.time.ZonedDateTime;
+ import java.time.format.DateTimeFormatter;
+ import java.util.UUID;
+ 
+ @Service
+ public class HbtService {
+ 
+     public ReqMandate createReqMandate(String custRef) {
+         ReqMandate reqMandate = new ReqMandate();
+ 
+         // Head
+         Head head = new Head();
+         head.setMsgId("MANDATE" + UUID.randomUUID().toString().replace("-", "").substring(0, 29));
+         head.setOrgId("158888");
+         head.setTs(ZonedDateTime.now().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
+         head.setVer("2.0");
+         reqMandate.setHead(head);
+ 
+         // Txn
+         Txn txn = new Txn();
+         txn.setId(TxnIdGenerator.generateTxnId());
+         txn.setCustRef(custRef);
+         txn.setType("Mandate");
+         txn.setNote("ReqMandate");
+         txn.setRefId(custRef);
+         txn.setRefUrl("www.payer.com");
+         txn.setTs(ZonedDateTime.now().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
+         reqMandate.setTxn(txn);
+ 
+ // FILE: D:\UPI-Hackathon-2\UPIVerse\BeneficiaryBank\src\main\java\com\Bene\BeneficiaryBank\service\BenHeartbeatSender.java
+@@ -1,6 +1,7 @@
+ HttpHeaders headers = new HttpHeaders();
+                 headers.setContentType(MediaType.APPLICATION_XML);
+ 
+                 HttpEntity<String> entity = new HttpEntity<>(xml, headers);
+                 ResponseEntity<String> resp = restTemplate.postForEntity(url, entity, String.class);
+                 log.info("Sent ReqMandate txnId={} to UPI; Ack status={} body={}", req.getTxn().getId(), resp.getStatusCodeValue(), resp.getBody());
+             } catch (Exception e) {
+                 log.error("Failed to send scheduled ReqMandate: {}", e.getMessage(), e);
+             }
+         }
+     }
+ 
+ // FILE: D:\UPI-Hackathon-2\UPIVerse\BeneficiaryBank\src\main\java\com\Bene\BeneficiaryBank\dto\Resp.java
+ package com.Bene.BeneficiaryBank.dto;
+ import jakarta.xml.bind.annotation.*;
+ import java.util.List;
+ 
+ @XmlAccessorType(XmlAccessType.FIELD)
+ public class Resp {
+ 
+     @XmlAttribute private String reqMsgId;
+     @XmlAttribute private String result;
+ 
+     @XmlElement(name = "Ref")
+     private List<Ref> refs;
+ 
+     // Getters & setters
+     public String getReqMsgId() { return reqMsgId; }
+     public void setReqMsgId(String reqMsgId) { this.reqMsgId = reqMsgId; }
+ 
+     public String getResult() { return result; }
+     public void setResult(String result) { this.result = result; }
+ 
+     public List<Ref> getRefs() { return refs; }
+     public void setRefs(List<Ref> refs) { this.refs = refs; }
+ }
+ 
+ // FILE: D:\UPI-Hackathon-2\UPIVerse\BeneficiaryBank\src\main\java\com\Bene\BeneficiaryBank\service\HbtService.java
+ // HbtMsg
+         HbtMsg hbtMsg = new HbtMsg();
+         hbtMsg.setType("ALIVE");
+         hbtMsg.setValue("NA");
+         reqMandate.setHbtMsg(hbtMsg);
+ 
+         return reqMandate;
+     }
+ }
+ 
+ // FILE: D:\UPI-Hackathon-2\UPIVerse\BeneficiaryBank\src\main\java\com\Bene\BeneficiaryBank\controller\BeneficiaryController.java
+ package com.Bene.BeneficiaryBank.controller;
+ 
+ import com.Bene.BeneficiaryBank.dto.Ack;
+ import com.Bene.BeneficiaryBank.dto.ReqPay;
+ import com.Bene.BeneficiaryBank.service.RespPayService;
+ import org.springframework.http.ResponseEntity;
+ import org.springframework.web.bind.annotation.*;
+ 
+ import java.time.OffsetDateTime;
+ import java.util.concurrent.CompletableFuture;
+ 
+ @RestController
+ @RequestMapping("/upi")
+ public class BeneficiaryController {
+ 
+ 
+     private final RespPayService respPayService;
+ 
+     public BeneficiaryController(RespPayService respPayService) {
+         this.respPayService = respPayService;
+     }
+ 
+     // Step 1: Accept ReqPay from UPI
+     @PostMapping(
+             value = "/ReqPay/2.0/urn:txnid:{txnId}",
+             consumes = "application/xml",
+             produces = "application/xml"
+     )
+     public ResponseEntity<Ack> receiveReqPay(@PathVariable String txnId,
+                                              @RequestBody ReqPay reqPay) {
+         // Async debit processing
+         CompletableFuture.runAsync(() -> respPayService.processReqPay(reqPay, txnId));
+```

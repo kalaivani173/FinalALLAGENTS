@@ -1,0 +1,17 @@
+18:34:19.172 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.remitter.RemitterBank.RemitterBankApplicationTests]: RemitterBankApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+18:34:19.382 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.remitter.RemitterBank.RemitterBankApplication for test class com.remitter.RemitterBank.RemitterBankApplicationTests
+18:34:19.732 [main] INFO org.springframework.boot.devtools.restart.RestartApplicationListener -- Restart disabled due to context in which it is running
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.5)
+
+2026-03-12T18:34:20.280+05:30  INFO 39764 --- [RemitterBank] [           main] c.r.R.RemitterBankApplicationTests       : Starting RemitterBankApplicationTests using Java 17.0.4.1 with PID 39764 (started by kalai in C:\Users\kalai\OneDrive\Desktop\TechConclave\Allagents\javacoderepo\RemitterBank)
+2026-03-12T18:34:20.284+05:30  INFO 39764 --- [RemitterBank] [           main] c.r.R.RemitterBankApplicationTests       : No active profile set, falling back to 1 default profile: "default"
+2026-03-12T18:34:23.615+05:30  INFO 39764 --- [RemitterBank] [           main] c.r.R.RemitterBankApplicationTests       : Started RemitterBankApplicationTests in 3.908 seconds (process running for 5.481)
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended

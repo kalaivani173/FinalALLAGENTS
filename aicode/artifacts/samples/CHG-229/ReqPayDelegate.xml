@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<upi:ReqPay xmlns:upi="http://npci.org/upi/schema/">
+  <Head ver="2.0" ts="2025-09-10T19:31:18+05:30" orgId="159057" msgId="IDIKERNELfc85c54d8fed4ada972e4be0ea"/>
+
+  <Meta>
+    <Tag name="PAYREQSTART" value="2025-09-10T19:31:18+05:30"/>
+    <Tag name="PAYREQEND" value="2025-09-10T19:31:18+05:30"/>
+  </Meta>
+
+  <Txn
+    id="IDIKERNELe8b2d0741cb64432a96ed9cb62"
+    note="creditudir"
+    refId="IDIKERNELe8b2d0741cb64432a96ed9cb62"
+    refUrl="http://idbi.in"
+    ts="2025-09-10T19:31:18+05:30"
+    type="PAY"
+    custRef="525300299401"
+    initiationMode="00"
+    purpose="00"
+    delegate="Y">
+
+    <RiskScores>
+      <Score provider="psp1" type="TXNRISK" value="00030"/>
+    </RiskScores>
+  </Txn>
+
+  <Payers>
+    <Payer addr="rahoul555@idbibank" name="95994863" seqNum="1" type="PERSON" code="0000">
+      <SHGInfo/>
+    </Payer>
+  </Payers>
+
+  <Payer addr="rahoul555@idbibank" name="95994863" seqNum="1" type="PERSON" code="0000">
+    <Info>
+      <Identity type="ACCOUNT" verifiedName="95994863" id="0460102000009621"/>
+      <Rating verifiedAddress="TRUE"/>
+    </Info>
+
+    <Device>
+      <Tag name="MOBILE" value="919833202666"/>
+      <Tag name="GEOCODE" value="*"/>
+      <Tag name="LOCATION" value="*"/>
+      <Tag name="IP" value="100.114.71.187"/>
+      <Tag name="TYPE" value="MOB"/>
+      <Tag name="ID" value="c248cb4f942d959c"/>
+      <Tag name="OS" value="android 15"/>
+      <Tag name="APP" value="com.srvt.idbiupi"/>
+      <Tag name="CAPABILITY" value="101020"/>
+    </Device>
+
+    <Ac addrType="ACCOUNT">
+      <Detail name="ACTYPE" value="CURRENT"/>
+      <Detail name="IFSC" value="IBKL0000460"/>
+      <Detail name="ACNUM" value="0460102000009621"/>
+    </Ac>
+
+    <Creds>
+      <Cred type="PIN" subType="MPIN">
+        <Data code="NPCI" ki="20150822">2.3-v1.8|REPLACE_WITH_YOUR_FULL_CRED_DATA==</Data>
+      </Cred>
+    </Creds>
+
+    <Amount value="1.00" curr="INR"/>
+    <SHGInfo/>
+  </Payer>
+
+  <Payees>
+    <Payee addr="rahoul333@idbibank" name="80180546" seqNum="1" type="PERSON" code="0000">
+      <Amount value="1.00" curr="INR"/>
+      <SHGInfo/>
+    </Payee>
+  </Payees>
+</upi:ReqPay>

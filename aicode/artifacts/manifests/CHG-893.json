@@ -1,0 +1,27 @@
+{
+  "manifest": {
+    "changeId": "CHG-893",
+    "issuer": "NPCI_UPI_SWITCH",
+    "changeType": "ADD_NEW_API",
+    "apiName": "ReqMandate",
+    "summary": "addition of new api",
+    "impactedPaths": [],
+    "xsd": {
+      "path": "http://localhost:8000/npciswitch/xsd/CHG-893/ReqMandate.xsd"
+    },
+    "npciStatus": "READY_FOR_ADOPTION",
+    "timestamp": "2026-03-12T09:48:03.800828",
+    "openapi": {
+      "path": "http://localhost:8000/npciswitch/openapi-ui/CHG-893"
+    },
+    "productNote": {
+      "path": "http://localhost:8000/npciswitch/product-note/CHG-893/product_note.md",
+      "summary": "addition of new api"
+    }
+  },
+  "signature": {
+    "algorithm": "RSA-SHA256",
+    "signedBy": "NPCI",
+    "value": "Qpw4r9rRARKYNYq60mkHTU2OnDZREQcEv2Wdlo9SdgiN6nBIBtbWoUim9d9emlnOIhuaDmXZe/+BkZuhX3Kr40gthktuN704c4zPw0SIPt+qqI8Kg7RHgXnxdBnuE39PTFqCth4N5H4WcIsonSFeUtYlNcCMkEgYDh3tu807eGyWGWE5bebB1WVj/68r3g831cGoWosxBOoEYZlYPyA0/FhwQ6JgxtDxbiTKQcWPMrkQSJkr4OckGcsNn7AQrY7SF4kmtolJQfS09U4cI7F9JXLFpVxJnURoxntlq12TyqHUl8pfA8yvPae6mzeWW6AVwnTzdAzEWE4zaIUkTVHMTg=="
+  }
+}

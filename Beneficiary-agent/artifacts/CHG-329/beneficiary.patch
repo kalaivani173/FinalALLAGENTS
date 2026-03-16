@@ -1,0 +1,32 @@
+```diff
+diff --git a/src/main/java/com/Bene/BeneficiaryBank/dto/Payer.java b/src/main/java/com/Bene/BeneficiaryBank/dto/Payer.java
+index 1234567..89abcdef 100644
+--- a/src/main/java/com/Bene/BeneficiaryBank/dto/Payer.java
++++ b/src/main/java/com/Bene/BeneficiaryBank/dto/Payer.java
+@@ -10,6 +10,7 @@
+    @XmlElement(name = "Device")
+    private Device device;
+
+    @XmlElement(name = "Ac")
+    private Ac ac;
+
+    @XmlElementWrapper(name = "Creds")
+    @XmlElement(name = "Cred")
+    private List<Cred> creds;
+
+    @XmlElement(name = "Amount")
+    private Amount amount;
+
++    @XmlAttribute(name = "BINDINGMODE")
++    private String bindingMode;
+
+    // -------- Getters & Setters --------
+    public String getAddr() { return addr; }
+    public void setAddr(String addr) { this.addr = addr; }
+
+    public String getCode() { return code; }
+    public void setCode(String code) { this.code = code; }
+    
++    public String getBindingMode() { return bindingMode; }
++    public void setBindingMode(String bindingMode) { this.bindingMode = bindingMode; }
+```

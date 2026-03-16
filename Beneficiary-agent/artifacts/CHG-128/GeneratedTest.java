@@ -1,0 +1,69 @@
+package existing;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class ReqPayTest {
+
+    static class ReqPay {
+        @XmlElement(name = "Payer")
+        private Payer payer;
+
+        @XmlAttribute(name = "delegate")
+        private String delegate;
+
+        @XmlElementWrapper(name = "Payees")
+        @XmlElement(name = "Payee")
+        private String[] payees;
+
+        // Getters and Setters
+        public Payer getPayer() {
+            return payer;
+        }
+
+        public void setPayer(Payer payer) {
+            this.payer = payer;
+        }
+
+        public String getDelegate() {
+            return delegate;
+        }
+
+        public void setDelegate(String delegate) {
+            this.delegate = delegate;
+        }
+
+        public String[] getPayees() {
+            return payees;
+        }
+
+        public void setPayees(String[] payees) {
+            this.payees = payees;
+        }
+    }
+
+    static class Payer {
+        // Payer fields and methods
+    }
+
+    @Test
+    void testDelegateField() {
+        ReqPay reqPay = new ReqPay();
+        reqPay.setDelegate("Y");
+        assertEquals("Y", reqPay.getDelegate());
+
+        reqPay.setDelegate("N");
+        assertEquals("N", reqPay.getDelegate());
+
+        reqPay.setDelegate(null);
+        assertNull(reqPay.getDelegate());
+    }
+}

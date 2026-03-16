@@ -1,0 +1,24 @@
+```diff
+--- existing_code.java
++++ updated_code.java
+@@ -1,6 +1,7 @@
+ package com.Bene.BeneficiaryBank.dto;
+ 
+ import jakarta.xml.bind.annotation.XmlAccessorType;
+ import jakarta.xml.bind.annotation.*;
+ 
++import jakarta.xml.bind.annotation.XmlAttribute;
+ import java.util.List;
+ 
+ @XmlRootElement(name = "ReqPay", namespace = "http://npci.org/upi/schema/")
+@@ -12,6 +13,7 @@
+ 
+     @XmlElement(name = "Payer")
+     private Payer payer;
+ 
++    @XmlAttribute(name = "delegate")
+     private String delegate;
+ 
+     @XmlElementWrapper(name = "Payees")
+     @XmlElement(name = "Payee")
+```

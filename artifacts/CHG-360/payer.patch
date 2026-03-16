@@ -1,0 +1,46 @@
+```diff
+--- a/src/main/java/com/payer/PayerPSP/controller/HbtController.java
++++ b/src/main/java/com/payer/PayerPSP/controller/HbtController.java
+@@ -1,6 +1,7 @@
+ package com.payer.PayerPSP.controller;
+ 
+ import com.npci.UPISim.dto.Ack;
++import com.payer.PayerPSP.dto.ReqMandate;
+ import com.payer.PayerPSP.service.HbtService;
+ import com.payer.PayerPSP.util.XmlUtil;
+ import com.payer.PayerPSP.util.XmlPrettyPrinter;
+@@ -12,6 +13,7 @@
+ import org.springframework.web.bind.annotation.*;
+ import org.springframework.web.client.HttpServerErrorException;
+ import org.springframework.http.MediaType;
+ import org.springframework.web.client.RestTemplate;
++import org.springframework.http.HttpEntity;
+ 
+ import java.time.ZonedDateTime;
+ import java.time.format.DateTimeFormatter;
+@@ -20,6 +22,7 @@
+ 
+     @Autowired
+     private HbtService hbtService;
+ 
++    @Autowired
+     private RestTemplate restTemplate;
+ 
+     @PostMapping(value = "/ReqMandate", produces = MediaType.APPLICATION_XML_VALUE)
+@@ -27,6 +30,7 @@
+         // build ReqMandate XML
+         ReqMandate reqMandate = new ReqMandate();
+         // Set properties for reqMandate as needed
+         String reqMandateXml = XmlUtil.toXml(reqMandate, ReqMandate.class);
+         String txnId = reqMandate.getTxn().getId();
+         String upiSwitchUrl = "http://localhost:8081/upi/ReqMandate/2.0/urn:txnid:" + txnId;
+         HttpHeaders headers = new HttpHeaders();
+         headers.setContentType(MediaType.APPLICATION_XML);
+         HttpEntity<String> entity = new HttpEntity<>(reqMandateXml, headers);
+         // Send the request to UPI switch
+         ResponseEntity<String> response = restTemplate.postForEntity(upiSwitchUrl, entity, String.class);
+         return response.getBody();
+     }
+ 
+     @PostMapping(value = "/Hbt", produces = MediaType.APPLICATION_XML_VALUE)
+```

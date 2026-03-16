@@ -1,0 +1,57 @@
+```diff
+--- existing_code.java
++++ updated_code.java
+@@ -56,6 +56,7 @@
+     @XmlElement(name = "Payer")
+     private Payer payer;
+ 
+     @XmlElementWrapper(name = "Payees")
+     @XmlElement(name = "Payee")
+     private List<Payee> payees;
++    
++    @XmlElement(name = "delegate")
++    private String delegate;
+ 
+     // getters/setters
+ 
+     public Head getHead() {
+         return head;
+     }
+ 
+     public void setHead(Head head) {
+         this.head = head;
+     }
+ 
+     public Txn getTxn() {
+         return txn;
+     }
+ 
+     public void setTxn(Txn txn) {
+         this.txn = txn;
+     }
+ 
+     public Payer getPayer() {
+         return payer;
+     }
+ 
+     public void setPayer(Payer payer) {
+         this.payer = payer;
+     }
+ 
+     public List<Payee> getPayees() {
+         return payees;
+     }
+ 
+     public void setPayees(List<Payee> payees) {
+         this.payees = payees;
+     }
++    
++    public String getDelegate() {
++        return delegate;
++    }
++    
++    public void setDelegate(String delegate) {
++        this.delegate = delegate;
++    }
+ }
+```

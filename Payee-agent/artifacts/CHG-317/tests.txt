@@ -1,0 +1,51 @@
+=== LLM-generated unit tests (saved to GeneratedTest.java) ===
+
+package com.payee.psp.controller;
+
+import com.payee.psp.dto.Ack;
+import com.payee.psp.dto.ReqMandate;
+import com.payee.psp.service.RespAuthDetailsService;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+
+@SpringJUnitConfig
+public class AuthDetailsControllerTest {
+
+    @Mock
+    private RespAuthDetailsService respAuthDetailsService;
+
+    @InjectMocks
+    private AuthDetailsController authDetailsController;
+
+    public AuthDetailsControllerTest() {
+        MockitoAnnotations.openMocks(this);
+    }
+
+    @Test
+    public void testReceiveReqMandate() {
+        String txnId = "12345";
+        ReqMandate reqMandate = new ReqMandate();
+        reqMandate.setHead(new ReqMandate.Head());
+        reqMandate.getHead().setMsgId("msg-001");
+
+        ResponseEntity<Ack> response = authDetailsController.receiveReqMandate(txnId, reqMandate);
+
+        assertEquals(200, response.getStatusCodeValue());
+        Ack ack = response.getBody();
+        assertEquals("ReqMandate", ack.getApi());
+        assertEquals("msg-001", ack.getReqMsgId());
+
+        ArgumentCaptor<ReqMandate> captor = ArgumentCaptor.forClass(ReqMandate.class);
+        verify(respAuthDetailsService).processReqMandate(captor.capture(), any());
+        assertEquals(reqMandate, captor.getValue());
+    }
+}

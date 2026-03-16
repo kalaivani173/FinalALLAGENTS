@@ -1,0 +1,89 @@
+```diff
+--- existing_code.java
++++ updated_code.java
+@@ -0,0 +1,50 @@
++// FILE: D:\UPI-Hackathon-2\UPIVerse\RemitterBank\src\main\java\com\remitter\RemitterBank\controller\ReqMandateController.java
++package com.remitter.RemitterBank.controller;
++
++import com.remitter.RemitterBank.dto.ReqMandate;
++import com.remitter.RemitterBank.service.ReqMandateService;
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.http.HttpEntity;
++import org.springframework.http.HttpHeaders;
++import org.springframework.http.MediaType;
++import org.springframework.http.ResponseEntity;
++import org.springframework.web.bind.annotation.PostMapping;
++import org.springframework.web.bind.annotation.RequestParam;
++import org.springframework.web.bind.annotation.RestController;
++
++import org.slf4j.Logger;
++import org.slf4j.LoggerFactory;
++
++@RestController
++public class ReqMandateController {
++
++    private static final Logger log = LoggerFactory.getLogger(ReqMandateController.class);
++
++    @Autowired
++    private ReqMandateService reqMandateService;
++
++    @PostMapping(value = "/ReqMandate", produces = MediaType.APPLICATION_XML_VALUE)
++    public String createReqMandate(@RequestParam(name = "custRef", required = false, defaultValue = "NA") String custRef) throws Exception {
++        // build ReqMandate XML
++        ReqMandate reqMandate = reqMandateService.createReqMandate(custRef);
++        String reqMandateXml = XmlUtils.toXml(reqMandate, ReqMandate.class);
++        String txnId = reqMandate.getTxn().getId();
++
++        String upiSwitchUrl = "http://localhost:8081/upi/ReqMandate/2.0/urn:txnid:" + txnId;
++
++        HttpHeaders headers = new HttpHeaders();
++        headers.setContentType(MediaType.APPLICATION_XML);
++
++        HttpEntity<String> entity = new HttpEntity<>(reqMandateXml, headers);
++        ResponseEntity<String> response = restTemplate.postForEntity(upiSwitchUrl, entity, String.class);
++        log.info("Sent ReqMandate txnId={} to UPI; Ack status={} body={}", txnId, response.getStatusCodeValue(), response.getBody());
++
++        return response.getBody();
++    }
++}
++
++// FILE: D:\UPI-Hackathon-2\UPIVerse\RemitterBank\src\main\java\com\remitter\RemitterBank\service\ReqMandateService.java
++package com.remitter.RemitterBank.service;
++
++import com.remitter.RemitterBank.dto.ReqMandate;
++import com.remitter.RemitterBank.util.TxnIdGenerator;
++import org.springframework.stereotype.Service;
++
++import java.time.ZonedDateTime;
++import java.time.format.DateTimeFormatter;
++import java.util.UUID;
++
++@Service
++public class ReqMandateService {
++
++    public ReqMandate createReqMandate(String custRef) {
++        ReqMandate reqMandate = new ReqMandate();
++
++        // Head
++        Head head = new Head();
++        head.setMsgId("MANDATE" + UUID.randomUUID().toString().replace("-", "").substring(0, 29));
++        head.setOrgId("158888");
++        head.setTs(ZonedDateTime.now().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
++        head.setVer("2.0");
++        reqMandate.setHead(head);
++
++        // Txn
++        Txn txn = new Txn();
++        txn.setId(TxnIdGenerator.generateTxnId());
++        txn.setCustRef(custRef);
++        txn.setType("Mandate");
++        txn.setNote("ReqMandate");
++        txn.setRefId(custRef);
++        txn.setRefUrl("www.payer.com");
++        txn.setTs(ZonedDateTime.now().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
++        reqMandate.setTxn(txn);
++
++        return reqMandate;
++    }
++}
+```

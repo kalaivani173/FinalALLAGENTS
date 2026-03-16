@@ -1,0 +1,40 @@
+{
+  "gitPatch": "```diff\n--- Existing Code\n+++ Updated Code\n@@ -1,6 +1,7 @@\n package com.payer.PayerPSP.dto;\n \n import jakarta.xml.bind.annotation.*;\n import java.util.List;\n \n @XmlRootElement(name = \"Payer\")\n @XmlAccessorType(XmlAccessType.FIELD)\n @XmlType(propOrder = {\"info\", \"device\", \"ac\", \"creds\", \"amount\"})\n public class Payer {\n \n     @XmlAttribute(name = \"addr\")\n     private String addr;\n \n     @XmlAttribute(name = \"code\")\n     private String code;\n \n     @XmlAttribute(name = \"name\")\n     private String name;\n \n     @XmlAttribute(name = \"seqNum\")\n     private String seqNum;\n \n+    @XmlAttribute(name = \"BINDINGMODE\", required = true)\n+    private String bindingMode;\n \n     // -------- Getters & Setters --------\n     @XmlAttribute(name = \"type\")\n     private String type;\n \n     @XmlElement(name = \"Info\")\n     private Info info;\n \n     @XmlElement(name = \"Device\")\n     private Device device;\n \n     @XmlElement(name = \"Ac\")\n     private Ac ac;\n \n     @XmlElementWrapper(name = \"Creds\")\n     @XmlElement(name = \"Cred\")\n     private List<Cred> creds;\n \n     @XmlElement(name = \"Amount\")\n     private Amount amount;\n \n     // -------- Getters & Setters --------\n     public String getAddr() { return addr; }\n     public void setAddr(String addr) { this.addr = addr; }\n```",
+  "xsd": "",
+  "tests": "C:\\Users\\kalai\\OneDrive\\Desktop\\TechConclave\\Allagents\\Payer-agent\\artifacts\\CHG-393\\tests.txt",
+  "manifest": {
+    "changeId": "CHG-393",
+    "issuer": "NPCI_UPI_SWITCH",
+    "changeType": "ADD_XML_ATTRIBUTE",
+    "apiName": "ReqPay",
+    "summary": "addition of new field",
+    "impactedPaths": [
+      {
+        "xmlPath": "ReqPay.Payer.Device",
+        "change": "ADD_XML_ATTRIBUTE",
+        "attribute": {
+          "name": "BINDINGMODE",
+          "datatype": "xs:string",
+          "mandatory": true,
+          "allowedValues": [
+            "SMS",
+            "RSMS",
+            "SMV"
+          ]
+        }
+      }
+    ],
+    "xsd": {
+      "path": "http://localhost:8000/npciswitch/xsd/CHG-393/ReqPay.xsd"
+    },
+    "npciStatus": "READY_FOR_ADOPTION",
+    "timestamp": "2026-03-14T06:49:18.617517",
+    "openapi": {
+      "path": "http://localhost:8000/npciswitch/openapi-ui/CHG-393"
+    },
+    "productNote": {
+      "path": "http://localhost:8000/npciswitch/product-note/CHG-393/product_note.md",
+      "summary": "addition of new field"
+    }
+  }
+}

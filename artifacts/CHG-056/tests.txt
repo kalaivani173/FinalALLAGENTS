@@ -1,0 +1,60 @@
+=== LLM-generated unit tests (saved to GeneratedTest.java) ===
+
+package com.example.payerpsp;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+@SpringBootTest
+class ReqPayTest {
+
+    @Test
+    void testDelegateAttributeShouldBeOptional() {
+        // Given
+        ReqPay reqPay = new ReqPay();
+        
+        // When
+        reqPay.setDelegate(null); // Delegate is optional
+        
+        // Then
+        assertThat(reqPay.getDelegate()).isNull();
+    }
+
+    @Test
+    void testDelegateAttributeShouldAcceptAllowedValues() {
+        // Given
+        ReqPay reqPay = new ReqPay();
+        
+        // When
+        reqPay.setDelegate("Y");
+        
+        // Then
+        assertThat(reqPay.getDelegate()).isEqualTo("Y");
+        
+        // When
+        reqPay.setDelegate("N");
+        
+        // Then
+        assertThat(reqPay.getDelegate()).isEqualTo("N");
+    }
+
+    @Test
+    void testDelegateAttributeShouldRejectInvalidValues() {
+        // Given
+        ReqPay reqPay = new ReqPay();
+        
+        // When
+        Exception exception = null;
+        try {
+            reqPay.setDelegate("InvalidValue");
+        } catch (IllegalArgumentException e) {
+            exception = e;
+        }
+        
+        // Then
+        assertThat(exception).isNotNull();
+        assertThat(exception.getMessage()).contains("Invalid value for delegate");
+    }
+}

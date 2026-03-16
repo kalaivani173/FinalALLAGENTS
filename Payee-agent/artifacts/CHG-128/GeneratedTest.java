@@ -1,0 +1,31 @@
+package com.payee.psp.dto;
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+class TxnTest {
+
+    @Test
+    void testDelegateField() {
+        Txn txn = new Txn();
+        
+        // Test setting and getting the delegate field
+        txn.setDelegate("Y");
+        assertEquals("Y", txn.getDelegate());
+
+        txn.setDelegate("N");
+        assertEquals("N", txn.getDelegate());
+
+        // Test setting an invalid value (not part of the allowed values)
+        txn.setDelegate(null);
+        assertNull(txn.getDelegate());
+    }
+
+    @Test
+    void testDelegateFieldMandatory() {
+        Txn txn = new Txn();
+        
+        // Test that delegate can be null since it's not mandatory
+        assertNull(txn.getDelegate());
+    }
+}

@@ -1,0 +1,35 @@
+/* Role-based themes (enterprise): drive shadcn tokens via CSS variables.
+   This keeps existing functionality intact while making the UI feel cohesive. */
+/* Product: teal #2F888A */
+[data-theme="Product"] {
+  --primary: 181 49% 36%;
+  --ring: 181 49% 36%;
+}
+/* Developer: emerald (unchanged) */
+[data-theme="Developer"] {
+  --primary: 160 84% 39%;
+  --ring: 160 84% 39%;
+}
+/* Admin: violet (unchanged) */
+[data-theme="Admin"] {
+  --primary: 262 83% 58%;
+  --ring: 262 83% 58%;
+}
+
+/* Active tab styling uses the theme's primary token */
+[data-theme] [role="tablist"] [role="tab"][data-state="active"] {
+  background-color: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+}
+
+/* Ensure portal content always has readable text (theme-safe) */
+[data-theme="Product"] [data-theme-content],
+[data-theme="Developer"] [data-theme-content],
+[data-theme="Admin"] [data-theme-content] {
+  color: rgb(17 24 39);
+}
+[data-theme="Product"] [data-theme-content] .text-muted-foreground,
+[data-theme="Developer"] [data-theme-content] .text-muted-foreground,
+[data-theme="Admin"] [data-theme-content] .text-muted-foreground {
+  color: rgb(75 85 99);
+}

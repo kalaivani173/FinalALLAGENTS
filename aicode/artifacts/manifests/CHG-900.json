@@ -1,0 +1,23 @@
+{
+  "manifest": {
+    "changeId": "CHG-900",
+    "issuer": "NPCI_UPI_SWITCH",
+    "changeType": "ADD_NEW_API",
+    "apiName": "ReqMandate",
+    "summary": "testing duplicate",
+    "impactedPaths": [],
+    "xsd": {
+      "path": "http://localhost:8000/npciswitch/xsd/CHG-900/ReqMandate.xsd"
+    },
+    "npciStatus": "READY_FOR_ADOPTION",
+    "timestamp": "2026-02-16T08:27:59.042463",
+    "openapi": {
+      "path": "http://localhost:8000/npciswitch/openapi/CHG-900/openapi.json"
+    }
+  },
+  "signature": {
+    "algorithm": "RSA-SHA256",
+    "signedBy": "NPCI",
+    "value": "CBVzZoa7agX4/rFAqiClIo95UrZqklbdBk9cDjKG8m5TRkCTwbxd/9Drx+dJz/Di1ByIfm3D2NrDx8FvOUPnzbtZaZciJl1F0ilvIooBY0DcZlKiOFD0i2sgSnML1dShdhXZlkPc/LlhSkGLzgaDrrCD5EN2qrBSDnhuPdCTnK/eKz+CbXHMoHauuK7NoYzWhKvqtHqxx9ml+cUT+Tr3ELYqyWsYuqDiPu/p5WMAL0VtDkKCm1rsqV1vEyvEMdsUCIhy7CaHIP9rm9yw5doa7MCxiASh/xgJ/Zcaj4nxWZbMHbkvA1TxPLw5xJv/Op0ifiRes9EMg3o6jGCa8b6tqQ=="
+  }
+}

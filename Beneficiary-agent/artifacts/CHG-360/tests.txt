@@ -1,0 +1,16 @@
+14:15:38.448 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.Bene.BeneficiaryBank.BeneficiaryBankApplicationTests]: BeneficiaryBankApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+14:15:38.514 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.Bene.BeneficiaryBank.BeneficiaryBankApplication for test class com.Bene.BeneficiaryBank.BeneficiaryBankApplicationTests
+14:15:38.630 [main] INFO org.springframework.boot.devtools.restart.RestartApplicationListener -- Restart disabled due to context in which it is running
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.5)
+
+2026-02-17T14:15:38.827+05:30  INFO 38440 --- [BeneficiaryBank] [           main] c.B.B.BeneficiaryBankApplicationTests    : Starting BeneficiaryBankApplicationTests using Java 17.0.16 with PID 38440 (started by ASUS in D:\UPI-Hackathon-2\UPIVerse\BeneficiaryBank)
+2026-02-17T14:15:38.828+05:30  INFO 38440 --- [BeneficiaryBank] [           main] c.B.B.BeneficiaryBankApplicationTests    : No active profile set, falling back to 1 default profile: "default"
+2026-02-17T14:15:39.943+05:30  INFO 38440 --- [BeneficiaryBank] [           main] c.B.B.BeneficiaryBankApplicationTests    : Started BeneficiaryBankApplicationTests in 1.32 seconds (process running for 1.949)
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended

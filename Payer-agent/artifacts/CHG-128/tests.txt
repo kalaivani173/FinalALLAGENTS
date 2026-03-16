@@ -1,0 +1,46 @@
+=== LLM-generated unit tests (saved to GeneratedTest.java) ===
+
+package com.payer.PayerPSP.dto;
+
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import java.io.StringReader;
+import java.io.StringWriter;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@SpringBootTest
+public class ReqPayTest {
+
+    @Test
+    public void testDelegateAttributeSerialization() throws JAXBException {
+        ReqPay reqPay = new ReqPay();
+        reqPay.setDelegate("Y"); // Assuming a setter for delegate exists
+
+        JAXBContext context = JAXBContext.newInstance(ReqPay.class);
+        Marshaller marshaller = context.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+
+        StringWriter writer = new StringWriter();
+        marshaller.marshal(reqPay, writer);
+        String xmlOutput = writer.toString();
+
+        assertEquals(true, xmlOutput.contains("delegate=\"Y\""));
+    }
+
+    @Test
+    public void testDelegateAttributeDeserialization() throws JAXBException {
+        String xmlInput = "<ReqPay delegate=\"N\"><Head></Head><Txn></Txn><Payer></Payer></ReqPay>";
+
+        JAXBContext context = JAXBContext.newInstance(ReqPay.class);
+        Unmarshaller unmarshaller = context.createUnmarshaller();
+        ReqPay reqPay = (ReqPay) unmarshaller.unmarshal(new StringReader(xmlInput));
+
+        assertEquals("N", reqPay.getDelegate()); // Assuming a getter for delegate exists
+    }
+}

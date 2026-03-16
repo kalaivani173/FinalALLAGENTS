@@ -1,0 +1,36 @@
+<ReqMandate xmlns="http://npci.org/upi/schema/">
+    <Head ver="1.0" ts="2026-01-28T12:30:00" orgId="HDFC" msgId="MSG123456"/>
+    
+    <Txn id="TXN987654"
+         note="Monthly Subscription"
+         refId="REF12345"
+         refUrl="https://merchant.example.com"
+         ts="2026-01-28T12:30:00"
+         type="MANDATE"/>
+
+    <Mandate name="OTT Subscription"
+             type="CREATE"
+             recurrence="MONTHLY"
+             rule="MAX"
+             startDate="2026-02-01"
+             endDate="2027-01-31"
+             expiry="2027-01-31"
+             revocable="Y"
+             shareToPayee="Y"/>
+
+    <Amount value="499.00" curr="INR"/>
+
+    <Payer addr="user@upi"
+           name="Rahul Sharma"
+           seqNum="1"
+           type="PERSON">
+        <Info>
+            <Identity type="ACCOUNT" verifiedName="Rahul Sharma"/>
+        </Info>
+    </Payer>
+
+    <Payee addr="merchant@upi"
+           name="Example OTT Pvt Ltd"
+           type="MERCHANT"/>
+
+</ReqMandate>

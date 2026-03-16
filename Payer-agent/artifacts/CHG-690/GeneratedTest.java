@@ -1,0 +1,40 @@
+package com.payer.PayerPSP.dto;
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import javax.xml.bind.annotation.XmlAttribute;
+
+public class PayerTest {
+
+    @Test
+    public void testBindingModeAttribute() {
+        Payer payer = new Payer();
+        payer.setBindingMode("SMS");
+        assertEquals("SMS", payer.getBindingMode());
+
+        payer.setBindingMode("MMS");
+        assertEquals("MMS", payer.getBindingMode());
+    }
+
+    @Test
+    public void testBindingModeMandatory() {
+        Payer payer = new Payer();
+        assertThrows(IllegalArgumentException.class, () -> {
+            payer.setBindingMode(null);
+        });
+    }
+
+    @Test
+    public void testBindingModeAllowedValues() {
+        Payer payer = new Payer();
+        payer.setBindingMode("SMS");
+        assertEquals("SMS", payer.getBindingMode());
+
+        payer.setBindingMode("MMS");
+        assertEquals("MMS", payer.getBindingMode());
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            payer.setBindingMode("INVALID");
+        });
+    }
+}

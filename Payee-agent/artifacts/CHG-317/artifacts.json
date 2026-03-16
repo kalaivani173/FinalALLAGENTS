@@ -1,0 +1,25 @@
+{
+  "gitPatch": "```diff\n// FILE: D:\\UPI-Hackathon-2\\UPIVerse\\PayeePSP\\src\\main\\java\\com\\payee\\psp\\controller\\AuthDetailsController.java\npackage com.payee.psp.controller;\n\nimport com.payee.psp.dto.Ack;\nimport com.payee.psp.dto.ReqAuthDetails;\nimport com.payee.psp.dto.ReqMandate; // Added import for ReqMandate\nimport org.springframework.http.ResponseEntity;\nimport org.springframework.web.bind.annotation.*;\n\nimport java.time.OffsetDateTime;\nimport java.util.concurrent.CompletableFuture;\nimport com.payee.psp.service.RespAuthDetailsService;\n\n@RestController\n@RequestMapping(\"/upi\")\npublic class AuthDetailsController {\n\n    private final RespAuthDetailsService respAuthDetailsService;\n\n    public AuthDetailsController(RespAuthDetailsService respAuthDetailsService) {\n        this.respAuthDetailsService = respAuthDetailsService;\n    }\n\n    @PostMapping(\n            value = \"/ReqAuthDetails/2.0/urn:txnid:{txnId}\",\n            consumes = \"application/xml\",\n            produces = \"application/xml\"\n    )\n    public ResponseEntity<Ack> receiveReqAuthDetails(\n            @PathVariable String txnId,\n            @RequestBody ReqAuthDetails req) {\n\n        // \u2705 Async processing of ReqAuthDetails\n        CompletableFuture.runAsync(() -> respAuthDetailsService.processReqAuthDetails(req, txnId));\n\n        // \u2705 Synchronous Ack back to UPI\n        Ack ack = new Ack();\n        ack.setApi(\"ReqAuthDetails\");\n        ack.setReqMsgId(req.getHead().getMsgId());\n        ack.setTs(OffsetDateTime.now().toString());\n        return ResponseEntity.ok(ack);\n    }\n\n    @PostMapping(\n            value = \"/ReqMandate/2.0/urn:txnid:{txnId}\", // New endpoint for ReqMandate\n            consumes = \"application/xml\",\n            produces = \"application/xml\"\n    )\n    public ResponseEntity<Ack> receiveReqMandate(\n            @PathVariable String txnId,\n            @RequestBody ReqMandate req) { // New method to handle ReqMandate\n\n        // Async processing of ReqMandate\n        CompletableFuture.runAsync(() -> respAuthDetailsService.processReqMandate(req, txnId));\n\n        // Synchronous Ack back to UPI\n        Ack ack = new Ack();\n        ack.setApi(\"ReqMandate\");\n        ack.setReqMsgId(req.getHead().getMsgId());\n        ack.setTs(OffsetDateTime.now().toString());\n        return ResponseEntity.ok(ack);\n    }\n}\n```",
+  "xsd": "",
+  "tests": "D:\\UPI-Hackathon-2\\Allagents\\Payee-agent\\artifacts\\CHG-317\\tests.txt",
+  "manifest": {
+    "changeId": "CHG-317",
+    "issuer": "NPCI_UPI_SWITCH",
+    "changeType": "ADD_NEW_API",
+    "apiName": "ReqMandate",
+    "summary": "adding new api",
+    "impactedPaths": [],
+    "xsd": {
+      "path": "http://localhost:8000/npciswitch/xsd/CHG-317/ReqMandate.xsd"
+    },
+    "npciStatus": "READY_FOR_ADOPTION",
+    "timestamp": "2026-03-04T07:38:05.659880",
+    "openapi": {
+      "path": "http://localhost:8000/npciswitch/openapi-ui/CHG-317"
+    },
+    "productNote": {
+      "path": "http://localhost:8000/npciswitch/product-note/CHG-317/product_note.md",
+      "summary": "adding new api"
+    }
+  }
+}

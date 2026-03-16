@@ -1,0 +1,41 @@
+{
+  "manifest": {
+    "changeId": "CHG-614",
+    "issuer": "NPCI_UPI_SWITCH",
+    "changeType": "ADD_XML_ATTRIBUTE",
+    "apiName": "ReqPay",
+    "summary": "descibing the change",
+    "impactedPaths": [
+      {
+        "xmlPath": "ReqPay.Payer.Device",
+        "change": "ADD_XML_ATTRIBUTE",
+        "attribute": {
+          "name": "BINDINGMODE",
+          "datatype": "xs:string",
+          "mandatory": true,
+          "allowedValues": [
+            "SMS",
+            "RSMS"
+          ]
+        }
+      }
+    ],
+    "xsd": {
+      "path": "http://localhost:8000/npciswitch/xsd/CHG-614/ReqPay.xsd"
+    },
+    "npciStatus": "READY_FOR_ADOPTION",
+    "timestamp": "2026-03-12T18:53:37.530321",
+    "openapi": {
+      "path": "http://localhost:8000/npciswitch/openapi-ui/CHG-614"
+    },
+    "productNote": {
+      "path": "http://localhost:8000/npciswitch/product-note/CHG-614/product_note.md",
+      "summary": "descibing the change"
+    }
+  },
+  "signature": {
+    "algorithm": "RSA-SHA256",
+    "signedBy": "NPCI",
+    "value": "ZqwGYxHwfu2/53wt8x1ZZSzCCBkkbG6vmT1LQsqTnkxGRlk6haUgQUN6z1IeMAqW92u8bUs7saKYT5D7wn93LHfXHmj++jUJR62Pxf8aLYXpuGzlB8k4eGZ0WJy61ke93Vgp5ecWQzyDcDhZOmX5r1F8qg6qFJ+d2GUG971669RhVkaOtwgywJvaMsBCC0cTx0W7huocrqxSiX9iqItwQhnvAurHDY79wiKeXTt2ZtgBrpJ2AZmQ3XcNpaVnMzVb1k1KtCkSrErE7LuYRMHnZx06L7Amxw+cqD2SOQN7DsjfdvCNLcidN7ad+ppYe8RJzdF4zvIs8rMLEDjpN4GSTg=="
+  }
+}

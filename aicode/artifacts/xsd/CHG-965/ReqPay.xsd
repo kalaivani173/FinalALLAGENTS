@@ -1,0 +1,187 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="ReqPay">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Head" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:attribute name="ver" type="xs:string" use="optional"/>
+            <xs:attribute name="ts" type="xs:string" use="optional"/>
+            <xs:attribute name="orgId" type="xs:string" use="optional"/>
+            <xs:attribute name="msgId" type="xs:string" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Meta" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Tag" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="name" type="xs:string" use="optional"/>
+                  <xs:attribute name="value" type="xs:string" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Txn" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="RiskScores" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Score" minOccurs="0" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:attribute name="provider" type="xs:string" use="optional"/>
+                        <xs:attribute name="type" type="xs:string" use="optional"/>
+                        <xs:attribute name="value" type="xs:string" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:string" use="optional"/>
+            <xs:attribute name="note" type="xs:string" use="optional"/>
+            <xs:attribute name="refId" type="xs:string" use="optional"/>
+            <xs:attribute name="refUrl" type="xs:string" use="optional"/>
+            <xs:attribute name="ts" type="xs:string" use="optional"/>
+            <xs:attribute name="type" type="xs:string" use="optional"/>
+            <xs:attribute name="custRef" type="xs:string" use="optional"/>
+            <xs:attribute name="initiationMode" type="xs:string" use="optional"/>
+            <xs:attribute name="purpose" type="xs:string" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Payers" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Payer" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="SHGInfo" minOccurs="0" maxOccurs="1" type="xs:string"/>
+                  </xs:sequence>
+                  <xs:attribute name="addr" type="xs:string" use="optional"/>
+                  <xs:attribute name="name" type="xs:string" use="optional"/>
+                  <xs:attribute name="seqNum" type="xs:string" use="optional"/>
+                  <xs:attribute name="type" type="xs:string" use="optional"/>
+                  <xs:attribute name="code" type="xs:string" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Payer" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Info" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Identity" minOccurs="0" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:attribute name="type" type="xs:string" use="optional"/>
+                        <xs:attribute name="verifiedName" type="xs:string" use="optional"/>
+                        <xs:attribute name="id" type="xs:string" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Rating" minOccurs="0" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:attribute name="verifiedAddress" type="xs:string" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Device" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Tag" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="name" type="xs:string" use="optional"/>
+                        <xs:attribute name="value" type="xs:string" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="BINDINGMODE" use="optional" type="BINDINGMODEType"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Ac" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Detail" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="name" type="xs:string" use="optional"/>
+                        <xs:attribute name="value" type="xs:string" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="addrType" type="xs:string" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Creds" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Cred" minOccurs="0" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Data" minOccurs="0" maxOccurs="1">
+                            <xs:complexType>
+                              <xs:attribute name="code" type="xs:string" use="optional"/>
+                              <xs:attribute name="ki" type="xs:string" use="optional"/>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="type" type="xs:string" use="optional"/>
+                        <xs:attribute name="subType" type="xs:string" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Amount" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:attribute name="value" type="xs:string" use="optional"/>
+                  <xs:attribute name="curr" type="xs:string" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="SHGInfo" minOccurs="0" maxOccurs="1" type="xs:string"/>
+            </xs:sequence>
+            <xs:attribute name="addr" type="xs:string" use="optional"/>
+            <xs:attribute name="name" type="xs:string" use="optional"/>
+            <xs:attribute name="seqNum" type="xs:string" use="optional"/>
+            <xs:attribute name="type" type="xs:string" use="optional"/>
+            <xs:attribute name="code" type="xs:string" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Payees" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Payee" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Amount" minOccurs="0" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:attribute name="value" type="xs:string" use="optional"/>
+                        <xs:attribute name="curr" type="xs:string" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SHGInfo" minOccurs="0" maxOccurs="1" type="xs:string"/>
+                  </xs:sequence>
+                  <xs:attribute name="addr" type="xs:string" use="optional"/>
+                  <xs:attribute name="name" type="xs:string" use="optional"/>
+                  <xs:attribute name="seqNum" type="xs:string" use="optional"/>
+                  <xs:attribute name="type" type="xs:string" use="optional"/>
+                  <xs:attribute name="code" type="xs:string" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="BINDINGMODEType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="SMS"/>
+      <xs:enumeration value="SMV"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

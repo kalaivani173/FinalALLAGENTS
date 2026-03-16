@@ -1,0 +1,39 @@
+{
+  "gitPatch": "# Change CHG-776\n# Place Payee PSP repo at C:\\Users\\kalai\\OneDrive\\Desktop\\TechConclave\\Allagents\\Payee-agent\\repo\\PayeePSP and re-run.\n",
+  "xsd": "",
+  "tests": "C:\\Users\\kalai\\OneDrive\\Desktop\\TechConclave\\Allagents\\Payee-agent\\artifacts\\CHG-776\\tests.txt",
+  "manifest": {
+    "changeId": "CHG-776",
+    "issuer": "NPCI_UPI_SWITCH",
+    "changeType": "ADD_XML_ATTRIBUTE",
+    "apiName": "ReqPay",
+    "summary": "additionnnn",
+    "impactedPaths": [
+      {
+        "xmlPath": "ReqPay.Txn",
+        "change": "ADD_XML_ATTRIBUTE",
+        "attribute": {
+          "name": "delegate",
+          "datatype": "xs:string",
+          "mandatory": false,
+          "allowedValues": [
+            "Y",
+            "N"
+          ]
+        }
+      }
+    ],
+    "xsd": {
+      "path": "http://localhost:8000/npciswitch/xsd/CHG-776/ReqPay.xsd"
+    },
+    "npciStatus": "READY_FOR_ADOPTION",
+    "timestamp": "2026-03-12T10:25:32.402263",
+    "openapi": {
+      "path": "http://localhost:8000/npciswitch/openapi-ui/CHG-776"
+    },
+    "productNote": {
+      "path": "http://localhost:8000/npciswitch/product-note/CHG-776/product_note.md",
+      "summary": "additionnnn"
+    }
+  }
+}

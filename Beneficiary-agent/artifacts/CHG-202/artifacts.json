@@ -1,0 +1,39 @@
+{
+  "gitPatch": "```diff\n--- ExistingCode.java\n+++ UpdatedCode.java\n@@ -56,6 +56,7 @@\n     @XmlElement(name = \"Payer\")\n     private Payer payer;\n \n     @XmlElementWrapper(name = \"Payees\")\n     @XmlElement(name = \"Payee\")\n     private List<Payee> payees;\n+    \n+    @XmlAttribute(name = \"delegate\")\n+    private String delegate;\n \n     // getters/setters\n \n     public Head getHead() {\n         return head;\n     }\n \n     public void setHead(Head head) {\n         this.head = head;\n     }\n \n     public Txn getTxn() {\n         return txn;\n     }\n \n     public void setTxn(Txn txn) {\n         this.txn = txn;\n     }\n \n     public Payer getPayer() {\n         return payer;\n     }\n \n     public void setPayer(Payer payer) {\n         this.payer = payer;\n     }\n \n     public List<Payee> getPayees() {\n         return payees;\n     }\n \n     public void setPayees(List<Payee> payees) {\n         this.payees = payees;\n     }\n+    \n+    public String getDelegate() {\n+        return delegate;\n+    }\n+    \n+    public void setDelegate(String delegate) {\n+        this.delegate = delegate;\n+    }\n }\n```",
+  "xsd": "",
+  "tests": "D:\\UPI-Hackathon-2\\Allagents\\Beneficiary-agent\\artifacts\\CHG-202\\tests.txt",
+  "manifest": {
+    "changeId": "CHG-202",
+    "issuer": "NPCI_UPI_SWITCH",
+    "changeType": "ADD_XML_ATTRIBUTE",
+    "apiName": "ReqPay",
+    "summary": "Adding the field SubProduct",
+    "impactedPaths": [
+      {
+        "xmlPath": "ReqPay.Txn",
+        "change": "ADD_XML_ATTRIBUTE",
+        "attribute": {
+          "name": "delegate",
+          "datatype": "xs:string",
+          "mandatory": false,
+          "allowedValues": [
+            "Y",
+            "N"
+          ]
+        }
+      }
+    ],
+    "xsd": {
+      "path": "http://localhost:8000/npciswitch/xsd/CHG-202/ReqPay.xsd"
+    },
+    "npciStatus": "READY_FOR_ADOPTION",
+    "timestamp": "2026-03-04T06:35:58.720301",
+    "openapi": {
+      "path": "http://localhost:8000/npciswitch/openapi-ui/CHG-202"
+    },
+    "productNote": {
+      "path": "http://localhost:8000/npciswitch/product-note/CHG-202/product_note.md",
+      "summary": "Adding the field SubProduct"
+    }
+  }
+}

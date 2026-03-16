@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Remitter Bank AI Agent</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <h1>Remitter Bank AI Agent</h1>
+      <p class="subtitle">Change requests from NPCI Switch – debit/CBS</p>
+    </header>
+
+    <main class="main">
+      <section class="list-section">
+        <div class="list-header">
+          <h2>Requests</h2>
+          <button type="button" class="btn btn-secondary" id="refreshBtn">Refresh</button>
+        </div>
+        <div id="listLoading" class="loading">Loading…</div>
+        <div id="listError" class="error" hidden></div>
+        <div id="listEmpty" class="empty" hidden>No requests yet. Send a manifest to <code>POST /agent/manifest</code>.</div>
+        <div class="table-wrap" id="tableWrap" hidden>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Change ID</th>
+                <th>Status</th>
+                <th>Updated</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="listBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="detail-section" id="detailSection" hidden>
+        <div class="detail-header">
+          <h2 id="detailTitle">Request details</h2>
+          <button type="button" class="btn btn-close" id="closeDetailBtn" aria-label="Close">×</button>
+        </div>
+        <div id="detailLoading" class="loading" hidden>Loading…</div>
+        <div id="detailError" class="error" hidden></div>
+        <div id="detailContent" class="detail-content" hidden>
+          <div class="detail-meta">
+            <p><strong>Change ID:</strong> <span id="detailChangeId"></span></p>
+            <p><strong>Status:</strong> <span id="detailState" class="state-badge"></span></p>
+            <p><strong>Updated:</strong> <span id="detailUpdatedAt"></span></p>
+          </div>
+          <div class="detail-actions">
+            <button type="button" class="btn btn-primary" id="deployBtn">Deploy</button>
+          </div>
+          <div class="detail-tabs">
+            <button type="button" class="tab active" data-tab="manifest">Manifest / Change request</button>
+            <button type="button" class="tab" data-tab="artifacts">Artifacts</button>
+          </div>
+          <div id="tabManifest" class="tab-panel active">
+            <pre id="detailManifest" class="code-block"></pre>
+          </div>
+          <div id="tabArtifacts" class="tab-panel">
+            <pre id="detailArtifacts" class="code-block"></pre>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="/static/app.js"></script>
+</body>
+</html>

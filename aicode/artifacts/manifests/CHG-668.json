@@ -1,0 +1,41 @@
+{
+  "manifest": {
+    "changeId": "CHG-668",
+    "issuer": "NPCI_UPI_SWITCH",
+    "changeType": "ADD_XML_ATTRIBUTE",
+    "apiName": "ReqPayDelegate",
+    "summary": "add tag del",
+    "impactedPaths": [
+      {
+        "xmlPath": "ReqPayDelegate.Txn",
+        "change": "ADD_XML_ATTRIBUTE",
+        "attribute": {
+          "name": "delegate",
+          "datatype": "xs:string",
+          "mandatory": false,
+          "allowedValues": [
+            "Y",
+            "N"
+          ]
+        }
+      }
+    ],
+    "xsd": {
+      "path": "http://localhost:8000/npciswitch/xsd/CHG-668/ReqPayDelegate.xsd"
+    },
+    "npciStatus": "READY_FOR_ADOPTION",
+    "timestamp": "2026-02-26T07:55:23.915779",
+    "openapi": {
+      "path": "http://localhost:8000/npciswitch/openapi/CHG-668/openapi.json"
+    },
+    "productNote": {
+      "path": "http://localhost:8000/npciswitch/product-note/CHG-668/product_note.md",
+      "summary": "add tag del"
+    }
+  },
+  "signature": {
+    "algorithm": "RSA-SHA256",
+    "signedBy": "NPCI",
+    "value": "RAVX5yetQ8NZUjGKxRQ+AebYAJ1N4c8KdCtdA/EgiEJP0ornYpin+++P4RyGsMxpoZHEdyPNtDXSHEXnYfhCabxkcIXjfokAihGSzVHR1kTjNoJExmQnP9DhRYau09Id+irTjh29mdaXUJR424j44ymwxtN6EVX/8lMaZ6a2eYq/EuWAc16x7vJEKym6OhHiOLis1vFfu4DQwAQHYfoxgna3JOnJhESBtg9ngtbsqcR1PZoFJKn9zHzPb6tOBQn/VGZNjMJGxTSOQLLINwZj09SIuHmK74u3FNOsau+tBVILnr4TUqW0F6bxdE21TQnSSfGxc10/JaYmelVlwtVqtA=="
+  }
+}

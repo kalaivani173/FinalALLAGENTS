@@ -1,0 +1,41 @@
+package com.payer.PayerPSP.dto;
+
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.io.StringReader;
+import java.io.StringWriter;
+
+public class ReqPayTest {
+
+    @Test
+    public void testDelegateAttributeSerialization() throws JAXBException {
+        ReqPay reqPay = new ReqPay();
+        reqPay.setDelegate("Y");
+
+        JAXBContext jaxbContext = JAXBContext.newInstance(ReqPay.class);
+        Marshaller marshaller = jaxbContext.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+        StringWriter stringWriter = new StringWriter();
+        marshaller.marshal(reqPay, stringWriter);
+        String xmlOutput = stringWriter.toString();
+
+        assertEquals(true, xmlOutput.contains("delegate=\"Y\""));
+    }
+
+    @Test
+    public void testDelegateAttributeDeserialization() throws JAXBException {
+        String xmlInput = "<ReqPay delegate=\"N\"><Head/><Txn/><Payer/></ReqPay>";
+
+        JAXBContext jaxbContext = JAXBContext.newInstance(ReqPay.class);
+        Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+        ReqPay reqPay = (ReqPay) unmarshaller.unmarshal(new StringReader(xmlInput));
+
+        assertEquals("N", reqPay.getDelegate());
+    }
+}

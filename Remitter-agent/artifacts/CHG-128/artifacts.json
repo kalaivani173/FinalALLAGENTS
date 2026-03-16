@@ -1,0 +1,39 @@
+{
+  "gitPatch": "```diff\n--- existing/ReqPay.java\n+++ updated/ReqPay.java\n@@ -10,6 +10,7 @@\n \n     @XmlElement(name = \"Payer\")\n     private Payer payer;\n \n+    @XmlAttribute(name = \"delegate\")\n     private String delegate;\n \n     @XmlElementWrapper(name = \"Payees\")\n     @XmlElement(name = \"Payee\")\n```",
+  "xsd": "",
+  "tests": "C:\\Users\\kalai\\OneDrive\\Desktop\\TechConclave\\Allagents\\Remitter-agent\\artifacts\\CHG-128\\tests.txt",
+  "manifest": {
+    "changeId": "CHG-128",
+    "issuer": "NPCI_UPI_SWITCH",
+    "changeType": "ADD_XML_ATTRIBUTE",
+    "apiName": "ReqPay",
+    "summary": "Addition of new delegate field",
+    "impactedPaths": [
+      {
+        "xmlPath": "ReqPay.Txn",
+        "change": "ADD_XML_ATTRIBUTE",
+        "attribute": {
+          "name": "delegate",
+          "datatype": "xs:string",
+          "mandatory": false,
+          "allowedValues": [
+            "Y",
+            "N"
+          ]
+        }
+      }
+    ],
+    "xsd": {
+      "path": "http://localhost:8000/npciswitch/xsd/CHG-128/ReqPay.xsd"
+    },
+    "npciStatus": "READY_FOR_ADOPTION",
+    "timestamp": "2026-03-12T13:27:08.747819",
+    "openapi": {
+      "path": "http://localhost:8000/npciswitch/openapi-ui/CHG-128"
+    },
+    "productNote": {
+      "path": "http://localhost:8000/npciswitch/product-note/CHG-128/product_note.md",
+      "summary": "Addition of new delegate field"
+    }
+  }
+}

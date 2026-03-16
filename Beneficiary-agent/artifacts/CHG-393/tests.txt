@@ -1,0 +1,23 @@
+[ERROR] COMPILATION ERROR : 
+[ERROR] /C:/Users/kalai/OneDrive/Desktop/TechConclave/Allagents/javacoderepo/BeneficiaryBank/src/main/java/com/Bene/BeneficiaryBank/dto/Payer.java:[31,19] variable bindingMode is already defined in class com.Bene.BeneficiaryBank.dto.Payer
+[ERROR] /C:/Users/kalai/OneDrive/Desktop/TechConclave/Allagents/javacoderepo/BeneficiaryBank/src/main/java/com/Bene/BeneficiaryBank/dto/Payer.java:[33,20] variable name is already defined in class com.Bene.BeneficiaryBank.dto.Payer
+[ERROR] /C:/Users/kalai/OneDrive/Desktop/TechConclave/Allagents/javacoderepo/BeneficiaryBank/src/main/java/com/Bene/BeneficiaryBank/dto/Payer.java:[36,19] method getBindingMode() is already defined in class com.Bene.BeneficiaryBank.dto.Payer
+[ERROR] /C:/Users/kalai/OneDrive/Desktop/TechConclave/Allagents/javacoderepo/BeneficiaryBank/src/main/java/com/Bene/BeneficiaryBank/dto/Payer.java:[37,17] method setBindingMode(java.lang.String) is already defined in class com.Bene.BeneficiaryBank.dto.Payer
+[ERROR] /C:/Users/kalai/OneDrive/Desktop/TechConclave/Allagents/javacoderepo/BeneficiaryBank/src/main/java/com/Bene/BeneficiaryBank/dto/Payer.java:[39,20] variable name is already defined in class com.Bene.BeneficiaryBank.dto.Payer
+[ERROR] /C:/Users/kalai/OneDrive/Desktop/TechConclave/Allagents/javacoderepo/BeneficiaryBank/src/main/java/com/Bene/BeneficiaryBank/dto/Payer.java:[42,20] variable seqNum is already defined in class com.Bene.BeneficiaryBank.dto.Payer
+[ERROR] /C:/Users/kalai/OneDrive/Desktop/TechConclave/Allagents/javacoderepo/BeneficiaryBank/src/main/java/com/Bene/BeneficiaryBank/dto/Payer.java:[45,20] variable type is already defined in class com.Bene.BeneficiaryBank.dto.Payer
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.11.0:compile (default-compile) on project BeneficiaryBank: Compilation failure: Compilation failure: 
+[ERROR] /C:/Users/kalai/OneDrive/Desktop/TechConclave/Allagents/javacoderepo/BeneficiaryBank/src/main/java/com/Bene/BeneficiaryBank/dto/Payer.java:[31,19] variable bindingMode is already defined in class com.Bene.BeneficiaryBank.dto.Payer
+[ERROR] /C:/Users/kalai/OneDrive/Desktop/TechConclave/Allagents/javacoderepo/BeneficiaryBank/src/main/java/com/Bene/BeneficiaryBank/dto/Payer.java:[33,20] variable name is already defined in class com.Bene.BeneficiaryBank.dto.Payer
+[ERROR] /C:/Users/kalai/OneDrive/Desktop/TechConclave/Allagents/javacoderepo/BeneficiaryBank/src/main/java/com/Bene/BeneficiaryBank/dto/Payer.java:[36,19] method getBindingMode() is already defined in class com.Bene.BeneficiaryBank.dto.Payer
+[ERROR] /C:/Users/kalai/OneDrive/Desktop/TechConclave/Allagents/javacoderepo/BeneficiaryBank/src/main/java/com/Bene/BeneficiaryBank/dto/Payer.java:[37,17] method setBindingMode(java.lang.String) is already defined in class com.Bene.BeneficiaryBank.dto.Payer
+[ERROR] /C:/Users/kalai/OneDrive/Desktop/TechConclave/Allagents/javacoderepo/BeneficiaryBank/src/main/java/com/Bene/BeneficiaryBank/dto/Payer.java:[39,20] variable name is already defined in class com.Bene.BeneficiaryBank.dto.Payer
+[ERROR] /C:/Users/kalai/OneDrive/Desktop/TechConclave/Allagents/javacoderepo/BeneficiaryBank/src/main/java/com/Bene/BeneficiaryBank/dto/Payer.java:[42,20] variable seqNum is already defined in class com.Bene.BeneficiaryBank.dto.Payer
+[ERROR] /C:/Users/kalai/OneDrive/Desktop/TechConclave/Allagents/javacoderepo/BeneficiaryBank/src/main/java/com/Bene/BeneficiaryBank/dto/Payer.java:[45,20] variable type is already defined in class com.Bene.BeneficiaryBank.dto.Payer
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

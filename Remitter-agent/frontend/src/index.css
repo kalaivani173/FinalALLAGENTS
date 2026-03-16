@@ -1,0 +1,407 @@
+/* Remitter Bank – orange/amber theme (debit/CBS) */
+:root, .theme-remitter {
+  --bg: #14100d;
+  --surface: #1c1612;
+  --border: #3d3229;
+  --text: #f0eae6;
+  --text-muted: #9e948b;
+  --primary: #db6d28;
+  --primary-hover: #e0823d;
+  --header-accent: #d29922;
+  --success: #3fb950;
+  --warning: #d29922;
+  --error: #f85149;
+  --radius: 8px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Work Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.theme-remitter .section {
+  border-left: 4px solid var(--header-accent);
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(210, 153, 34, 0.1);
+}
+.theme-remitter .btn-primary { border-radius: 4px; font-weight: 600; }
+.theme-remitter .entity-badge { border-radius: 4px; }
+.theme-remitter .table thead th { background: rgba(210, 153, 34, 0.12); color: var(--primary); }
+
+#root {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.app-header {
+  margin-bottom: 2rem;
+  padding: 1rem 0 1rem 1.25rem;
+  border-left: 4px solid var(--header-accent);
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(90deg, rgba(210, 153, 34, 0.12) 0%, transparent 100%);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.entity-badge {
+  display: inline-block;
+  background: var(--header-accent);
+  color: var(--bg);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.app-header h1 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.app-header .subtitle {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.app-main {
+  min-height: 50vh;
+}
+
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: transparent;
+  color: var(--primary);
+  border: 1px solid var(--border);
+  padding: 0.4rem 0.75rem;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: var(--radius);
+  transition: background 0.15s, color 0.15s;
+}
+
+.btn-back:hover {
+  background: rgba(219, 109, 40, 0.12);
+  color: var(--primary-hover);
+}
+
+.detail-page .detail-header {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.detail-page .detail-header h2 {
+  margin: 0;
+}
+
+.section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.section-header h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.loading, .error-msg, .empty-msg {
+  padding: 1rem;
+  color: var(--text-muted);
+}
+
+.error-msg {
+  color: var(--error);
+}
+
+.empty-msg code {
+  background: var(--border);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  text-align: left;
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.table th {
+  color: var(--text-muted);
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+
+.table tbody tr {
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.state-badge {
+  display: inline-block;
+  padding: 0.2em 0.5em;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.state-badge.READY_FOR_APPROVAL,
+.state-badge.APPLIED,
+.state-badge.TESTED {
+  background: rgba(63, 185, 80, 0.2);
+  color: var(--success);
+}
+
+.state-badge.DEPLOYED {
+  background: rgba(88, 166, 255, 0.2);
+  color: var(--primary);
+}
+
+.state-badge.RECEIVED,
+.state-badge.ACCEPTED {
+  background: rgba(210, 153, 34, 0.2);
+  color: var(--warning);
+}
+
+.state-badge.UNKNOWN {
+  background: var(--border);
+  color: var(--text-muted);
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: var(--bg);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--primary-hover);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: var(--border);
+  color: var(--text);
+}
+
+.btn-secondary:hover {
+  background: #3d4d66;
+}
+
+.btn-close {
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 1.5rem;
+  line-height: 1;
+  padding: 0.25rem;
+}
+
+.btn-close:hover {
+  color: var(--text);
+}
+
+.btn-view {
+  background: transparent;
+  color: var(--primary);
+  padding: 0.35rem 0.75rem;
+}
+
+.btn-view:hover {
+  text-decoration: underline;
+}
+
+.detail-meta {
+  margin-bottom: 1rem;
+}
+
+.detail-meta p {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.detail-actions {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.detail-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.tab-btn {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-bottom: -1px;
+}
+
+.tab-btn:hover {
+  color: var(--text);
+}
+
+.tab-btn.active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+.code-block {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  margin: 0;
+  overflow-x: auto;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.diff-view-wrap {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  max-height: 480px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Modern diff viewer (react-diff-viewer-continued) */
+.diff-view-wrap.diff-viewer-modern {
+  max-height: 560px;
+  overflow: auto;
+}
+
+.diff-view-wrap.diff-viewer-modern .diff-viewer {
+  font-size: 0.8rem;
+  font-family: ui-monospace, monospace;
+}
+
+.diff-view-head {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 0.5rem 1rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.diff-col-label:last-child {
+  padding-left: 1rem;
+  border-left: 1px solid var(--border);
+}
+
+.diff-view {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: auto;
+  flex: 1;
+}
+
+.diff-col {
+  border-right: 1px solid var(--border);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  font-family: ui-monospace, monospace;
+}
+
+.diff-col:last-child {
+  border-right: none;
+  border-left: 1px solid var(--border);
+}
+
+.diff-line {
+  padding: 0 0.75rem;
+  white-space: pre;
+  overflow-x: auto;
+  min-height: 1.5em;
+  border-bottom: 1px solid rgba(45, 58, 79, 0.5);
+}
+
+.diff-line.diff-remove {
+  background: rgba(248, 81, 73, 0.15);
+  color: var(--error);
+}
+
+.diff-line.diff-add {
+  background: rgba(63, 185, 80, 0.15);
+  color: var(--success);
+}

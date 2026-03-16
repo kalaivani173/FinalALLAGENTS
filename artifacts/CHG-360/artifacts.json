@@ -1,0 +1,25 @@
+{
+  "gitPatch": "```diff\n--- a/src/main/java/com/payer/PayerPSP/controller/HbtController.java\n+++ b/src/main/java/com/payer/PayerPSP/controller/HbtController.java\n@@ -1,6 +1,7 @@\n package com.payer.PayerPSP.controller;\n \n import com.npci.UPISim.dto.Ack;\n+import com.payer.PayerPSP.dto.ReqMandate;\n import com.payer.PayerPSP.service.HbtService;\n import com.payer.PayerPSP.util.XmlUtil;\n import com.payer.PayerPSP.util.XmlPrettyPrinter;\n@@ -12,6 +13,7 @@\n import org.springframework.web.bind.annotation.*;\n import org.springframework.web.client.HttpServerErrorException;\n import org.springframework.http.MediaType;\n import org.springframework.web.client.RestTemplate;\n+import org.springframework.http.HttpEntity;\n \n import java.time.ZonedDateTime;\n import java.time.format.DateTimeFormatter;\n@@ -20,6 +22,7 @@\n \n     @Autowired\n     private HbtService hbtService;\n \n+    @Autowired\n     private RestTemplate restTemplate;\n \n     @PostMapping(value = \"/ReqMandate\", produces = MediaType.APPLICATION_XML_VALUE)\n@@ -27,6 +30,7 @@\n         // build ReqMandate XML\n         ReqMandate reqMandate = new ReqMandate();\n         // Set properties for reqMandate as needed\n         String reqMandateXml = XmlUtil.toXml(reqMandate, ReqMandate.class);\n         String txnId = reqMandate.getTxn().getId();\n         String upiSwitchUrl = \"http://localhost:8081/upi/ReqMandate/2.0/urn:txnid:\" + txnId;\n         HttpHeaders headers = new HttpHeaders();\n         headers.setContentType(MediaType.APPLICATION_XML);\n         HttpEntity<String> entity = new HttpEntity<>(reqMandateXml, headers);\n         // Send the request to UPI switch\n         ResponseEntity<String> response = restTemplate.postForEntity(upiSwitchUrl, entity, String.class);\n         return response.getBody();\n     }\n \n     @PostMapping(value = \"/Hbt\", produces = MediaType.APPLICATION_XML_VALUE)\n```",
+  "xsd": "",
+  "tests": "D:\\UPI-Hackathon-2\\Allagents\\artifacts\\CHG-360\\tests.txt",
+  "manifest": {
+    "changeId": "CHG-360",
+    "issuer": "NPCI_UPI_SWITCH",
+    "changeType": "ADD_NEW_API",
+    "apiName": "ReqMandate",
+    "summary": "add new api ReqMandate",
+    "impactedPaths": [],
+    "xsd": {
+      "path": "http://localhost:8000/npciswitch/xsd/CHG-360/ReqMandate.xsd"
+    },
+    "npciStatus": "READY_FOR_ADOPTION",
+    "timestamp": "2026-02-17T08:42:33.053327",
+    "openapi": {
+      "path": "http://localhost:8000/npciswitch/openapi/CHG-360/openapi.json"
+    },
+    "productNote": {
+      "path": "http://localhost:8000/npciswitch/product-note/CHG-360/product_note.md",
+      "summary": "add new api ReqMandate"
+    }
+  }
+}

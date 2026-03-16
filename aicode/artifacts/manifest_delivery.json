@@ -1,0 +1,522 @@
+{
+  "PAYER_AGENT": {
+    "CHG-586": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-586\",\"agent\":\"PAYER_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-657": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-657\",\"agent\":\"PAYER_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-636": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-636\",\"agent\":\"PAYER_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-741": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-741\",\"agent\":\"PAYER_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-770": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-770\",\"agent\":\"PAYER_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-828": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-828\",\"agent\":\"PAYER_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-360": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-360\",\"agent\":\"PAYER_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-459": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-459\",\"agent\":\"PAYER_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-056": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-056\",\"agent\":\"PAYER_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-701": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-701\",\"agent\":\"PAYER_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-662": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-662\",\"agent\":\"PAYER_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-202": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-202\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-317": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-317\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-706": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-706\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-033": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-033\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-433": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-433\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-893": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-893\",\"agent\":\"PAYER_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-776": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-776\",\"agent\":\"PAYER_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-368": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-368\",\"agent\":\"PAYER_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-629": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-629\",\"agent\":\"PAYER_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-128": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-128\",\"agent\":\"PAYER_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-859": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-859\",\"agent\":\"PAYER_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-018": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-018\",\"agent\":\"PAYER_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-084": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-084\",\"agent\":\"PAYER_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-329": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-329\",\"agent\":\"PAYER_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-150": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-150\",\"agent\":\"PAYER_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-644": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-644\",\"agent\":\"PAYER_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-304": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-304\",\"agent\":\"PAYER_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-230": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-230\",\"agent\":\"PAYER_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-690": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-690\",\"agent\":\"PAYER_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-625": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-625\",\"agent\":\"PAYER_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-393": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-393\",\"agent\":\"PAYER_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    }
+  },
+  "BENEFICIARY_AGENT": {
+    "CHG-586": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-586\",\"agent\":\"BENEFICIARY_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-657": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-657\",\"agent\":\"BENEFICIARY_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-636": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-636\",\"agent\":\"BENEFICIARY_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-741": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-741\",\"agent\":\"BENEFICIARY_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-770": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-770\",\"agent\":\"BENEFICIARY_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-828": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-828\",\"agent\":\"BENEFICIARY_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-360": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-360\",\"agent\":\"BENEFICIARY_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-459": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-459\",\"agent\":\"BENEFICIARY_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-056": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-056\",\"agent\":\"BENEFICIARY_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-701": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-701\",\"agent\":\"BENEFICIARY_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-662": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-662\",\"agent\":\"BENEFICIARY_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-202": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-202\",\"agent\":\"BENEFICIARY_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-317": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-317\",\"agent\":\"BENEFICIARY_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-706": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-706\",\"agent\":\"BENEFICIARY_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-033": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-033\",\"agent\":\"BENEFICIARY_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-433": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-433\",\"agent\":\"BENEFICIARY_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-893": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-893\",\"agent\":\"BENEFICIARY_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-776": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-776\",\"agent\":\"BENEFICIARY_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-368": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-368\",\"agent\":\"BENEFICIARY_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-629": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-629\",\"agent\":\"BENEFICIARY_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-128": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-128\",\"agent\":\"BENEFICIARY_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-859": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-859\",\"agent\":\"BENEFICIARY_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-018": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-018\",\"agent\":\"BENEFICIARY_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-084": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-084\",\"agent\":\"BENEFICIARY_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-329": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-329\",\"agent\":\"BENEFICIARY_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-150": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-150\",\"agent\":\"BENEFICIARY_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-644": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-644\",\"agent\":\"BENEFICIARY_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-304": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-304\",\"agent\":\"BENEFICIARY_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-230": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-230\",\"agent\":\"BENEFICIARY_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-690": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-690\",\"agent\":\"BENEFICIARY_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-625": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-625\",\"agent\":\"BENEFICIARY_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-393": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-393\",\"agent\":\"BENEFICIARY_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    }
+  },
+  "REMITTER_AGENT": {
+    "CHG-586": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-586\",\"agent\":\"REMITTER_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-657": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-657\",\"agent\":\"REMITTER_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-636": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-636\",\"agent\":\"REMITTER_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-741": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-741\",\"agent\":\"REMITTER_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-770": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-770\",\"agent\":\"REMITTER_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-828": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-828\",\"agent\":\"REMITTER_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-360": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-360\",\"agent\":\"REMITTER_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-459": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-459\",\"agent\":\"REMITTER_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-056": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-056\",\"agent\":\"REMITTER_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-701": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-701\",\"agent\":\"REMITTER_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-662": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-662\",\"agent\":\"REMITTER_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-202": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-202\",\"agent\":\"REMITTER_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-317": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-317\",\"agent\":\"REMITTER_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-706": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-706\",\"agent\":\"REMITTER_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-033": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-033\",\"agent\":\"REMITTER_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-433": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-433\",\"agent\":\"REMITTER_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-893": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-893\",\"agent\":\"REMITTER_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-776": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-776\",\"agent\":\"REMITTER_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-368": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-368\",\"agent\":\"REMITTER_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-629": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-629\",\"agent\":\"REMITTER_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-128": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-128\",\"agent\":\"REMITTER_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-859": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-859\",\"agent\":\"REMITTER_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-018": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-018\",\"agent\":\"REMITTER_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-084": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-084\",\"agent\":\"REMITTER_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-329": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-329\",\"agent\":\"REMITTER_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-150": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-150\",\"agent\":\"REMITTER_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-644": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-644\",\"agent\":\"REMITTER_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-304": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-304\",\"agent\":\"REMITTER_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-230": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-230\",\"agent\":\"REMITTER_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-690": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-690\",\"agent\":\"REMITTER_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-625": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-625\",\"agent\":\"REMITTER_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-393": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-393\",\"agent\":\"REMITTER_BANK\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    }
+  },
+  "PAYEE_AGENT": {
+    "CHG-586": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-586\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-657": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-657\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-636": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-636\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-741": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-741\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-770": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-770\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-828": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-828\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-360": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-360\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-459": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-459\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-056": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-056\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-701": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-701\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-662": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-662\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-202": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-202\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-317": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-317\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-706": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-706\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-033": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-033\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-433": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-433\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-893": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-893\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-776": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-776\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-368": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-368\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-629": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-629\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-128": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-128\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-859": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-859\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-018": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-018\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-084": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-084\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-329": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-329\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-150": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-150\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-644": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-644\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-304": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-304\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-230": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-230\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-690": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-690\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-625": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-625\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    },
+    "CHG-393": {
+      "statusCode": 200,
+      "response": "{\"changeId\":\"CHG-393\",\"agent\":\"PAYEE_PSP\",\"status\":\"RECEIVED\",\"message\":\"Manifest received. Use Generate to create code changes.\"}"
+    }
+  }
+}

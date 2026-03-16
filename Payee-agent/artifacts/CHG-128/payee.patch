@@ -1,0 +1,39 @@
+```diff
+--- existing_code.java
++++ updated_code.java
+@@ -1,6 +1,7 @@
+ package com.payee.psp.dto;
+ 
+ import jakarta.xml.bind.annotation.XmlAccessType;
+ import jakarta.xml.bind.annotation.XmlAccessorType;
+ import jakarta.xml.bind.annotation.XmlAttribute;
++import jakarta.xml.bind.annotation.XmlElement;
+ 
+ @XmlAccessorType(XmlAccessType.FIELD)
+ public class Txn {
+@@ -11,6 +12,7 @@
+     @XmlAttribute
+     private String type;
+ 
++    @XmlAttribute
++    private String delegate;
+ 
+     @XmlElement(name = "RiskScores")
+     private RiskScores riskScores;
+@@ -20,6 +22,7 @@
+ 
+     public String getCustRef() {
+         return custRef;
+     }
+@@ -36,6 +39,7 @@
+ 
+     public String getId() {
+         return id;
+     }
++    public String getDelegate() { return delegate; }
+ 
+     public void setId(String id) {
+         this.id = id;
+     }
++    public void setDelegate(String delegate) { this.delegate = delegate; }
+```

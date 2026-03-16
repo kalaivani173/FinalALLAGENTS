@@ -1,0 +1,14 @@
+{
+  "PAYER_AGENT": {
+    "endpoint": "http://localhost:9001/agent/manifest"
+  },
+  "BENEFICIARY_AGENT": {
+    "endpoint": "http://localhost:9002/agent/manifest"
+  },
+  "REMITTER_AGENT": {
+    "endpoint": "http://localhost:9003/agent/manifest"
+  },
+  "PAYEE_AGENT": {
+    "endpoint": "http://localhost:9004/agent/manifest"
+  }
+}

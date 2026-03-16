@@ -1,0 +1,26 @@
+```diff
+--- Existing Code
++++ Updated Code
+@@ -1,6 +1,7 @@
+ package com.payer.PayerPSP.dto;
+ 
+ import jakarta.xml.bind.annotation.*;
++import jakarta.xml.bind.annotation.XmlAttribute;
+ import java.util.List;
+ 
+ @XmlRootElement(name = "Payer")
+@@ -20,6 +21,10 @@
+ 
+     // -------- Getters & Setters --------
+     public String getAddr() { return addr; }
+     public void setAddr(String addr) { this.addr = addr; }
+ 
+     public String getCode() { return code; }
+     public void setCode(String code) { this.code = code; }
++
++    @XmlAttribute(name = "BINDINGMODE", required = true)
++    private String bindingMode;
++
++    public String getBindingMode() { return bindingMode; }
++    public void setBindingMode(String bindingMode) { this.bindingMode = bindingMode; }
+```

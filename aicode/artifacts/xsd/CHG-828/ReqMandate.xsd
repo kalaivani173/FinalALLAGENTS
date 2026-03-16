@@ -1,0 +1,82 @@
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+            targetNamespace="http://npci.org/upi/schema/ReqMandate" 
+            xmlns="http://npci.org/upi/schema/ReqMandate" 
+            elementFormDefault="qualified">
+
+    <xs:element name="ReqMandate">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Head" minOccurs="1" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:attribute name="ver" type="xs:string" use="required"/>
+                        <xs:attribute name="ts" type="xs:string" use="required"/>
+                        <xs:attribute name="orgId" type="xs:string" use="required"/>
+                        <xs:attribute name="msgId" type="xs:string" use="required"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Txn" minOccurs="1" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:attribute name="id" type="xs:string" use="required"/>
+                        <xs:attribute name="note" type="xs:string" use="optional"/>
+                        <xs:attribute name="refId" type="xs:string" use="optional"/>
+                        <xs:attribute name="refUrl" type="xs:string" use="optional"/>
+                        <xs:attribute name="ts" type="xs:string" use="required"/>
+                        <xs:attribute name="type" type="xs:string" use="required"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Mandate" minOccurs="1" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:attribute name="name" type="xs:string" use="required"/>
+                        <xs:attribute name="type" type="xs:string" use="required"/>
+                        <xs:attribute name="recurrence" type="xs:string" use="required"/>
+                        <xs:attribute name="rule" type="xs:string" use="required"/>
+                        <xs:attribute name="startDate" type="xs:string" use="required"/>
+                        <xs:attribute name="endDate" type="xs:string" use="required"/>
+                        <xs:attribute name="expiry" type="xs:string" use="required"/>
+                        <xs:attribute name="revocable" type="xs:string" use="optional"/>
+                        <xs:attribute name="shareToPayee" type="xs:string" use="optional"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Amount" minOccurs="1" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:attribute name="value" type="xs:string" use="required"/>
+                        <xs:attribute name="curr" type="xs:string" use="required"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Payer" minOccurs="1" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:attribute name="addr" type="xs:string" use="required"/>
+                        <xs:attribute name="name" type="xs:string" use="required"/>
+                        <xs:attribute name="seqNum" type="xs:string" use="required"/>
+                        <xs:attribute name="type" type="xs:string" use="required"/>
+                        <xs:sequence>
+                            <xs:element name="Info" minOccurs="1" maxOccurs="1">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Identity" minOccurs="1" maxOccurs="1">
+                                            <xs:complexType>
+                                                <xs:attribute name="type" type="xs:string" use="required"/>
+                                                <xs:attribute name="verifiedName" type="xs:string" use="optional"/>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Payee" minOccurs="1" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:attribute name="addr" type="xs:string" use="required"/>
+                        <xs:attribute name="name" type="xs:string" use="required"/>
+                        <xs:attribute name="type" type="xs:string" use="required"/>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
+```

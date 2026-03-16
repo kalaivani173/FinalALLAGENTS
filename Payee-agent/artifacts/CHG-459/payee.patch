@@ -1,0 +1,45 @@
+```diff
+--- existing_code.java
++++ updated_code.java
+@@ -1,6 +1,7 @@
+ package com.payee.psp.dto;
+ 
+ import jakarta.xml.bind.annotation.XmlAccessType;
+ import jakarta.xml.bind.annotation.XmlAccessorType;
+ import jakarta.xml.bind.annotation.XmlAttribute;
++import jakarta.xml.bind.annotation.XmlElement;
+ 
+ @XmlAccessorType(XmlAccessType.FIELD)
+ public class Txn {
+@@ -12,6 +13,7 @@
+ 
+     @XmlElement(name = "RiskScores")
+     private RiskScores riskScores;
++    @XmlAttribute(name = "delegate")
++    private String delegate;
+ 
+     // --- Correct getter and setter ---
+     public RiskScores getRiskScores() { return riskScores; }
+     public void setRiskScores(RiskScores riskScores) { this.riskScores = riskScores; }
+     // --- Attributes ---
+ 
+     public Txn() {
+     }
+ 
+     public String getCustRef() {
+         return custRef;
+     }
+     public void setCustRef(String custRef) {
+         this.custRef = custRef;
+     }
+ 
+     public String getId() {
+         return id;
+     }
+     public void setId(String id) {
+         this.id = id;
+     }
++    
++    public String getDelegate() { return delegate; }
++    public void setDelegate(String delegate) { this.delegate = delegate; }
+```

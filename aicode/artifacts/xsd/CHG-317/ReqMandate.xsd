@@ -1,0 +1,82 @@
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+            targetNamespace="http://npci.org/upi/schema/ReqMandate" 
+            xmlns="http://npci.org/upi/schema/ReqMandate" 
+            elementFormDefault="qualified">
+
+    <xs:element name="ReqMandate">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Head" type="HeadType"/>
+                <xs:element name="Txn" type="TxnType"/>
+                <xs:element name="Mandate" type="MandateType"/>
+                <xs:element name="Amount" type="AmountType"/>
+                <xs:element name="Payer" type="PayerType"/>
+                <xs:element name="Payee" type="PayeeType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="HeadType">
+        <xs:attribute name="ver" type="xs:string" use="optional"/>
+        <xs:attribute name="ts" type="xs:string" use="optional"/>
+        <xs:attribute name="orgId" type="xs:string" use="optional"/>
+        <xs:attribute name="msgId" type="xs:string" use="optional"/>
+    </xs:complexType>
+
+    <xs:complexType name="TxnType">
+        <xs:attribute name="id" type="xs:string" use="optional"/>
+        <xs:attribute name="note" type="xs:string" use="optional"/>
+        <xs:attribute name="refId" type="xs:string" use="optional"/>
+        <xs:attribute name="refUrl" type="xs:string" use="optional"/>
+        <xs:attribute name="ts" type="xs:string" use="optional"/>
+        <xs:attribute name="type" type="xs:string" use="optional"/>
+    </xs:complexType>
+
+    <xs:complexType name="MandateType">
+        <xs:attribute name="name" type="xs:string" use="optional"/>
+        <xs:attribute name="type" type="xs:string" use="optional"/>
+        <xs:attribute name="recurrence" type="xs:string" use="optional"/>
+        <xs:attribute name="rule" type="xs:string" use="optional"/>
+        <xs:attribute name="startDate" type="xs:string" use="optional"/>
+        <xs:attribute name="endDate" type="xs:string" use="optional"/>
+        <xs:attribute name="expiry" type="xs:string" use="optional"/>
+        <xs:attribute name="revocable" type="xs:string" use="optional"/>
+        <xs:attribute name="shareToPayee" type="xs:string" use="optional"/>
+    </xs:complexType>
+
+    <xs:complexType name="AmountType">
+        <xs:attribute name="value" type="xs:string" use="optional"/>
+        <xs:attribute name="curr" type="xs:string" use="optional"/>
+    </xs:complexType>
+
+    <xs:complexType name="PayerType">
+        <xs:attribute name="addr" type="xs:string" use="optional"/>
+        <xs:attribute name="name" type="xs:string" use="optional"/>
+        <xs:attribute name="seqNum" type="xs:string" use="optional"/>
+        <xs:attribute name="type" type="xs:string" use="optional"/>
+        <xs:sequence>
+            <xs:element name="Info" type="InfoType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="InfoType">
+        <xs:sequence>
+            <xs:element name="Identity" type="IdentityType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="IdentityType">
+        <xs:attribute name="type" type="xs:string" use="optional"/>
+        <xs:attribute name="verifiedName" type="xs:string" use="optional"/>
+    </xs:complexType>
+
+    <xs:complexType name="PayeeType">
+        <xs:attribute name="addr" type="xs:string" use="optional"/>
+        <xs:attribute name="name" type="xs:string" use="optional"/>
+        <xs:attribute name="type" type="xs:string" use="optional"/>
+    </xs:complexType>
+
+</xs:schema>
+```

@@ -1,0 +1,39 @@
+package com.Bene.BeneficiaryBank.dto;
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class PayerTest {
+
+    @Test
+    public void testBindingModeGetterAndSetter() {
+        Payer payer = new Payer();
+        String expectedBindingMode = "SMS";
+        
+        payer.setBindingMode(expectedBindingMode);
+        String actualBindingMode = payer.getBindingMode();
+        
+        assertEquals(expectedBindingMode, actualBindingMode);
+    }
+
+    @Test
+    public void testBindingModeSetterWithNull() {
+        Payer payer = new Payer();
+        
+        payer.setBindingMode(null);
+        String actualBindingMode = payer.getBindingMode();
+        
+        assertEquals(null, actualBindingMode);
+    }
+
+    @Test
+    public void testBindingModeSetterWithInvalidValue() {
+        Payer payer = new Payer();
+        String invalidBindingMode = "INVALID_MODE";
+        
+        payer.setBindingMode(invalidBindingMode);
+        String actualBindingMode = payer.getBindingMode();
+        
+        assertEquals(invalidBindingMode, actualBindingMode);
+    }
+}

@@ -1,0 +1,39 @@
+{
+  "gitPatch": "```diff\n--- existing_code.java\n+++ updated_code.java\n@@ -1,6 +1,7 @@\n package com.payee.psp.dto;\n \n import jakarta.xml.bind.annotation.XmlAccessType;\n import jakarta.xml.bind.annotation.XmlAccessorType;\n import jakarta.xml.bind.annotation.XmlAttribute;\n+import jakarta.xml.bind.annotation.XmlElement;\n \n @XmlAccessorType(XmlAccessType.FIELD)\n public class Txn {\n@@ -12,6 +13,7 @@\n \n     @XmlElement(name = \"RiskScores\")\n     private RiskScores riskScores;\n+    @XmlAttribute(name = \"delegate\")\n+    private String delegate;\n \n     // --- Correct getter and setter ---\n     public RiskScores getRiskScores() { return riskScores; }\n     public void setRiskScores(RiskScores riskScores) { this.riskScores = riskScores; }\n     // --- Attributes ---\n \n     public Txn() {\n     }\n \n     public String getCustRef() {\n         return custRef;\n     }\n     public void setCustRef(String custRef) {\n         this.custRef = custRef;\n     }\n \n     public String getId() {\n         return id;\n     }\n     public void setId(String id) {\n         this.id = id;\n     }\n+    \n+    public String getDelegate() { return delegate; }\n+    public void setDelegate(String delegate) { this.delegate = delegate; }\n```",
+  "xsd": "",
+  "tests": "D:\\UPI-Hackathon-2\\Allagents\\Payee-agent\\artifacts\\CHG-056\\tests.txt",
+  "manifest": {
+    "changeId": "CHG-056",
+    "issuer": "NPCI_UPI_SWITCH",
+    "changeType": "ADD_XML_ATTRIBUTE",
+    "apiName": "ReqPay",
+    "summary": "add new tag delegate",
+    "impactedPaths": [
+      {
+        "xmlPath": "ReqPay.Txn",
+        "change": "ADD_XML_ATTRIBUTE",
+        "attribute": {
+          "name": "delegate",
+          "datatype": "xs:string",
+          "mandatory": false,
+          "allowedValues": [
+            "Y",
+            "N"
+          ]
+        }
+      }
+    ],
+    "xsd": {
+      "path": "http://localhost:8000/npciswitch/xsd/CHG-056/ReqPay.xsd"
+    },
+    "npciStatus": "READY_FOR_ADOPTION",
+    "timestamp": "2026-02-26T07:08:28.998450",
+    "openapi": {
+      "path": "http://localhost:8000/npciswitch/openapi/CHG-056/openapi.json"
+    },
+    "productNote": {
+      "path": "http://localhost:8000/npciswitch/product-note/CHG-056/product_note.md",
+      "summary": "add new tag delegate"
+    }
+  }
+}
