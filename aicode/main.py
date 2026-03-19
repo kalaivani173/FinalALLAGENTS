@@ -40,6 +40,14 @@ from product_note_generator import generate_product_note
 from rag_xsd_generator import load_samples
 from xml.etree import ElementTree as ET
 
+# Product Kit Generator router
+try:
+    from product_kit_router import router as product_kit_router
+    _PKG_AVAILABLE = True
+except Exception as _pkg_err:
+    product_kit_router = None
+    _PKG_AVAILABLE = False
+    print(f"[WARN] Product Kit Generator unavailable: {_pkg_err}")
 
 
 try:
@@ -60,6 +68,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# ---- Product Kit Generator router ----
+if _PKG_AVAILABLE and product_kit_router:
+    app.include_router(product_kit_router)
 
 # ---- Change request store (for Developer dashboard; survives across Product submit) ----
 class ChangeRequestRecord(BaseModel):

@@ -1,0 +1,36 @@
+{
+  "manifest": {
+    "changeId": "CR-2026-1770",
+    "issuer": "NPCI_UPI_SWITCH",
+    "changeType": "ADD_XML_ATTRIBUTE",
+    "apiName": "ReqMandate",
+    "summary": "subproduct",
+    "impactedPaths": [
+      {
+        "xmlPath": "ReqMandate.Head",
+        "change": "ADD_XML_ATTRIBUTE",
+        "attribute": {
+          "name": "note",
+          "datatype": "xs:string",
+          "mandatory": false,
+          "allowedValues": [
+            "y/n"
+          ]
+        }
+      }
+    ],
+    "xsd": {
+      "path": "http://localhost:8000/npciswitch/xsd/CR-2026-1770/ReqMandate.xsd"
+    },
+    "npciStatus": "READY_FOR_ADOPTION",
+    "timestamp": "2026-03-19T08:43:52.517391",
+    "openapi": {
+      "path": "http://localhost:8000/npciswitch/openapi-ui/CR-2026-1770"
+    },
+    "productNote": {
+      "path": "http://localhost:8000/npciswitch/product-note/CR-2026-1770/product_note.md",
+      "summary": "sbmd"
+    }
+  },
+  "signature": null
+}

@@ -46,22 +46,40 @@ html,body{height:100%;font-family:'Inter',sans-serif;background:var(--bg-deep);c
 
 /* ── APP ── */
 #appScreen{flex-direction:row;}
-.sidebar{width:250px;flex-shrink:0;background:var(--bg-card);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:18px 13px;gap:14px;overflow:hidden;position:relative;}
+/* ── SIDEBAR (collapsible) ── */
+.sidebar{width:250px;flex-shrink:0;background:var(--bg-card);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:18px 13px;gap:14px;overflow:hidden;position:relative;transition:width .28s cubic-bezier(.4,0,.2,1),padding .28s;}
+.sidebar.collapsed{width:56px;padding:14px 10px;}
 .sidebar::before{content:'';position:absolute;top:-50px;left:-50px;width:180px;height:180px;background:radial-gradient(circle,rgba(45,212,191,.09) 0%,transparent 70%);pointer-events:none;}
-.brand{display:flex;align-items:center;gap:9px;padding:0 5px;}
+.sb-top{display:flex;align-items:center;justify-content:space-between;}
+.sb-toggle{width:26px;height:26px;border-radius:7px;background:var(--bg-panel);border:1px solid var(--border-lit);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text-3);font-size:13px;flex-shrink:0;transition:all .18s;}
+.sb-toggle:hover{border-color:var(--teal);color:var(--teal);}
+.brand{display:flex;align-items:center;gap:9px;padding:0 5px;overflow:hidden;transition:opacity .2s;}
+.sidebar.collapsed .brand{opacity:0;width:0;padding:0;overflow:hidden;}
+.sidebar.collapsed .sb-top{justify-content:center;}
 .b-icon{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--teal),#0891b2);display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 0 14px rgba(45,212,191,.3);flex-shrink:0;}
-.b-name{font-size:15px;font-weight:700;}.b-sub{font-size:10px;color:var(--teal);letter-spacing:.14em;text-transform:uppercase;}
+.b-name{font-size:15px;font-weight:700;white-space:nowrap;}.b-sub{font-size:10px;color:var(--teal);letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;}
 .div{height:1px;background:var(--border);margin:0 3px;}
-.nl{font-size:10px;font-weight:600;color:var(--text-3);letter-spacing:.12em;text-transform:uppercase;padding:0 7px;}
-.ni{display:flex;align-items:center;gap:8px;padding:8px 9px;border-radius:8px;cursor:pointer;transition:all .18s;font-size:12.5px;color:var(--text-2);border:1px solid transparent;}
+.nl{font-size:10px;font-weight:600;color:var(--text-3);letter-spacing:.12em;text-transform:uppercase;padding:0 7px;white-space:nowrap;overflow:hidden;transition:opacity .18s;}
+.sidebar.collapsed .nl{opacity:0;height:0;margin:0;padding:0;}
+.ni{display:flex;align-items:center;gap:8px;padding:8px 9px;border-radius:8px;cursor:pointer;transition:all .18s;font-size:12.5px;color:var(--text-2);border:1px solid transparent;white-space:nowrap;overflow:hidden;position:relative;}
 .ni:hover{background:var(--bg-panel);color:var(--text-1);border-color:var(--border);}
 .ni.active{background:var(--teal-dim);color:var(--teal);border-color:rgba(45,212,191,.22);}
 .ni svg{width:14px;height:14px;flex-shrink:0;}
-.nbadge{margin-left:auto;background:var(--teal);color:var(--bg-deep);font-size:10px;font-weight:700;padding:1px 5px;border-radius:99px;}
-.u-card{margin-top:auto;padding:10px;background:var(--bg-panel);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;gap:9px;}
+.ni-label{transition:opacity .18s,width .18s;overflow:hidden;white-space:nowrap;}
+.sidebar.collapsed .ni-label{opacity:0;width:0;}
+.sidebar.collapsed .ni{justify-content:center;padding:9px;}
+.sidebar.collapsed .nbadge{position:absolute;top:4px;right:4px;font-size:8px;padding:1px 3px;}
+.nbadge{margin-left:auto;background:var(--teal);color:var(--bg-deep);font-size:10px;font-weight:700;padding:1px 5px;border-radius:99px;transition:all .18s;}
+/* Tooltip on collapsed sidebar items */
+.sidebar.collapsed .ni:hover::after{content:attr(data-tip);position:absolute;left:52px;top:50%;transform:translateY(-50%);background:var(--bg-panel);border:1px solid var(--border-lit);color:var(--text-1);padding:4px 10px;border-radius:6px;font-size:12px;white-space:nowrap;z-index:100;pointer-events:none;}
+.u-card{margin-top:auto;padding:10px;background:var(--bg-panel);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;gap:9px;overflow:hidden;transition:all .2s;}
+.sidebar.collapsed .u-card{padding:8px;justify-content:center;}
+.sidebar.collapsed .u-card > *:not(.u-av){display:none;}
 .u-av{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#7c3aed,#2563eb);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;}
-.u-name{font-size:12.5px;font-weight:600;}.u-role{font-size:10.5px;color:var(--text-3);}
-.lout{font-size:10.5px;color:var(--red);cursor:pointer;padding:2px 5px;border-radius:4px;border:1px solid rgba(248,113,113,.25);}
+.u-name{font-size:12.5px;font-weight:600;white-space:nowrap;}.u-role{font-size:10.5px;color:var(--text-3);white-space:nowrap;}
+.lout{font-size:10.5px;color:var(--red);cursor:pointer;padding:2px 5px;border-radius:4px;border:1px solid rgba(248,113,113,.25);white-space:nowrap;}
+.sidebar.collapsed .sp{display:none;}
+.sidebar.collapsed .div{margin:2px 0;}
 .dot{width:6px;height:6px;border-radius:99px;}
 .dot.g{background:var(--green);box-shadow:0 0 5px var(--green);animation:pulse 2s infinite;}
 .dot.y{background:var(--gold);}
@@ -211,6 +229,232 @@ select.ii option{background:var(--bg-panel);}
 @keyframes si{from{transform:translateX(26px);opacity:0}to{transform:translateX(0);opacity:1}}
 #toast.show{display:block;}
 #toast .tt{font-weight:700;color:var(--teal);margin-bottom:2px;}
+
+/* ── PRODUCT KIT GENERATOR ── */
+.pkg-wrap{flex:1;display:flex;flex-direction:column;min-width:0;overflow:hidden;}
+.pkg-header{padding:18px 26px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;flex-shrink:0;background:rgba(13,17,23,.85);backdrop-filter:blur(12px);}
+.pkg-header h2{font-size:17px;font-weight:700;flex:1;}
+.pkg-body{flex:1;overflow:hidden;display:flex;min-height:0;}
+/* Left: form pane */
+.pkg-form-pane{width:360px;flex-shrink:0;border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;}
+.pkg-form-scroll{flex:1;overflow-y:auto;padding:18px 20px;}
+.pkg-form-scroll::-webkit-scrollbar{width:3px;}
+.pkg-form-scroll::-webkit-scrollbar-thumb{background:var(--border-lit);}
+.pkg-section-title{font-size:10px;font-weight:700;color:var(--text-3);letter-spacing:.12em;text-transform:uppercase;margin:14px 0 8px;padding-bottom:5px;border-bottom:1px solid var(--border);}
+.pkg-section-title:first-child{margin-top:0;}
+.pkg-field{margin-bottom:12px;}
+.pkg-field label{display:block;font-size:11.5px;font-weight:500;color:var(--text-2);margin-bottom:5px;}
+.pkg-field label .req{color:var(--red);margin-left:2px;}
+.pkg-input,.pkg-textarea,.pkg-select{width:100%;background:var(--bg-panel);border:1px solid var(--border-lit);border-radius:8px;padding:8px 11px;color:var(--text-1);font-size:12.5px;font-family:inherit;outline:none;transition:border-color .2s;}
+.pkg-input:focus,.pkg-textarea:focus,.pkg-select:focus{border-color:var(--teal);}
+.pkg-textarea{resize:vertical;min-height:70px;line-height:1.5;}
+.pkg-select{cursor:pointer;}
+.pkg-tag-wrap{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px;}
+.pkg-tag{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:99px;font-size:11px;background:var(--teal-dim);border:1px solid rgba(45,212,191,.25);color:var(--teal);cursor:pointer;}
+.pkg-tag.inactive{background:var(--bg-panel);border-color:var(--border-lit);color:var(--text-3);}
+.pkg-tag.inactive:hover{border-color:var(--teal);color:var(--teal);}
+.pkg-constraints-list{display:flex;flex-direction:column;gap:5px;margin-top:5px;}
+.pkg-constraint-row{display:flex;gap:5px;align-items:center;}
+.pkg-constraint-row input{flex:1;background:var(--bg-panel);border:1px solid var(--border-lit);border-radius:6px;padding:6px 9px;color:var(--text-1);font-size:12px;font-family:inherit;outline:none;}
+.pkg-constraint-row input:focus{border-color:var(--teal);}
+.pkg-rm{width:22px;height:22px;border-radius:5px;background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.2);color:var(--red);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:12px;flex-shrink:0;}
+.pkg-add-btn{font-size:11.5px;color:var(--teal);cursor:pointer;padding:3px 0;background:none;border:none;font-family:inherit;}
+.pkg-form-footer{padding:14px 20px;border-top:1px solid var(--border);display:flex;gap:8px;flex-shrink:0;}
+/* Right: output pane */
+.pkg-output-pane{flex:1;display:flex;flex-direction:column;min-width:0;overflow:hidden;}
+.pkg-empty-state{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:var(--text-3);}
+.pkg-empty-state .pei{font-size:52px;}
+.pkg-empty-state h3{font-size:16px;font-weight:600;color:var(--text-2);}
+.pkg-empty-state p{font-size:13px;max-width:320px;text-align:center;line-height:1.6;}
+/* Output tabs */
+.pkg-tabs{display:flex;gap:2px;padding:10px 18px 0;border-bottom:1px solid var(--border);background:rgba(13,17,23,.5);flex-shrink:0;flex-wrap:wrap;}
+.pkg-tab{padding:7px 14px;font-size:12px;font-weight:500;color:var(--text-3);cursor:pointer;border:1px solid transparent;border-bottom:none;border-radius:8px 8px 0 0;transition:all .15s;}
+.pkg-tab:hover{color:var(--text-2);background:var(--bg-panel);}
+.pkg-tab.active{background:var(--bg-card);color:var(--teal);border-color:var(--border);border-bottom-color:var(--bg-card);}
+.pkg-tab-content{flex:1;overflow:hidden;display:flex;flex-direction:column;}
+.pkg-panel{flex:1;overflow-y:auto;padding:18px 22px;display:none;}
+.pkg-panel.active{display:block;}
+.pkg-panel::-webkit-scrollbar{width:4px;}
+.pkg-panel::-webkit-scrollbar-thumb{background:var(--border-lit);}
+/* Pre/code viewer */
+.pkg-text-view{background:var(--bg-panel);border:1px solid var(--border);border-radius:10px;padding:16px;font-size:12.5px;line-height:1.8;color:var(--text-2);white-space:pre-wrap;font-family:'Inter',sans-serif;}
+.pkg-json-view{background:var(--bg-deep);border:1px solid var(--border);border-radius:10px;padding:14px;font-size:11.5px;line-height:1.7;color:#a5f3fc;white-space:pre-wrap;font-family:'JetBrains Mono',monospace;overflow-x:auto;}
+.pkg-xml-view{background:var(--bg-deep);border:1px solid var(--border);border-radius:10px;padding:14px;font-size:11px;line-height:1.7;color:#86efac;white-space:pre-wrap;font-family:'JetBrains Mono',monospace;overflow-x:auto;}
+.pkg-section-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.pkg-section-h h3{font-size:13.5px;font-weight:700;}
+/* Test cases */
+.tc-card{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:13px 15px;margin-bottom:10px;}
+.tc-top{display:flex;align-items:center;gap:9px;margin-bottom:8px;}
+.tc-id{font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:700;color:var(--teal);}
+.tc-cat{font-size:10.5px;padding:2px 8px;border-radius:99px;font-weight:600;border:1px solid;}
+.tc-cat.Positive{border-color:rgba(52,211,153,.35);color:var(--green);background:rgba(52,211,153,.08);}
+.tc-cat.Negative{border-color:rgba(248,113,113,.35);color:var(--red);background:rgba(248,113,113,.08);}
+.tc-cat.Edge{border-color:rgba(251,191,36,.35);color:var(--gold);background:rgba(251,191,36,.08);}
+.tc-title{font-size:13px;font-weight:600;color:var(--text-1);margin-bottom:6px;}
+.tc-row{display:flex;gap:6px;margin-bottom:4px;font-size:12px;}
+.tc-key{color:var(--text-3);flex-shrink:0;width:110px;}
+.tc-val{color:var(--text-2);word-break:break-word;}
+/* Fields table */
+.pkg-table{width:100%;border-collapse:collapse;font-size:12px;}
+.pkg-table th{padding:8px 10px;text-align:left;font-size:10px;font-weight:700;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid var(--border);}
+.pkg-table td{padding:8px 10px;border-bottom:1px solid rgba(31,41,55,.5);color:var(--text-2);vertical-align:top;}
+.pkg-table tr:last-child td{border-bottom:none;}
+.pkg-table tr:hover td{background:rgba(45,212,191,.03);}
+.pkg-mand.yes{color:var(--green);font-weight:600;}
+.pkg-mand.no{color:var(--text-3);}
+/* Endpoint card */
+.ep-card{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;margin-bottom:12px;overflow:hidden;}
+.ep-header{display:flex;align-items:center;gap:10px;padding:12px 15px;cursor:pointer;user-select:none;}
+.ep-method{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;padding:3px 8px;border-radius:5px;}
+.ep-method.POST{background:rgba(52,211,153,.15);color:var(--green);border:1px solid rgba(52,211,153,.3);}
+.ep-method.GET{background:rgba(96,165,250,.12);color:var(--blue);border:1px solid rgba(96,165,250,.28);}
+.ep-path{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-1);flex:1;}
+.ep-desc{font-size:11.5px;color:var(--text-3);}
+.ep-body{padding:0 15px 14px;display:none;border-top:1px solid var(--border);}
+.ep-body.open{display:block;}
+/* Critic report */
+.critic-score{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--bg-panel);border:1px solid var(--border);border-radius:10px;margin-bottom:14px;}
+.critic-num{font-size:36px;font-weight:800;}
+.critic-num.good{color:var(--green);}
+.critic-num.ok{color:var(--gold);}
+.critic-num.bad{color:var(--red);}
+.critic-issue{display:flex;gap:9px;padding:9px 12px;border-radius:8px;margin-bottom:7px;border:1px solid;}
+.critic-issue.critical{background:rgba(248,113,113,.06);border-color:rgba(248,113,113,.2);}
+.critic-issue.warning{background:rgba(251,191,36,.06);border-color:rgba(251,191,36,.2);}
+.critic-issue.info{background:rgba(96,165,250,.06);border-color:rgba(96,165,250,.2);}
+.ci-sev{font-size:10px;font-weight:700;text-transform:uppercase;flex-shrink:0;margin-top:1px;}
+.ci-sev.critical{color:var(--red);}
+.ci-sev.warning{color:var(--gold);}
+.ci-sev.info{color:var(--blue);}
+/* Loading overlay */
+.pkg-loading{position:absolute;inset:0;background:rgba(3,7,18,.85);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;z-index:10;backdrop-filter:blur(4px);}
+.pkg-loading.hidden{display:none;}
+.pkg-spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--teal);border-radius:50%;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pkg-loading p{font-size:14px;color:var(--text-2);}
+/* History panel */
+.pkg-hist-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;cursor:pointer;transition:background .15s;border:1px solid transparent;}
+.pkg-hist-item:hover{background:var(--bg-panel);border-color:var(--border);}
+.pkg-hist-item.active{background:var(--teal-dim);border-color:rgba(45,212,191,.22);}
+.pkg-hist-name{font-size:13px;font-weight:600;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pkg-hist-meta{font-size:10.5px;color:var(--text-3);}
+/* Copy button */
+.copy-btn{padding:3px 9px;border-radius:5px;font-size:11px;font-weight:600;background:var(--bg-panel);border:1px solid var(--border-lit);color:var(--text-2);cursor:pointer;}
+.copy-btn:hover{border-color:var(--teal);color:var(--teal);}
+/* Section source toggle (AI / Upload) */
+.src-toggle{display:flex;gap:4px;background:var(--bg-deep);border:1px solid var(--border);border-radius:8px;padding:3px;}
+.src-btn{padding:4px 12px;border-radius:5px;font-size:11.5px;font-weight:600;cursor:pointer;border:none;font-family:inherit;background:none;color:var(--text-3);transition:all .15s;}
+.src-btn.active{background:var(--teal);color:#000;}
+.section-toolbar{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.section-toolbar h3{font-size:13.5px;font-weight:700;flex:1;}
+.upload-zone{border:2px dashed var(--border-lit);border-radius:8px;padding:16px;text-align:center;cursor:pointer;transition:border-color .2s;font-size:13px;color:var(--text-3);}
+.upload-zone:hover{border-color:var(--teal);color:var(--teal);}
+.upload-zone.has-file{border-color:var(--green);color:var(--green);}
+.upload-zone input[type=file]{display:none;}
+.dl-btn{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:6px;font-size:11.5px;font-weight:600;cursor:pointer;border:1px solid;transition:all .15s;}
+.dl-btn.pdf{border-color:rgba(248,113,113,.35);color:var(--red);background:rgba(248,113,113,.07);}
+.dl-btn.pdf:hover{background:rgba(248,113,113,.15);}
+.dl-btn.zip{border-color:rgba(45,212,191,.35);color:var(--teal);background:var(--teal-dim);}
+.dl-btn.zip:hover{box-shadow:0 0 10px rgba(45,212,191,.25);}
+.src-badge{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:99px;font-size:10px;font-weight:700;}
+.src-badge.ai{background:rgba(96,165,250,.1);border:1px solid rgba(96,165,250,.25);color:var(--blue);}
+.src-badge.upload{background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.25);color:var(--green);}
+
+/* ── PKG INPUT / OUTPUT SCREENS ── */
+.pkg-input-screen{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;overflow-y:auto;}
+.pkg-input-screen.hidden{display:none!important;}
+.pkg-wizard{width:100%;max-width:680px;display:flex;flex-direction:column;gap:0;}
+.pkg-wizard-header{text-align:center;margin-bottom:32px;}
+.pkg-wizard-header h2{font-size:22px;font-weight:800;margin-bottom:6px;}
+.pkg-wizard-header p{font-size:13.5px;color:var(--text-2);line-height:1.6;}
+.pkg-wizard-badges{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px;}
+.pkg-wizard-badge{display:flex;align-items:center;gap:5px;padding:5px 12px;border-radius:99px;font-size:11.5px;font-weight:500;background:var(--bg-panel);border:1px solid var(--border-lit);color:var(--text-3);}
+.pkg-output-screen{flex:1;display:flex;flex-direction:column;min-width:0;overflow:hidden;}
+.pkg-output-screen.hidden{display:none!important;}
+.pkg-output-back{display:flex;align-items:center;gap:8px;padding:12px 22px;border-bottom:1px solid var(--border);background:rgba(13,17,23,.85);backdrop-filter:blur(10px);flex-shrink:0;}
+.pkg-output-back button{display:flex;align-items:center;gap:5px;padding:6px 13px;border-radius:7px;background:var(--bg-panel);border:1px solid var(--border-lit);color:var(--text-2);font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;}
+.pkg-output-back button:hover{border-color:var(--teal);color:var(--teal);}
+
+/* ── CHANGE MANAGEMENT TAB ── */
+.tab-panel{display:flex;flex:1;min-width:0;height:100%;overflow:hidden;}
+.tab-panel.hidden{display:none!important;}
+.cm-wrap{flex:1;display:flex;flex-direction:column;min-width:0;overflow:hidden;}
+.cm-header{padding:20px 26px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-shrink:0;background:rgba(13,17,23,.85);backdrop-filter:blur(12px);}
+.cm-header h2{font-size:17px;font-weight:700;flex:1;}
+.cm-stats{display:flex;gap:8px;flex-wrap:wrap;}
+.stat-chip{display:flex;align-items:center;gap:5px;padding:4px 11px;border-radius:99px;font-size:11px;font-weight:600;border:1px solid;}
+.stat-chip.total{border-color:var(--border-lit);color:var(--text-2);background:var(--bg-panel);}
+.stat-chip.pending{border-color:rgba(251,191,36,.4);color:var(--gold);background:rgba(251,191,36,.08);}
+.stat-chip.deployed{border-color:rgba(52,211,153,.4);color:var(--green);background:rgba(52,211,153,.08);}
+.cm-toolbar{padding:12px 26px;border-bottom:1px solid var(--border);display:flex;gap:10px;flex-shrink:0;align-items:center;}
+.cm-toolbar input{flex:1;background:var(--bg-panel);border:1px solid var(--border-lit);border-radius:8px;padding:8px 12px;color:var(--text-1);font-size:13px;font-family:inherit;outline:none;transition:border-color .2s;}
+.cm-toolbar input:focus{border-color:var(--teal);}
+.cm-toolbar select{background:var(--bg-panel);border:1px solid var(--border-lit);border-radius:8px;padding:8px 12px;color:var(--text-2);font-size:12.5px;font-family:inherit;outline:none;cursor:pointer;}
+.cr-btn{padding:7px 14px;border-radius:8px;font-size:12px;font-weight:600;border:none;cursor:pointer;font-family:inherit;transition:all .2s;display:flex;align-items:center;gap:5px;}
+.cr-btn.pri{background:linear-gradient(135deg,var(--teal),#0891b2);color:#000;}
+.cr-btn.pri:hover{box-shadow:0 0 14px rgba(45,212,191,.4);}
+.cr-btn.ghost{background:var(--bg-panel);color:var(--text-2);border:1px solid var(--border-lit);}
+.cr-btn.ghost:hover{border-color:var(--teal);color:var(--teal);}
+.cr-btn.danger{background:rgba(248,113,113,.1);color:var(--red);border:1px solid rgba(248,113,113,.25);}
+.cr-btn.danger:hover{background:rgba(248,113,113,.2);}
+.cm-body{flex:1;overflow:hidden;display:flex;position:relative;}
+.cr-list-wrap{flex:1;overflow-y:auto;padding:18px 26px;}
+.cr-list-wrap::-webkit-scrollbar{width:4px;}
+.cr-list-wrap::-webkit-scrollbar-thumb{background:var(--border-lit);border-radius:2px;}
+.cr-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:200px;gap:14px;color:var(--text-3);}
+.cr-empty .ei{font-size:44px;}
+.cr-empty p{font-size:13.5px;}
+/* CR Cards */
+.cr-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:15px 18px;margin-bottom:11px;cursor:pointer;transition:all .18s;position:relative;overflow:hidden;}
+.cr-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:2px 0 0 2px;background:var(--border);}
+.cr-card.s-draft::before{background:#6b7280;}
+.cr-card.s-submitted::before,.cr-card.s-pending::before{background:var(--gold);}
+.cr-card.s-approved::before{background:var(--green);}
+.cr-card.s-deployed::before{background:var(--teal);}
+.cr-card.s-rejected::before{background:var(--red);}
+.cr-card:hover{border-color:var(--border-lit);background:var(--bg-panel);transform:translateY(-1px);box-shadow:0 4px 18px rgba(0,0,0,.25);}
+.cr-card.selected{border-color:rgba(45,212,191,.35);background:rgba(45,212,191,.04);}
+.cr-card-top{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
+.cr-card-id{font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:700;color:var(--teal);}
+.cr-card-type{font-size:10.5px;background:rgba(96,165,250,.1);border:1px solid rgba(96,165,250,.2);color:var(--blue);padding:2px 8px;border-radius:99px;white-space:nowrap;}
+.cr-card-date{margin-left:auto;font-size:11px;color:var(--text-3);}
+.cr-card-desc{font-size:13px;color:var(--text-1);margin-bottom:9px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.cr-card-meta{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.cr-meta-item{display:flex;align-items:center;gap:4px;font-size:11.5px;color:var(--text-3);}
+.cr-meta-item b{color:var(--text-2);font-weight:500;}
+/* Status badges */
+.sbadge{display:inline-flex;align-items:center;gap:3px;padding:2px 9px;border-radius:99px;font-size:10.5px;font-weight:600;border:1px solid;}
+.sbadge.draft{border-color:rgba(107,114,128,.4);color:#9ca3af;background:rgba(107,114,128,.1);}
+.sbadge.submitted,.sbadge.pending{border-color:rgba(251,191,36,.4);color:var(--gold);background:rgba(251,191,36,.08);}
+.sbadge.approved{border-color:rgba(52,211,153,.4);color:var(--green);background:rgba(52,211,153,.08);}
+.sbadge.deployed{border-color:rgba(45,212,191,.4);color:var(--teal);background:var(--teal-dim);}
+.sbadge.rejected{border-color:rgba(248,113,113,.4);color:var(--red);background:rgba(248,113,113,.08);}
+.sbadge.inprogress{border-color:rgba(96,165,250,.4);color:var(--blue);background:rgba(96,165,250,.08);}
+/* Detail panel */
+.cr-detail-panel{width:400px;flex-shrink:0;border-left:1px solid var(--border);background:var(--bg-card);display:flex;flex-direction:column;overflow:hidden;transition:width .25s ease;}
+.cr-detail-panel.hidden{width:0;border-left:none;overflow:hidden;}
+.cdp-header{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.cdp-header h3{font-size:13px;font-weight:700;flex:1;font-family:'JetBrains Mono',monospace;color:var(--teal);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.cdp-close{width:26px;height:26px;border-radius:6px;background:var(--bg-panel);border:1px solid var(--border-lit);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;color:var(--text-2);flex-shrink:0;}
+.cdp-close:hover{border-color:var(--red);color:var(--red);}
+.cdp-body{flex:1;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:12px;}
+.cdp-body::-webkit-scrollbar{width:3px;}
+.cdp-body::-webkit-scrollbar-thumb{background:var(--border-lit);border-radius:2px;}
+.cdp-section{background:var(--bg-panel);border:1px solid var(--border);border-radius:10px;padding:12px 13px;}
+.cdp-sec-title{font-size:9.5px;font-weight:700;color:var(--text-3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:9px;display:flex;align-items:center;gap:5px;}
+.cdp-row{display:flex;justify-content:space-between;align-items:flex-start;padding:4px 0;border-bottom:1px solid rgba(31,41,55,.7);}
+.cdp-row:last-child{border-bottom:none;}
+.cdp-key{font-size:11.5px;color:var(--text-3);flex-shrink:0;margin-right:8px;}
+.cdp-val{font-size:11.5px;font-weight:500;color:var(--text-1);text-align:right;word-break:break-word;max-width:220px;}
+.cdp-val code{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--teal);}
+.file-chip{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:6px;background:rgba(96,165,250,.08);border:1px solid rgba(96,165,250,.2);color:var(--blue);font-size:10.5px;margin:3px 3px 0 0;font-family:'JetBrains Mono',monospace;word-break:break-all;}
+.cdp-actions{padding:12px 16px;border-top:1px solid var(--border);display:flex;gap:8px;flex-shrink:0;flex-wrap:wrap;}
+.tl-item{display:flex;gap:9px;padding:5px 0;}
+.tl-dot{width:7px;height:7px;border-radius:99px;background:var(--teal);margin-top:4px;flex-shrink:0;}
+.tl-dot.done{background:var(--green);}.tl-dot.err{background:var(--red);}.tl-dot.warn{background:var(--gold);}
+.tl-content{flex:1;}
+.tl-text{font-size:12px;color:var(--text-2);line-height:1.5;}
+.tl-time{font-size:10px;color:var(--text-3);margin-top:1px;}
 </style>
 </head>
 <body>
@@ -250,13 +494,16 @@ select.ii option{background:var(--bg-panel);}
 <!-- APP -->
 <div class="screen hidden" id="appScreen">
   <aside class="sidebar">
-    <div class="brand"><div class="b-icon">⚡</div><div><div class="b-name">ChangeIQ</div><div class="b-sub">NPCI · UPI</div></div></div>
+    <div class="sb-top">
+      <div class="brand"><div class="b-icon">⚡</div><div><div class="b-name">ChangeIQ</div><div class="b-sub">NPCI · UPI</div></div></div>
+      <div class="sb-toggle" onclick="toggleSidebar()" title="Collapse sidebar">&#9776;</div>
+    </div>
     <div class="div"></div>
     <div class="nl">Menu</div>
-    <div class="ni active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>AI Assistant <span class="nbadge">LIVE</span></div>
-    <div class="ni" onclick="toast('Change Requests','Opening...')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>Change Requests</div>
-    <div class="ni" onclick="toast('Developer Portal','Opening...')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>Developer Portal</div>
-    <div class="ni" onclick="toast('Partners','Opening...')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0"/></svg>Partners</div>
+    <div class="ni active" id="nav-ai" data-tip="AI Assistant" onclick="showTab('ai')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg><span class="ni-label">AI Assistant</span> <span class="nbadge">LIVE</span></div>
+    <div class="ni" id="nav-cr" data-tip="Change Management" onclick="showTab('cr')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg><span class="ni-label">Change Management</span> <span class="nbadge" id="crNavBadge" style="display:none">0</span></div>
+    <div class="ni" id="nav-pkg" data-tip="Product Kit Generator" onclick="showTab('pkg')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg><span class="ni-label">Product Kit Generator</span></div>
+    <div class="ni" data-tip="Partners" onclick="toast('Partners','Coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0"/></svg><span class="ni-label">Partners</span></div>
     <div class="div"></div>
     <div class="sp"><div class="dot g"></div>Backend API<span style="margin-left:auto;color:var(--green);font-weight:600;" id="beStatus">Checking…</span></div>
     <div class="sp"><div class="dot g" style="animation-delay:.5s"></div>AI Agent<span style="margin-left:auto;color:var(--green);font-weight:600;">Ready</span></div>
@@ -268,6 +515,8 @@ select.ii option{background:var(--bg-panel);}
     </div>
   </aside>
 
+  <!-- ═══ TAB: AI ASSISTANT ═══ -->
+  <div id="tab-ai" class="tab-panel">
   <div class="main">
     <div class="topbar">
       <div class="topbar-t"><span>ChangeIQ</span> · UPI Change Management Platform</div>
@@ -346,7 +595,340 @@ select.ii option{background:var(--bg-panel);}
       <div class="cr-r"><span class="cr-k">Status</span><span class="cr-v" id="ciStat">—</span></div>
     </div>
   </aside>
-</div>
+  </div><!-- /tab-ai -->
+
+  <!-- ═══ TAB: CHANGE MANAGEMENT ═══ -->
+  <div id="tab-cr" class="tab-panel hidden">
+    <div class="cm-wrap">
+      <!-- Header -->
+      <div class="cm-header">
+        <div>
+          <h2>📋 Change Management</h2>
+          <div style="font-size:11.5px;color:var(--text-3);margin-top:2px">All change requests raised through the AI Assistant</div>
+        </div>
+        <div class="cm-stats">
+          <div class="stat-chip total">📊 Total: <strong id="cmTotal">0</strong></div>
+          <div class="stat-chip pending">⏳ Pending: <strong id="cmPending">0</strong></div>
+          <div class="stat-chip deployed">✅ Deployed: <strong id="cmDeployed">0</strong></div>
+        </div>
+        <button class="cr-btn ghost" onclick="loadCrList(true)" style="margin-left:8px">🔄 Refresh</button>
+      </div>
+      <!-- Toolbar -->
+      <div class="cm-toolbar">
+        <input type="text" id="cmSearch" placeholder="🔍  Search by CR ID, description, API name…" oninput="filterCrList()"/>
+        <select id="cmFilterStatus" onchange="filterCrList()">
+          <option value="">All Statuses</option>
+          <option value="Draft">Draft</option>
+          <option value="Submitted">Submitted / Pending</option>
+          <option value="Approved">Approved</option>
+          <option value="Deployed">Deployed</option>
+          <option value="Rejected">Rejected</option>
+        </select>
+        <select id="cmFilterType" onchange="filterCrList()">
+          <option value="">All Types</option>
+          <option value="ADD_XML_ATTRIBUTE">Field Addition</option>
+          <option value="ADD_NEW_API">New API</option>
+          <option value="ADD_ELEMENT">Element Addition</option>
+        </select>
+        <button class="cr-btn ghost" onclick="showTab('ai')" title="New Change Request">✏️ New CR</button>
+      </div>
+      <!-- Body: list + detail -->
+      <div class="cm-body">
+        <div class="cr-list-wrap" id="crListWrap">
+          <div class="cr-empty" id="crEmpty" style="display:none">
+            <div class="ei">📭</div>
+            <p>No change requests yet. Use the AI Assistant to create one!</p>
+            <button class="cr-btn pri" onclick="showTab('ai')">✏️ Start New Change Request</button>
+          </div>
+          <div id="crCards"></div>
+        </div>
+        <!-- Detail panel (slide-in from right) -->
+        <div class="cr-detail-panel hidden" id="crDetailPanel">
+          <div class="cdp-header">
+            <h3 id="cdpTitle">CR Details</h3>
+            <div class="cdp-close" onclick="closeCrDetail()" title="Close">✕</div>
+          </div>
+          <div class="cdp-body" id="cdpBody">
+            <div style="color:var(--text-3);font-size:13px;text-align:center;padding:40px 0">Select a change request to view details</div>
+          </div>
+          <div class="cdp-actions" id="cdpActions"></div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /tab-cr -->
+
+  <!-- ═══ TAB: PRODUCT KIT GENERATOR ═══ -->
+  <div id="tab-pkg" class="tab-panel hidden">
+    <div class="pkg-wrap" style="position:relative">
+
+      <!-- Loading overlay -->
+      <div class="pkg-loading hidden" id="pkgLoading">
+        <div class="pkg-spinner"></div>
+        <p id="pkgLoadingMsg">Generating Product Kit with AI…</p>
+        <div style="font-size:11.5px;color:var(--text-3)">This may take 15–30 seconds</div>
+      </div>
+
+      <!-- ── SCREEN 1: Input wizard (full-width, centered) ── -->
+      <div class="pkg-input-screen" id="pkgInputScreen">
+        <div class="pkg-wizard">
+          <div class="pkg-wizard-header">
+            <h2>📦 Product Kit Generator</h2>
+            <p>Link a Change Request, fill in the feature details and let AI generate a complete NPCI-compliant documentation kit.</p>
+            <div class="pkg-wizard-badges">
+              <span class="pkg-wizard-badge"><span style="color:var(--teal)">📜</span> Circular</span>
+              <span class="pkg-wizard-badge"><span style="color:var(--blue)">📝</span> Product Note</span>
+              <span class="pkg-wizard-badge"><span style="color:var(--green)">⚙️</span> Tech Specs</span>
+              <span class="pkg-wizard-badge"><span style="color:var(--gold)">🧪</span> Test Cases</span>
+              <span class="pkg-wizard-badge"><span style="color:#c084fc">📐</span> XSD</span>
+              <span class="pkg-wizard-badge"><span>📤</span> Payloads</span>
+            </div>
+          </div>
+
+          <div class="pkg-section-title" style="margin-top:0">🔗 Change Request Link</div>
+          <div class="pkg-field">
+            <label>Linked Change Request <span style="font-weight:400;color:var(--text-3)">(optional)</span></label>
+            <select class="pkg-select" id="pkgCrSelect" onchange="onCrSelect()">
+              <option value="">— Select a CR (or leave blank) —</option>
+            </select>
+            <div style="font-size:10.5px;color:var(--text-3);margin-top:4px">Linking a CR auto-fills the feature name and names the ZIP download</div>
+          </div>
+
+          <div class="pkg-section-title">📋 Feature Details</div>
+          <div class="pkg-field">
+            <label>Feature Name <span class="req">*</span></label>
+            <input class="pkg-input" id="pkgFeatName" placeholder="e.g. UPI Credit Line on RuPay"/>
+          </div>
+          <div style="display:flex;gap:12px">
+            <div class="pkg-field" style="flex:1">
+              <label>Version</label>
+              <input class="pkg-input" id="pkgVersion" placeholder="e.g. 1.0" value="1.0"/>
+            </div>
+          </div>
+          <div class="pkg-field">
+            <label>Description <span class="req">*</span></label>
+            <textarea class="pkg-textarea" id="pkgDesc" rows="4" placeholder="Describe the feature — what it does, why it's needed, and its impact on the UPI ecosystem…"></textarea>
+          </div>
+
+          <div class="pkg-section-title">⚙️ Constraints & Compliance</div>
+          <div class="pkg-field">
+            <label>Constraints</label>
+            <div class="pkg-constraints-list" id="pkgConstraintsList">
+              <div class="pkg-constraint-row">
+                <input type="text" placeholder="e.g. Max transaction limit ₹1,00,000 per day"/>
+                <div class="pkg-rm" onclick="removeConstraint(this)">✕</div>
+              </div>
+            </div>
+            <button class="pkg-add-btn" onclick="addConstraint()">+ Add Constraint</button>
+          </div>
+          <div class="pkg-field">
+            <label>Regulatory Notes</label>
+            <textarea class="pkg-textarea" id="pkgRegNotes" rows="3" placeholder="RBI circular references, compliance requirements, data localisation rules…"></textarea>
+          </div>
+
+          <div style="display:flex;gap:10px;margin-top:8px">
+            <button class="cr-btn ghost" style="flex:1" onclick="resetPkgForm()">🗑 Clear</button>
+            <button class="cr-btn ghost" onclick="togglePkgHistory()" style="flex:1">📂 History</button>
+            <button class="cr-btn pri" style="flex:2" onclick="generateProductKit()" id="pkgGenBtn">⚡ Generate Product Kit</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── SCREEN 2: Output (full-width) ── -->
+      <div class="pkg-output-screen hidden" id="pkgOutputScreen">
+        <!-- Back bar -->
+        <div class="pkg-output-back">
+          <button onclick="backToPkgInput()">← Back</button>
+          <div style="flex:1;display:flex;align-items:center;gap:8px">
+            <span id="pkgOutputTitle" style="font-size:14px;font-weight:700;color:var(--text-1)">—</span>
+            <span id="pkgOutputVer" style="font-size:11px;color:var(--text-3)"></span>
+            <span id="pkgOutputStatus" class="sbadge draft" style="margin-left:4px">draft</span>
+          </div>
+          <button class="cr-btn ghost" onclick="reviewProductKit()" id="pkgReviewBtn" style="font-family:inherit">🔍 Review</button>
+          <button class="cr-btn ghost" onclick="showRefineModal()" id="pkgRefineBtn" style="font-family:inherit">✏️ Refine</button>
+          <button class="cr-btn ghost" onclick="exportProductKit()" id="pkgExportBtn" style="font-family:inherit">📄 JSON</button>
+          <button class="dl-btn zip" onclick="downloadCompleteZip()" id="pkgZipBtn" style="font-family:inherit">📦 Download Kit ZIP</button>
+          <button class="cr-btn pri" onclick="approveKit()" id="pkgApproveBtn" style="display:none;font-family:inherit">✅ Approve</button>
+        </div>
+
+        <!-- Output tabs and content (now fills full width) -->
+        <div id="pkgOutputArea" style="flex:1;display:flex;flex-direction:column;overflow:hidden">
+            <!-- Output tabs -->
+            <div class="pkg-tabs">
+              <div class="pkg-tab active" onclick="switchPkgTab('circular')">📜 Circular</div>
+              <div class="pkg-tab" onclick="switchPkgTab('product_note')">📝 Product Note</div>
+              <div class="pkg-tab" onclick="switchPkgTab('tech_specs')">⚙️ Tech Specs</div>
+              <div class="pkg-tab" onclick="switchPkgTab('test_cases')">🧪 Test Cases</div>
+              <div class="pkg-tab" onclick="switchPkgTab('xsd')">📐 XSD</div>
+              <div class="pkg-tab" onclick="switchPkgTab('payloads')">📤 Payloads</div>
+              <div class="pkg-tab" id="pkgReviewTab" onclick="switchPkgTab('review')" style="display:none">🔍 Review</div>
+            </div>
+
+            <!-- Tab panels -->
+            <div class="pkg-tab-content" style="overflow:hidden">
+              <!-- Circular -->
+              <div class="pkg-panel active" id="pkgPanel-circular">
+                <div class="section-toolbar">
+                  <h3>📜 NPCI Circular</h3>
+                  <span class="src-badge ai" id="srcBadge-circular">🤖 AI</span>
+                  <div class="src-toggle">
+                    <button class="src-btn active" id="srcAI-circular" onclick="setSectionSource('circular','ai')">🤖 AI</button>
+                    <button class="src-btn" id="srcUp-circular" onclick="setSectionSource('circular','upload')">📂 Upload</button>
+                  </div>
+                  <button class="copy-btn" onclick="copySection('circular')">📋 Copy</button>
+                  <button class="dl-btn pdf" onclick="downloadSectionPdf('circular')">⬇️ PDF</button>
+                </div>
+                <div id="uploadZone-circular" style="display:none" class="upload-zone" onclick="triggerUpload('circular')">
+                  <div id="uploadLabel-circular">📎 Click to upload Circular (PDF / DOCX / TXT)</div>
+                  <input type="file" id="uploadFile-circular" accept=".pdf,.docx,.txt" onchange="handleSectionUpload('circular', this)"/>
+                </div>
+                <div class="pkg-text-view" id="pkgCircular">—</div>
+              </div>
+
+              <!-- Product Note -->
+              <div class="pkg-panel" id="pkgPanel-product_note">
+                <div class="section-toolbar">
+                  <h3>📝 Product Note</h3>
+                  <span class="src-badge ai" id="srcBadge-product_note">🤖 AI</span>
+                  <div class="src-toggle">
+                    <button class="src-btn active" id="srcAI-product_note" onclick="setSectionSource('product_note','ai')">🤖 AI</button>
+                    <button class="src-btn" id="srcUp-product_note" onclick="setSectionSource('product_note','upload')">📂 Upload</button>
+                  </div>
+                  <button class="copy-btn" onclick="copySection('product_note')">📋 Copy</button>
+                  <button class="dl-btn pdf" onclick="downloadSectionPdf('product_note')">⬇️ PDF</button>
+                </div>
+                <div id="uploadZone-product_note" style="display:none" class="upload-zone" onclick="triggerUpload('product_note')">
+                  <div id="uploadLabel-product_note">📎 Click to upload Product Note (PDF / DOCX / TXT)</div>
+                  <input type="file" id="uploadFile-product_note" accept=".pdf,.docx,.txt" onchange="handleSectionUpload('product_note', this)"/>
+                </div>
+                <div class="pkg-text-view" id="pkgProductNote">—</div>
+              </div>
+
+              <!-- Tech Specs -->
+              <div class="pkg-panel" id="pkgPanel-tech_specs">
+                <div class="section-toolbar">
+                  <h3>⚙️ Technical Specifications</h3>
+                  <span class="src-badge ai" id="srcBadge-technical_specifications">🤖 AI</span>
+                  <div class="src-toggle">
+                    <button class="src-btn active" id="srcAI-technical_specifications" onclick="setSectionSource('technical_specifications','ai')">🤖 AI</button>
+                    <button class="src-btn" id="srcUp-technical_specifications" onclick="setSectionSource('technical_specifications','upload')">📂 Upload</button>
+                  </div>
+                  <button class="copy-btn" onclick="copySection('tech_specs')">📋 Copy</button>
+                  <button class="dl-btn pdf" onclick="downloadSectionPdf('technical_specifications')">⬇️ PDF</button>
+                </div>
+                <div id="uploadZone-technical_specifications" style="display:none" class="upload-zone" onclick="triggerUpload('technical_specifications')">
+                  <div id="uploadLabel-technical_specifications">📎 Click to upload Tech Spec (PDF / DOCX)</div>
+                  <input type="file" id="uploadFile-technical_specifications" accept=".pdf,.docx,.json" onchange="handleSectionUpload('technical_specifications', this)"/>
+                </div>
+                <div id="pkgTechSpecs"></div>
+              </div>
+
+              <!-- Test Cases -->
+              <div class="pkg-panel" id="pkgPanel-test_cases">
+                <div class="section-toolbar">
+                  <h3>🧪 Test Cases <span id="pkgTcCount" style="font-size:12px;color:var(--text-3);font-weight:400"></span></h3>
+                  <span class="src-badge ai" id="srcBadge-test_cases">🤖 AI</span>
+                  <div class="src-toggle">
+                    <button class="src-btn active" id="srcAI-test_cases" onclick="setSectionSource('test_cases','ai')">🤖 AI</button>
+                    <button class="src-btn" id="srcUp-test_cases" onclick="setSectionSource('test_cases','upload')">📂 Upload</button>
+                  </div>
+                  <button class="copy-btn" onclick="copySection('test_cases')">📋 JSON</button>
+                  <button class="dl-btn pdf" onclick="downloadSectionPdf('test_cases')">⬇️ PDF</button>
+                </div>
+                <div id="uploadZone-test_cases" style="display:none" class="upload-zone" onclick="triggerUpload('test_cases')">
+                  <div id="uploadLabel-test_cases">📎 Click to upload Test Cases (PDF / XLSX / JSON)</div>
+                  <input type="file" id="uploadFile-test_cases" accept=".pdf,.xlsx,.json,.csv" onchange="handleSectionUpload('test_cases', this)"/>
+                </div>
+                <div id="pkgTestCases"></div>
+              </div>
+
+              <!-- XSD -->
+              <div class="pkg-panel" id="pkgPanel-xsd">
+                <div class="section-toolbar">
+                  <h3>📐 XSD Schema</h3>
+                  <span class="src-badge ai" id="srcBadge-xsd">🤖 AI</span>
+                  <div class="src-toggle">
+                    <button class="src-btn active" id="srcAI-xsd" onclick="setSectionSource('xsd','ai')">🤖 AI</button>
+                    <button class="src-btn" id="srcUp-xsd" onclick="setSectionSource('xsd','upload')">📂 Upload</button>
+                  </div>
+                  <button class="copy-btn" onclick="copySection('xsd')">📋 Copy</button>
+                  <button class="dl-btn pdf" onclick="downloadSectionPdf('xsd')">⬇️ PDF</button>
+                </div>
+                <div id="uploadZone-xsd" style="display:none" class="upload-zone" onclick="triggerUpload('xsd')">
+                  <div id="uploadLabel-xsd">📎 Click to upload XSD file (.xsd / .xml)</div>
+                  <input type="file" id="uploadFile-xsd" accept=".xsd,.xml,.pdf" onchange="handleSectionUpload('xsd', this)"/>
+                </div>
+                <div class="pkg-xml-view" id="pkgXsd">—</div>
+              </div>
+
+              <!-- Sample Payloads -->
+              <div class="pkg-panel" id="pkgPanel-payloads">
+                <div class="section-toolbar">
+                  <h3>📤 Sample Payloads</h3>
+                  <span class="src-badge ai" id="srcBadge-sample_payloads">🤖 AI</span>
+                  <div class="src-toggle">
+                    <button class="src-btn active" id="srcAI-sample_payloads" onclick="setSectionSource('sample_payloads','ai')">🤖 AI</button>
+                    <button class="src-btn" id="srcUp-sample_payloads" onclick="setSectionSource('sample_payloads','upload')">📂 Upload</button>
+                  </div>
+                  <button class="copy-btn" onclick="copySection('payloads')">📋 JSON</button>
+                  <button class="dl-btn pdf" onclick="downloadSectionPdf('sample_payloads')">⬇️ PDF</button>
+                </div>
+                <div id="uploadZone-sample_payloads" style="display:none" class="upload-zone" onclick="triggerUpload('sample_payloads')">
+                  <div id="uploadLabel-sample_payloads">📎 Click to upload Payloads (JSON / PDF)</div>
+                  <input type="file" id="uploadFile-sample_payloads" accept=".json,.pdf,.txt" onchange="handleSectionUpload('sample_payloads', this)"/>
+                </div>
+                <div id="pkgPayloads"></div>
+              </div>
+
+              <!-- Review -->
+              <div class="pkg-panel" id="pkgPanel-review">
+                <div class="section-toolbar"><h3>🔍 Review Report</h3></div>
+                <div id="pkgReviewContent"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- History sidebar (overlay) -->
+        <div id="pkgHistPane" style="position:absolute;right:0;top:0;bottom:0;width:300px;background:var(--bg-card);border-left:1px solid var(--border);display:none;flex-direction:column;z-index:5;overflow:hidden;">
+          <div style="padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px">
+            <div style="font-size:13px;font-weight:700;flex:1">📂 Saved Kits</div>
+            <div class="cdp-close" onclick="togglePkgHistory()">✕</div>
+          </div>
+          <div style="flex:1;overflow-y:auto;padding:10px 12px" id="pkgHistList">
+            <div style="color:var(--text-3);font-size:12.5px;text-align:center;padding:30px 0">No kits yet</div>
+          </div>
+        </div>
+    </div>
+
+    <!-- Refine modal -->
+    <div id="pkgRefineModal" style="position:fixed;inset:0;background:rgba(3,7,18,.8);z-index:100;display:none;align-items:center;justify-content:center;">
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:24px;width:480px;max-width:95vw">
+        <div style="font-size:15px;font-weight:700;margin-bottom:14px">✏️ Refine Product Kit</div>
+        <div class="pkg-field">
+          <label>Section to refine</label>
+          <select class="pkg-select" id="refineSection">
+            <option value="">Entire Kit</option>
+            <option value="circular">Circular</option>
+            <option value="product_note">Product Note</option>
+            <option value="technical_specifications">Technical Specifications</option>
+            <option value="test_cases">Test Cases</option>
+            <option value="xsd">XSD</option>
+            <option value="sample_payloads">Sample Payloads</option>
+          </select>
+        </div>
+        <div class="pkg-field">
+          <label>Your feedback / instructions <span class="req">*</span></label>
+          <textarea class="pkg-textarea" id="refineFeedback" rows="4" placeholder="e.g. Add more negative test cases for timeout scenarios…"></textarea>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <button class="cr-btn ghost" style="flex:1" onclick="document.getElementById('pkgRefineModal').style.display='none'">Cancel</button>
+          <button class="cr-btn pri" style="flex:2" onclick="submitRefine()">✏️ Refine</button>
+        </div>
+      </div>
+    </div>
+  </div><!-- /tab-pkg -->
+
+</div><!-- /appScreen -->
 <div id="toast"><div class="tt" id="tt"></div><div id="tb"></div></div>
 
 <script>
@@ -809,13 +1391,22 @@ async function realSubmit(){
     await step('📝','Save CR',()=>apiPost('/npciswitch/change-requests',{
       changeId: S.crId,
       description: S.description,
+      productDetails: S.productDetails,
       productNoteSummary: S.productDetails,
       changeType: 'field-addition',   // deploy endpoint needs this exact value
       apiName: S.apiName,
+      userId: S.abbr || S.username,
+      attributeName: S.attributeName,
+      datatype: S.datatype,
+      mandatory: S.mandatory,
+      allowedValues: S.allowedValues,
+      xmlPath: `${S.apiName}.${S.selectedTag}`,
       currentStatus: 'Pending Approval',
       receivedDate: new Date().toISOString(),
       updatedOn: new Date().toISOString(),
     }));
+    // Update Change Management badge after CR saved
+    try { const _br = await apiGet('/npciswitch/change-requests'); _allCrs = _br.data||[]; const _bb=document.getElementById('crNavBadge'); _bb.textContent=_allCrs.length; _bb.style.display=''; } catch(e){}
 
     // ─────────────────────────────────────────────────────
     // 2. Generate XSD spec (AI-powered)
@@ -1213,6 +1804,831 @@ function ar(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,
 
 // Check backend on load
 setTimeout(checkBackend,1000);
+
+// ═══════════════════════════════════════════════════════════
+// CHANGE MANAGEMENT TAB
+// ═══════════════════════════════════════════════════════════
+
+let _allCrs = [];   // raw data from backend
+let _activeCrId = null;
+
+// ── Sidebar collapse ──────────────────────────────────────
+function toggleSidebar() {
+  document.querySelector('.sidebar').classList.toggle('collapsed');
+}
+
+// ── Tab switching ─────────────────────────────────────────
+function showTab(name) {
+  // Update sidebar nav active state
+  document.querySelectorAll('.sidebar .ni').forEach(n => n.classList.remove('active'));
+  const navEl = document.getElementById(`nav-${name}`);
+  if(navEl) navEl.classList.add('active');
+
+  // Show/hide panels
+  document.getElementById('tab-ai').classList.toggle('hidden', name !== 'ai');
+  document.getElementById('tab-cr').classList.toggle('hidden', name !== 'cr');
+  document.getElementById('tab-pkg').classList.toggle('hidden', name !== 'pkg');
+
+  if(name === 'cr') loadCrList();
+  if(name === 'pkg') {
+    // Always return to input screen when switching to PKG tab
+    document.getElementById('pkgInputScreen').classList.remove('hidden');
+    document.getElementById('pkgOutputScreen').classList.add('hidden');
+    loadPkgHistory();
+    loadCrsIntoPkgSelector();
+  }
+}
+
+// ── PKG back to input screen ──────────────────────────────
+function backToPkgInput() {
+  document.getElementById('pkgOutputScreen').classList.add('hidden');
+  document.getElementById('pkgInputScreen').classList.remove('hidden');
+}
+
+// ── Load CR list from backend ─────────────────────────────
+async function loadCrList(showToast=false) {
+  try {
+    const res = await apiGet('/npciswitch/change-requests');
+    _allCrs = (res.data || []);
+    renderCrList(_allCrs);
+    updateCmStats(_allCrs);
+    // Update badge on sidebar
+    const badge = document.getElementById('crNavBadge');
+    if(_allCrs.length > 0){
+      badge.textContent = _allCrs.length;
+      badge.style.display = '';
+    } else {
+      badge.style.display = 'none';
+    }
+    if(showToast) toast('Refreshed', `${_allCrs.length} change request(s) loaded`);
+  } catch(e) {
+    document.getElementById('crCards').innerHTML = `<div class="cr-empty"><div class="ei">⚠️</div><p>Failed to load change requests:<br><code style="font-size:11px">${e.message}</code></p></div>`;
+    document.getElementById('crEmpty').style.display = 'none';
+  }
+}
+
+// ── Update stats chips ────────────────────────────────────
+function updateCmStats(list) {
+  document.getElementById('cmTotal').textContent = list.length;
+  const pending = list.filter(c => {
+    const s = (c.currentStatus||'').toLowerCase();
+    return s === 'submitted' || s === 'pending' || s === 'draft';
+  }).length;
+  const deployed = list.filter(c => (c.currentStatus||'').toLowerCase() === 'deployed').length;
+  document.getElementById('cmPending').textContent = pending;
+  document.getElementById('cmDeployed').textContent = deployed;
+}
+
+// ── Filter list by search + status + type ────────────────
+function filterCrList() {
+  const q = (document.getElementById('cmSearch').value || '').toLowerCase();
+  const st = (document.getElementById('cmFilterStatus').value || '').toLowerCase();
+  const ty = document.getElementById('cmFilterType').value || '';
+  const filtered = _allCrs.filter(c => {
+    const matchQ = !q || (c.changeId||'').toLowerCase().includes(q)
+      || (c.description||'').toLowerCase().includes(q)
+      || (c.apiName||'').toLowerCase().includes(q)
+      || (c.userId||'').toLowerCase().includes(q);
+    const matchSt = !st || (c.currentStatus||'').toLowerCase().includes(st);
+    const matchTy = !ty || (c.changeType||'') === ty;
+    return matchQ && matchSt && matchTy;
+  });
+  renderCrList(filtered);
+}
+
+// ── Render CR cards ───────────────────────────────────────
+function renderCrList(list) {
+  const container = document.getElementById('crCards');
+  const empty = document.getElementById('crEmpty');
+  if(!list || list.length === 0) {
+    container.innerHTML = '';
+    empty.style.display = 'flex';
+    return;
+  }
+  empty.style.display = 'none';
+  container.innerHTML = list.map(cr => {
+    const status = cr.currentStatus || 'Draft';
+    const sClass = statusClass(status);
+    const typeLabel = typeLabel_fn(cr.changeType);
+    const date = fmtDate(cr.receivedDate || cr.updatedOn);
+    const filesCount = (cr.files || []).length;
+    const selClass = _activeCrId === cr.changeId ? ' selected' : '';
+    return `<div class="cr-card s-${sClass}${selClass}" onclick="showCrDetail('${cr.changeId}')" id="card-${cr.changeId}">
+      <div class="cr-card-top">
+        <span class="cr-card-id">${cr.changeId || '—'}</span>
+        <span class="cr-card-type">${typeLabel}</span>
+        <span class="sbadge ${sClass}">${statusIcon(status)} ${status}</span>
+        <span class="cr-card-date">${date}</span>
+      </div>
+      <div class="cr-card-desc">${cr.description || '<em style="color:var(--text-3)">No description</em>'}</div>
+      <div class="cr-card-meta">
+        ${cr.apiName ? `<div class="cr-meta-item">🔌 API: <b>${cr.apiName}</b></div>` : ''}
+        ${cr.userId ? `<div class="cr-meta-item">👤 <b>${cr.userId}</b></div>` : ''}
+        ${filesCount > 0 ? `<div class="cr-meta-item">☕ <b>${filesCount} Java file(s)</b></div>` : ''}
+        ${cr.reviewComments ? `<div class="cr-meta-item">💬 <b>Has comments</b></div>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── Show detail panel ─────────────────────────────────────
+async function showCrDetail(changeId) {
+  _activeCrId = changeId;
+  // Highlight selected card
+  document.querySelectorAll('.cr-card').forEach(c => c.classList.remove('selected'));
+  const card = document.getElementById(`card-${changeId}`);
+  if(card) card.classList.add('selected');
+
+  // Open panel
+  const panel = document.getElementById('crDetailPanel');
+  panel.classList.remove('hidden');
+  document.getElementById('cdpTitle').textContent = changeId;
+  document.getElementById('cdpBody').innerHTML = `<div style="color:var(--text-3);font-size:13px;text-align:center;padding:40px 0">⏳ Loading details…</div>`;
+  document.getElementById('cdpActions').innerHTML = '';
+
+  try {
+    const res = await apiGet(`/npciswitch/change-requests/${changeId}`);
+    const cr = res.data || res;
+    renderCrDetail(cr);
+  } catch(e) {
+    document.getElementById('cdpBody').innerHTML = `<div style="color:var(--red);font-size:13px;padding:20px">Failed to load: ${e.message}</div>`;
+  }
+}
+
+function closeCrDetail() {
+  _activeCrId = null;
+  document.getElementById('crDetailPanel').classList.add('hidden');
+  document.querySelectorAll('.cr-card').forEach(c => c.classList.remove('selected'));
+}
+
+// ── Render detail panel content ───────────────────────────
+function renderCrDetail(cr) {
+  const status = cr.currentStatus || 'Draft';
+  const sClass = statusClass(status);
+  const files = cr.files || [];
+  const timeline = buildTimeline(cr);
+
+  const body = `
+    <!-- Info section -->
+    <div class="cdp-section">
+      <div class="cdp-sec-title">📋 Change Request Info</div>
+      <div class="cdp-row"><span class="cdp-key">CR ID</span><span class="cdp-val"><code>${cr.changeId||'—'}</code></span></div>
+      <div class="cdp-row"><span class="cdp-key">Status</span><span class="cdp-val"><span class="sbadge ${sClass}">${statusIcon(status)} ${status}</span></span></div>
+      <div class="cdp-row"><span class="cdp-key">Type</span><span class="cdp-val">${typeLabel_fn(cr.changeType)}</span></div>
+      <div class="cdp-row"><span class="cdp-key">API Name</span><span class="cdp-val"><code>${cr.apiName||'—'}</code></span></div>
+      <div class="cdp-row"><span class="cdp-key">Submitted By</span><span class="cdp-val">${cr.userId||'—'}</span></div>
+      <div class="cdp-row"><span class="cdp-key">Submitted On</span><span class="cdp-val">${fmtDate(cr.receivedDate)}</span></div>
+      <div class="cdp-row"><span class="cdp-key">Last Updated</span><span class="cdp-val">${fmtDate(cr.updatedOn)}</span></div>
+    </div>
+
+    <!-- Description -->
+    <div class="cdp-section">
+      <div class="cdp-sec-title">📝 Description</div>
+      <div style="font-size:12.5px;color:var(--text-1);line-height:1.6">${cr.description||'<em style="color:var(--text-3)">No description</em>'}</div>
+      ${cr.productDetails ? `<div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--border);font-size:12px;color:var(--text-2);line-height:1.6"><strong style="color:var(--text-3);font-size:10.5px;text-transform:uppercase;letter-spacing:.08em">Product Details</strong><br>${cr.productDetails}</div>` : ''}
+    </div>
+
+    <!-- Technical Details -->
+    ${(cr.attributeName || cr.datatype || cr.xmlPath) ? `
+    <div class="cdp-section">
+      <div class="cdp-sec-title">⚙️ Technical Details</div>
+      ${cr.attributeName ? `<div class="cdp-row"><span class="cdp-key">Attribute</span><span class="cdp-val"><code>${cr.attributeName}</code></span></div>` : ''}
+      ${cr.datatype ? `<div class="cdp-row"><span class="cdp-key">Data Type</span><span class="cdp-val">${cr.datatype}</span></div>` : ''}
+      ${cr.xmlPath ? `<div class="cdp-row"><span class="cdp-key">XML Path</span><span class="cdp-val"><code style="font-size:9.5px;word-break:break-all">${cr.xmlPath}</code></span></div>` : ''}
+      ${cr.mandatory !== undefined ? `<div class="cdp-row"><span class="cdp-key">Mandatory</span><span class="cdp-val">${cr.mandatory ? '✅ Yes' : '❌ No'}</span></div>` : ''}
+      ${cr.allowedValues ? `<div class="cdp-row"><span class="cdp-key">Allowed Values</span><span class="cdp-val"><code>${cr.allowedValues}</code></span></div>` : ''}
+    </div>` : ''}
+
+    <!-- Java Files -->
+    ${files.length > 0 ? `
+    <div class="cdp-section">
+      <div class="cdp-sec-title">☕ Generated Java Files (${files.length})</div>
+      <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px">
+        ${files.map(f => `<span class="file-chip" title="${f.targetPath||f.className||''}">☕ ${f.className||f.targetPath||'unknown'}</span>`).join('')}
+      </div>
+      ${files[0] && files[0].diff ? `<div style="font-size:10.5px;color:var(--text-3)">Diff preview for ${files[0].className}:</div>
+      <pre style="margin-top:6px;background:var(--bg-deep);border:1px solid var(--border);border-radius:6px;padding:8px;font-size:10px;overflow-x:auto;max-height:120px;white-space:pre-wrap;color:var(--text-2)">${escHtml(files[0].diff).slice(0,400)}${files[0].diff.length>400?'\n…':''}
+</pre>` : ''}
+    </div>` : ''}
+
+    <!-- Review Comments -->
+    ${cr.reviewComments ? `
+    <div class="cdp-section">
+      <div class="cdp-sec-title">💬 Review Comments</div>
+      <div style="font-size:12.5px;color:var(--text-2);line-height:1.6">${cr.reviewComments}</div>
+    </div>` : ''}
+
+    <!-- Timeline -->
+    <div class="cdp-section">
+      <div class="cdp-sec-title">🕒 Timeline</div>
+      ${timeline}
+    </div>
+  `;
+
+  document.getElementById('cdpBody').innerHTML = body;
+
+  // Actions
+  const acts = [];
+  acts.push(`<button class="cr-btn ghost" onclick="showTab('ai');toast('AI Assistant','Switched to AI tab')" style="flex:1">💬 Open in Chat</button>`);
+  if(status === 'Deployed') {
+    acts.push(`<button class="cr-btn pri" style="flex:1" onclick="toast('Deployed','This CR has been deployed ✅')">✅ Deployed</button>`);
+  }
+  document.getElementById('cdpActions').innerHTML = acts.join('');
+}
+
+// ── Build timeline from CR data ───────────────────────────
+function buildTimeline(cr) {
+  const events = [];
+  if(cr.receivedDate) events.push({dot:'done', text:'CR Created', time: fmtDate(cr.receivedDate)});
+  if(cr.changeType)   events.push({dot:'done', text:`Type selected: ${typeLabel_fn(cr.changeType)}`, time:''});
+  if(cr.apiName)      events.push({dot:'done', text:`XSD uploaded for <code>${cr.apiName}</code>`, time:''});
+  const s = (cr.currentStatus||'').toLowerCase();
+  if(s === 'submitted' || s === 'pending' || s === 'approved' || s === 'deployed' || s === 'rejected') {
+    events.push({dot:'done', text:'Submitted for review', time:''});
+  }
+  if(s === 'approved' || s === 'deployed') events.push({dot:'done', text:'Approved by developer', time:''});
+  if(s === 'deployed') events.push({dot:'done', text:'Deployed to javacoderepo', time: fmtDate(cr.updatedOn)});
+  if(s === 'rejected') events.push({dot:'err', text:'Rejected', time: fmtDate(cr.updatedOn)});
+  if(events.length === 0) events.push({dot:'warn', text:'Draft — in progress', time:''});
+
+  return events.map(ev =>
+    `<div class="tl-item"><div class="tl-dot ${ev.dot}"></div><div class="tl-content"><div class="tl-text">${ev.text}</div>${ev.time?`<div class="tl-time">${ev.time}</div>`:''}</div></div>`
+  ).join('');
+}
+
+// ── Helpers ───────────────────────────────────────────────
+function statusClass(s) {
+  const m = {'draft':'draft','submitted':'submitted','pending':'pending','approved':'approved','deployed':'deployed','rejected':'rejected','in progress':'inprogress','inprogress':'inprogress'};
+  return m[(s||'').toLowerCase()] || 'draft';
+}
+function statusIcon(s) {
+  const m = {'Draft':'📝','Submitted':'⏳','Pending':'⏳','Approved':'✅','Deployed':'🚀','Rejected':'❌','In Progress':'🔄'};
+  return m[s] || '📋';
+}
+function typeLabel_fn(t) {
+  const m = {'ADD_XML_ATTRIBUTE':'🔧 Field Addition','ADD_NEW_API':'🆕 New API','ADD_ELEMENT':'📦 Element Addition'};
+  return m[t] || (t || 'Unknown');
+}
+function fmtDate(d) {
+  if(!d) return '—';
+  try {
+    const dt = new Date(d);
+    if(isNaN(dt)) return d;
+    return dt.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}) + ' ' + dt.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+  } catch(e){ return d; }
+}
+function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+// ═══════════════════════════════════════════════════════════
+// PRODUCT KIT GENERATOR
+// ═══════════════════════════════════════════════════════════
+
+let _pkgCurrentKit = null;   // { id, product_kit, status, feature_name, version }
+let _pkgCurrentTab = 'circular';
+
+// ── CR Selector — populate from backend on PKG tab open ──
+async function loadCrsIntoPkgSelector() {
+  const sel = document.getElementById('pkgCrSelect');
+  if(!sel) return;
+  try {
+    const res = await apiGet('/npciswitch/change-requests');
+    const list = res.data || [];
+    sel.innerHTML = '<option value="">— Select a CR (or leave blank) —</option>';
+    list.forEach(cr => {
+      const opt = document.createElement('option');
+      opt.value = cr.changeId;
+      opt.textContent = `${cr.changeId} — ${(cr.description||'').slice(0,50)} [${cr.currentStatus||'Draft'}]`;
+      opt.dataset.desc = cr.description || '';
+      opt.dataset.api  = cr.apiName || '';
+      sel.appendChild(opt);
+    });
+  } catch(e){}
+}
+function onCrSelect() {
+  const sel = document.getElementById('pkgCrSelect');
+  const opt = sel.options[sel.selectedIndex];
+  if(!opt || !opt.value) return;
+  // Auto-fill feature name from CR description/apiName
+  const featInput = document.getElementById('pkgFeatName');
+  if(!featInput.value) {
+    featInput.value = opt.dataset.api || opt.dataset.desc.slice(0,60) || opt.value;
+  }
+}
+
+// ── Section source toggle (AI / Upload) ──────────────────
+const _sectionSources = {};  // section -> 'ai' | 'upload'
+
+function setSectionSource(section, mode) {
+  _sectionSources[section] = mode;
+  const aiBtnEl  = document.getElementById(`srcAI-${section}`);
+  const upBtnEl  = document.getElementById(`srcUp-${section}`);
+  const zoneEl   = document.getElementById(`uploadZone-${section}`);
+  const badgeEl  = document.getElementById(`srcBadge-${section}`);
+  if(aiBtnEl) { aiBtnEl.classList.toggle('active', mode === 'ai'); }
+  if(upBtnEl) { upBtnEl.classList.toggle('active', mode === 'upload'); }
+  if(zoneEl)  { zoneEl.style.display = mode === 'upload' ? 'block' : 'none'; }
+  if(badgeEl) {
+    badgeEl.className = `src-badge ${mode === 'upload' ? 'upload' : 'ai'}`;
+    badgeEl.textContent = mode === 'upload' ? '📂 User' : '🤖 AI';
+  }
+}
+
+function triggerUpload(section) {
+  document.getElementById(`uploadFile-${section}`).click();
+}
+
+async function handleSectionUpload(section, input) {
+  if(!_pkgCurrentKit){ toast('Error','Generate a kit first'); return; }
+  if(!input.files || !input.files[0]) return;
+  const file = input.files[0];
+  const label = document.getElementById(`uploadLabel-${section}`);
+  const zone  = document.getElementById(`uploadZone-${section}`);
+
+  label.textContent = '⏳ Uploading…';
+  const fd = new FormData();
+  fd.append('section', section);
+  fd.append('file', file);
+  try {
+    const r = await fetch(`${API}/product-kit/${_pkgCurrentKit.id}/upload-section`, {
+      method:'POST', body: fd
+    });
+    if(!r.ok){ const t=await r.text(); throw new Error(`HTTP ${r.status}: ${t}`); }
+    const res = await r.json();
+    label.textContent = `✅ Uploaded: ${file.name} (${(res.size/1024).toFixed(1)} KB)`;
+    zone.classList.add('has-file');
+    if(!_pkgCurrentKit.uploaded_files) _pkgCurrentKit.uploaded_files = {};
+    _pkgCurrentKit.uploaded_files[section] = { filename: file.name, source: 'user_upload' };
+    toast('Uploaded!', `${section} replaced with your file`);
+  } catch(e) {
+    label.textContent = `❌ Upload failed: ${e.message}`;
+    toast('Error', e.message);
+  }
+}
+
+// ── Per-section PDF download ──────────────────────────────
+function downloadSectionPdf(section) {
+  if(!_pkgCurrentKit){ toast('Error','No kit available'); return; }
+  const url = `${API}/product-kit/${_pkgCurrentKit.id}/pdf/${section}`;
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${_pkgCurrentKit.change_request_id || _pkgCurrentKit.id}_${section}.pdf`;
+  a.click();
+  toast('Downloading…', `${section}.pdf`);
+}
+
+// ── Complete Kit ZIP download ─────────────────────────────
+function downloadCompleteZip() {
+  if(!_pkgCurrentKit){ toast('Error','No kit available'); return; }
+  const crId = _pkgCurrentKit.change_request_id || _pkgCurrentKit.id;
+  const url = `${API}/product-kit/${_pkgCurrentKit.id}/download-zip`;
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${crId}_ProductKit.zip`;
+  a.click();
+  toast('Downloading ZIP…', `${crId}_ProductKit_v${_pkgCurrentKit.version||'1.0'}.zip — all 6 PDFs`);
+}
+
+// ── Tab switching for PKG output ──────────────────────────
+function switchPkgTab(name) {
+  _pkgCurrentTab = name;
+  document.querySelectorAll('.pkg-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.pkg-panel').forEach(p => p.classList.remove('active'));
+  // Find the clicked tab and activate
+  document.querySelectorAll('.pkg-tab').forEach(t => { if(t.getAttribute('onclick') && t.getAttribute('onclick').includes(`'${name}'`)) t.classList.add('active'); });
+  const panel = document.getElementById(`pkgPanel-${name}`);
+  if(panel) panel.classList.add('active');
+}
+
+// ── Tag toggle (actors / flows) ───────────────────────────
+function toggleTag(el) {
+  el.classList.toggle('active');
+  el.classList.toggle('inactive');
+}
+function getActiveTags(containerId) {
+  return [...document.querySelectorAll(`#${containerId} .pkg-tag.active`)].map(t => t.textContent.trim());
+}
+
+// ── Constraints management ────────────────────────────────
+function addConstraint(val='') {
+  const list = document.getElementById('pkgConstraintsList');
+  const row = document.createElement('div');
+  row.className = 'pkg-constraint-row';
+  row.innerHTML = `<input type="text" placeholder="e.g. Transaction limit per day" value="${escHtml(val)}"/><div class="pkg-rm" onclick="removeConstraint(this)">✕</div>`;
+  list.appendChild(row);
+}
+function removeConstraint(btn) {
+  const list = document.getElementById('pkgConstraintsList');
+  if(list.children.length > 1) btn.closest('.pkg-constraint-row').remove();
+}
+function getConstraints() {
+  return [...document.querySelectorAll('#pkgConstraintsList input')].map(i => i.value.trim()).filter(Boolean);
+}
+
+// ── Form reset ────────────────────────────────────────────
+function resetPkgForm() {
+  document.getElementById('pkgFeatName').value = '';
+  document.getElementById('pkgVersion').value = '1.0';
+  document.getElementById('pkgDesc').value = '';
+  document.getElementById('pkgRegNotes').value = '';
+  const sel = document.getElementById('pkgCrSelect');
+  if(sel) sel.value = '';
+  const cl = document.getElementById('pkgConstraintsList');
+  cl.innerHTML = '<div class="pkg-constraint-row"><input type="text" placeholder="e.g. Max transaction limit ₹1,00,000 per day"/><div class="pkg-rm" onclick="removeConstraint(this)">✕</div></div>';
+}
+
+// ── Generate ──────────────────────────────────────────────
+async function generateProductKit() {
+  const featName = document.getElementById('pkgFeatName').value.trim();
+  const desc = document.getElementById('pkgDesc').value.trim();
+  if(!featName){ toast('Required', 'Please enter a Feature Name'); return; }
+  if(!desc){ toast('Required', 'Please enter a Description'); return; }
+
+  const crId = document.getElementById('pkgCrSelect').value || '';
+  const payload = {
+    feature_name: featName,
+    version: document.getElementById('pkgVersion').value.trim() || '1.0',
+    description: desc,
+    constraints: getConstraints(),
+    regulatory_notes: document.getElementById('pkgRegNotes').value.trim(),
+    change_request_id: crId || null,
+  };
+
+  // Show loading overlay
+  document.getElementById('pkgLoading').classList.remove('hidden');
+  document.getElementById('pkgLoadingMsg').textContent = 'Generating Product Kit with AI…';
+  document.getElementById('pkgGenBtn').disabled = true;
+
+  try {
+    const res = await apiPost('/product-kit/generate', payload);
+    _pkgCurrentKit = res;
+    renderPkgOutput(res);
+    // Switch to output screen
+    document.getElementById('pkgInputScreen').classList.add('hidden');
+    document.getElementById('pkgOutputScreen').classList.remove('hidden');
+    loadPkgHistory();
+    toast('Generated!', `Product Kit for "${featName}" is ready`);
+  } catch(e) {
+    toast('Error', `Generation failed: ${e.message}`);
+  } finally {
+    document.getElementById('pkgGenBtn').disabled = false;
+    document.getElementById('pkgLoading').classList.add('hidden');
+  }
+}
+
+// ── Render output ─────────────────────────────────────────
+function renderPkgOutput(res) {
+  const kit = res.product_kit || {};
+  _pkgCurrentKit = res;
+
+  // Store CR id on current kit
+  if(res.change_request_id) _pkgCurrentKit.change_request_id = res.change_request_id;
+
+  // Meta bar
+  const crTag = res.change_request_id ? ` <span style="font-size:11px;color:var(--teal);font-family:'JetBrains Mono',monospace">[${res.change_request_id}]</span>` : '';
+  document.getElementById('pkgOutputTitle').innerHTML = (res.feature_name || kit.feature_name || '—') + crTag;
+  document.getElementById('pkgOutputVer').textContent = `v${res.version || '1.0'}`;
+  const sb = document.getElementById('pkgOutputStatus');
+  sb.textContent = res.status || 'draft';
+  sb.className = `sbadge ${statusClass(res.status || 'draft')}`;
+  const approveBtn = document.getElementById('pkgApproveBtn');
+  approveBtn.style.display = res.status === 'approved' ? 'none' : '';
+
+  // Reset all section sources to AI (default)
+  ['circular','product_note','technical_specifications','test_cases','xsd','sample_payloads'].forEach(s => {
+    setSectionSource(s, 'ai');
+    // Restore upload badge if file already uploaded
+    const uf = res.uploaded_files || {};
+    if(uf[s]) { setSectionSource(s, 'upload'); }
+  });
+
+  // Circular
+  document.getElementById('pkgCircular').textContent = kit.circular || '—';
+
+  // Product Note
+  document.getElementById('pkgProductNote').textContent = kit.product_note || '—';
+
+  // Tech Specs
+  renderTechSpecs(kit.technical_specifications);
+
+  // Test Cases
+  renderTestCases(kit.test_cases || []);
+
+  // XSD
+  document.getElementById('pkgXsd').textContent = kit.xsd || '—';
+
+  // Sample Payloads
+  renderPayloads(kit.sample_payloads || {});
+
+  // Switch to circular tab
+  switchPkgTab('circular');
+}
+
+function renderTechSpecs(spec) {
+  if(!spec){ document.getElementById('pkgTechSpecs').innerHTML = '<div style="color:var(--text-3)">No technical specifications generated.</div>'; return; }
+  const eps = spec.endpoints || [];
+  const fields = spec.field_definitions || [];
+
+  const html = `
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px">
+      <div class="stat-chip total">🔌 API: <strong>${spec.api_name||'—'}</strong></div>
+      <div class="stat-chip total">📌 Version: <strong>${spec.version||'—'}</strong></div>
+      <div class="stat-chip total">🔗 Base: <code style="font-size:10.5px">${spec.base_url||'—'}</code></div>
+    </div>
+    ${spec.flow_description ? `<div style="background:var(--bg-panel);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:14px;font-size:12.5px;color:var(--text-2);white-space:pre-line;line-height:1.7"><strong style="color:var(--text-1);font-size:11px;text-transform:uppercase;letter-spacing:.08em">Flow Description</strong><br><br>${escHtml(spec.flow_description)}</div>` : ''}
+    <div style="font-size:11px;font-weight:700;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px">Endpoints (${eps.length})</div>
+    ${eps.map((ep, i) => `
+      <div class="ep-card">
+        <div class="ep-header" onclick="toggleEp(${i})">
+          <span class="ep-method ${ep.method||'POST'}">${ep.method||'POST'}</span>
+          <span class="ep-path">${ep.path||'—'}</span>
+          <span class="ep-desc">${ep.description||''}</span>
+          <span style="font-size:12px;color:var(--text-3)">▾</span>
+        </div>
+        <div class="ep-body" id="ep-body-${i}">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px">
+            <div>
+              <div style="font-size:10px;font-weight:700;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">REQUEST</div>
+              <div class="pkg-json-view" style="max-height:180px">${syntaxJson(ep.request||{})}</div>
+            </div>
+            <div>
+              <div style="font-size:10px;font-weight:700;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">RESPONSE</div>
+              <div class="pkg-json-view" style="max-height:180px">${syntaxJson(ep.response||{})}</div>
+            </div>
+          </div>
+          ${ep.error_codes && ep.error_codes.length ? `
+          <div style="margin-top:10px">
+            <div style="font-size:10px;font-weight:700;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">ERROR CODES</div>
+            <table class="pkg-table"><thead><tr><th>Code</th><th>HTTP</th><th>Message</th></tr></thead><tbody>
+            ${ep.error_codes.map(ec => `<tr><td><code style="color:var(--red)">${ec.code}</code></td><td>${ec.http_status||'—'}</td><td>${ec.message}</td></tr>`).join('')}
+            </tbody></table>
+          </div>` : ''}
+        </div>
+      </div>
+    `).join('')}
+    ${fields.length ? `
+    <div style="font-size:11px;font-weight:700;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;margin:14px 0 8px">Field Definitions (${fields.length})</div>
+    <table class="pkg-table"><thead><tr><th>Field</th><th>Type</th><th>Mandatory</th><th>Validation</th><th>Description</th></tr></thead><tbody>
+    ${fields.map(f => `<tr>
+      <td><code style="color:var(--teal)">${f.field}</code></td>
+      <td style="color:var(--blue)">${f.type}</td>
+      <td class="pkg-mand ${f.mandatory?'yes':'no'}">${f.mandatory?'✅ Yes':'No'}</td>
+      <td style="font-size:11px">${f.validation||'—'}</td>
+      <td>${f.description||'—'}</td>
+    </tr>`).join('')}
+    </tbody></table>` : ''}
+  `;
+  document.getElementById('pkgTechSpecs').innerHTML = html;
+}
+function toggleEp(i) {
+  const body = document.getElementById(`ep-body-${i}`);
+  if(body) body.classList.toggle('open');
+}
+
+function renderTestCases(tcs) {
+  document.getElementById('pkgTcCount').textContent = `(${tcs.length})`;
+  if(!tcs.length){ document.getElementById('pkgTestCases').innerHTML = '<div style="color:var(--text-3)">No test cases generated.</div>'; return; }
+  document.getElementById('pkgTestCases').innerHTML = tcs.map(tc => `
+    <div class="tc-card">
+      <div class="tc-top">
+        <span class="tc-id">${tc.tc_id||'TC-?'}</span>
+        <span class="tc-cat ${tc.category||'Edge'}">${tc.category||'Edge'}</span>
+      </div>
+      <div class="tc-title">${tc.title||'—'}</div>
+      ${tc.preconditions ? `<div class="tc-row"><span class="tc-key">Preconditions:</span><span class="tc-val">${tc.preconditions}</span></div>` : ''}
+      <div class="tc-row"><span class="tc-key">Input:</span><span class="tc-val"><code style="font-size:10.5px;color:var(--text-3)">${JSON.stringify(tc.input||{}).slice(0,120)}${JSON.stringify(tc.input||{}).length>120?'…':''}</code></span></div>
+      <div class="tc-row"><span class="tc-key">Expected:</span><span class="tc-val"><code style="font-size:10.5px;color:var(--green)">${JSON.stringify(tc.expected_output||{})}</code></span></div>
+      ${tc.validation_points && tc.validation_points.length ? `<div class="tc-row"><span class="tc-key">Validations:</span><span class="tc-val">${tc.validation_points.map(v=>`<div>• ${v}</div>`).join('')}</span></div>` : ''}
+    </div>
+  `).join('');
+}
+
+function renderPayloads(p) {
+  const sections = [
+    {key:'success_request', label:'✅ Success Request', color:'var(--green)'},
+    {key:'success_response', label:'✅ Success Response', color:'var(--green)'},
+    {key:'error_request', label:'❌ Error Request', color:'var(--red)'},
+    {key:'error_response', label:'❌ Error Response', color:'var(--red)'}
+  ];
+  document.getElementById('pkgPayloads').innerHTML = sections.map(s => `
+    <div style="margin-bottom:14px">
+      <div style="font-size:11px;font-weight:700;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:6px">
+        <span style="color:${s.color}">${s.label}</span>
+        <button class="copy-btn" onclick="navigator.clipboard.writeText(JSON.stringify(${JSON.stringify(JSON.stringify(p[s.key]||{}))},null,2));toast('Copied!','Payload copied')">📋</button>
+      </div>
+      <div class="pkg-json-view">${syntaxJson(p[s.key]||{})}</div>
+    </div>
+  `).join('');
+}
+
+function syntaxJson(obj) {
+  const s = JSON.stringify(obj, null, 2);
+  return escHtml(s)
+    .replace(/"([^"]+)":/g, '<span style="color:#7dd3fc">"$1"</span>:')
+    .replace(/: "([^"]*)"/g, ': <span style="color:#86efac">"$1"</span>')
+    .replace(/: (true|false)/g, ': <span style="color:#f9a8d4">$1</span>')
+    .replace(/: (\d+\.?\d*)/g, ': <span style="color:#fdba74">$1</span>');
+}
+
+// ── Review ────────────────────────────────────────────────
+async function reviewProductKit() {
+  if(!_pkgCurrentKit){ toast('Error','No kit generated yet'); return; }
+  document.getElementById('pkgLoading').classList.remove('hidden');
+  document.getElementById('pkgLoadingMsg').textContent = 'Running quality review…';
+  try {
+    const res = await apiPost(`/product-kit/${_pkgCurrentKit.id}/review`, {});
+    renderReviewReport(res.critic_report || res);
+    document.getElementById('pkgReviewTab').style.display = '';
+    switchPkgTab('review');
+    toast('Review done', `Score: ${(res.critic_report||res).overall_score || '—'}/100`);
+  } catch(e) {
+    toast('Error', `Review failed: ${e.message}`);
+  } finally {
+    document.getElementById('pkgLoading').classList.add('hidden');
+  }
+}
+function renderReviewReport(report) {
+  const score = report.overall_score || 0;
+  const scoreClass = score >= 80 ? 'good' : score >= 60 ? 'ok' : 'bad';
+  const issues = report.issues || [];
+  const checks = report.consistency_checks || {};
+  document.getElementById('pkgReviewContent').innerHTML = `
+    <div class="critic-score">
+      <div class="critic-num ${scoreClass}">${score}</div>
+      <div>
+        <div style="font-size:13px;font-weight:700">Quality Score</div>
+        <div style="font-size:12px;color:var(--text-3);margin-top:2px">${report.summary||''}</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px">
+      ${Object.entries(checks).map(([k,v]) => `<div class="stat-chip ${v?'deployed':'pending'}">${v?'✅':'❌'} ${k.replace(/_/g,' ')}</div>`).join('')}
+    </div>
+    ${issues.length ? `
+    <div style="font-size:11px;font-weight:700;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px">Issues Found (${issues.length})</div>
+    ${issues.map(iss => `
+      <div class="critic-issue ${iss.severity||'info'}">
+        <div class="ci-sev ${iss.severity||'info'}">${iss.severity}</div>
+        <div>
+          <div style="font-size:12.5px;font-weight:600;color:var(--text-1)">[${iss.section||'—'}] ${iss.description||''}</div>
+          ${iss.suggestion ? `<div style="font-size:12px;color:var(--text-2);margin-top:3px">💡 ${iss.suggestion}</div>` : ''}
+        </div>
+      </div>
+    `).join('')}` : `<div style="color:var(--green);font-size:13px;padding:10px 0">✅ No issues found!</div>`}
+  `;
+}
+
+// ── Refine ────────────────────────────────────────────────
+function showRefineModal() {
+  if(!_pkgCurrentKit){ toast('Error','No kit generated yet'); return; }
+  document.getElementById('refineFeedback').value = '';
+  document.getElementById('pkgRefineModal').style.display = 'flex';
+}
+async function submitRefine() {
+  const feedback = document.getElementById('refineFeedback').value.trim();
+  if(!feedback){ toast('Required','Please enter your feedback'); return; }
+  const section = document.getElementById('refineSection').value;
+  document.getElementById('pkgRefineModal').style.display = 'none';
+  document.getElementById('pkgLoading').classList.remove('hidden');
+  document.getElementById('pkgLoadingMsg').textContent = `Refining ${section || 'entire kit'}…`;
+  try {
+    const res = await apiPost(`/product-kit/${_pkgCurrentKit.id}/refine`, { section: section || null, feedback });
+    _pkgCurrentKit = res;
+    renderPkgOutput(res);
+    toast('Refined!', 'Product Kit updated');
+  } catch(e) {
+    toast('Error', `Refine failed: ${e.message}`);
+  } finally {
+    document.getElementById('pkgLoading').classList.add('hidden');
+  }
+}
+
+// ── Approve ───────────────────────────────────────────────
+async function approveKit() {
+  if(!_pkgCurrentKit){ return; }
+  try {
+    await fetch(`${API}/product-kit/${_pkgCurrentKit.id}/status`, {
+      method:'PATCH', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({status:'approved'})
+    });
+    _pkgCurrentKit.status = 'approved';
+    document.getElementById('pkgOutputStatus').textContent = 'approved';
+    document.getElementById('pkgOutputStatus').className = 'sbadge approved';
+    document.getElementById('pkgApproveBtn').style.display = 'none';
+    toast('Approved!', 'Kit status set to approved');
+    loadPkgHistory();
+  } catch(e) { toast('Error', e.message); }
+}
+
+// ── Export ────────────────────────────────────────────────
+function exportProductKit() {
+  if(!_pkgCurrentKit){ toast('Error','No kit to export'); return; }
+  const kit = _pkgCurrentKit.product_kit || {};
+  const blob = new Blob([JSON.stringify({
+    meta: { feature_name: _pkgCurrentKit.feature_name, version: _pkgCurrentKit.version, status: _pkgCurrentKit.status, generated: _pkgCurrentKit.created_at },
+    ...kit
+  }, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `product_kit_${(_pkgCurrentKit.feature_name||'kit').replace(/\s+/g,'_')}_${_pkgCurrentKit.version||'1_0'}.json`;
+  a.click();
+  toast('Exported!', 'Product Kit downloaded as JSON');
+}
+
+// ── Copy section ──────────────────────────────────────────
+function copySection(section) {
+  if(!_pkgCurrentKit){ return; }
+  const kit = _pkgCurrentKit.product_kit || {};
+  let content = '';
+  if(section === 'circular') content = kit.circular || '';
+  else if(section === 'product_note') content = kit.product_note || '';
+  else if(section === 'tech_specs') content = JSON.stringify(kit.technical_specifications || {}, null, 2);
+  else if(section === 'test_cases') content = JSON.stringify(kit.test_cases || [], null, 2);
+  else if(section === 'xsd') content = kit.xsd || '';
+  else if(section === 'payloads') content = JSON.stringify(kit.sample_payloads || {}, null, 2);
+  navigator.clipboard.writeText(content).then(() => toast('Copied!', 'Content copied to clipboard'));
+}
+
+// ── History ───────────────────────────────────────────────
+let _pkgHistVisible = false;
+function togglePkgHistory() {
+  _pkgHistVisible = !_pkgHistVisible;
+  const pane = document.getElementById('pkgHistPane');
+  pane.style.display = _pkgHistVisible ? 'flex' : 'none';
+  if(_pkgHistVisible) loadPkgHistory();
+}
+async function loadPkgHistory() {
+  try {
+    const res = await apiGet('/product-kit/');
+    const list = res.data || [];
+    const el = document.getElementById('pkgHistList');
+    if(!list.length){ el.innerHTML = '<div style="color:var(--text-3);font-size:12.5px;text-align:center;padding:30px 0">No kits yet</div>'; return; }
+    el.innerHTML = list.map(k => `
+      <div class="pkg-hist-item ${_pkgCurrentKit && _pkgCurrentKit.id === k.id ? 'active' : ''}" onclick="loadPkgKit('${k.id}')">
+        <div style="flex:1;min-width:0">
+          <div class="pkg-hist-name">${k.feature_name}</div>
+          <div class="pkg-hist-meta">
+            ${k.change_request_id ? `<code style="color:var(--teal);font-size:9.5px">${k.change_request_id}</code> · ` : ''}
+            v${k.version} · <span class="sbadge ${statusClass(k.status)}" style="font-size:9.5px">${k.status}</span><br>
+            ${fmtDate(k.created_at)}
+          </div>
+        </div>
+        <div class="cdp-close" style="width:20px;height:20px;font-size:11px" onclick="event.stopPropagation();deletePkgKit('${k.id}')">🗑</div>
+      </div>
+    `).join('');
+  } catch(e){}
+}
+async function loadPkgKit(kitId) {
+  document.getElementById('pkgLoading').classList.remove('hidden');
+  document.getElementById('pkgLoadingMsg').textContent = 'Loading kit…';
+  try {
+    const res = await apiGet(`/product-kit/${kitId}`);
+    _pkgCurrentKit = {
+      id: res.id,
+      change_request_id: res.change_request_id || '',
+      feature_name: res.feature_name,
+      version: res.version,
+      status: res.status,
+      created_at: res.created_at,
+      product_kit: res.product_kit,
+      uploaded_files: res.uploaded_files || {},
+    };
+    renderPkgOutput(_pkgCurrentKit);
+    // Switch to output screen
+    document.getElementById('pkgInputScreen').classList.add('hidden');
+    document.getElementById('pkgOutputScreen').classList.remove('hidden');
+    if(_pkgHistVisible) togglePkgHistory();
+  } catch(e) { toast('Error', e.message); }
+  finally { document.getElementById('pkgLoading').classList.add('hidden'); }
+}
+async function deletePkgKit(kitId) {
+  try {
+    await fetch(`${API}/product-kit/${kitId}`, {method:'DELETE'});
+    if(_pkgCurrentKit && _pkgCurrentKit.id === kitId){
+      _pkgCurrentKit = null;
+      // Return to input screen
+      document.getElementById('pkgOutputScreen').classList.add('hidden');
+      document.getElementById('pkgInputScreen').classList.remove('hidden');
+    }
+    loadPkgHistory();
+    toast('Deleted', 'Kit removed');
+  } catch(e) { toast('Error', e.message); }
+}
+
+// Auto-refresh badge count every 30s
+setInterval(async () => {
+  try {
+    const res = await apiGet('/npciswitch/change-requests');
+    const list = res.data || [];
+    const badge = document.getElementById('crNavBadge');
+    if(list.length > 0){
+      badge.textContent = list.length;
+      badge.style.display = '';
+    } else {
+      badge.style.display = 'none';
+    }
+    _allCrs = list;
+  } catch(e){}
+}, 30000);
+
 </script>
 </body>
 </html>

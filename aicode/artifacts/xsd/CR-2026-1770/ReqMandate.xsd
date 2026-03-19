@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="ReqMandate">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Head" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:attribute name="ver" type="xs:string" use="optional"/>
+            <xs:attribute name="ts" type="xs:string" use="optional"/>
+            <xs:attribute name="orgId" type="xs:string" use="optional"/>
+            <xs:attribute name="msgId" type="xs:string" use="optional"/>
+            <xs:attribute name="note" use="optional" type="noteType"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Txn" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:attribute name="id" type="xs:string" use="optional"/>
+            <xs:attribute name="note" type="xs:string" use="optional"/>
+            <xs:attribute name="refId" type="xs:string" use="optional"/>
+            <xs:attribute name="refUrl" type="xs:string" use="optional"/>
+            <xs:attribute name="ts" type="xs:string" use="optional"/>
+            <xs:attribute name="type" type="xs:string" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Mandate" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:attribute name="name" type="xs:string" use="optional"/>
+            <xs:attribute name="type" type="xs:string" use="optional"/>
+            <xs:attribute name="recurrence" type="xs:string" use="optional"/>
+            <xs:attribute name="rule" type="xs:string" use="optional"/>
+            <xs:attribute name="startDate" type="xs:string" use="optional"/>
+            <xs:attribute name="endDate" type="xs:string" use="optional"/>
+            <xs:attribute name="expiry" type="xs:string" use="optional"/>
+            <xs:attribute name="revocable" type="xs:string" use="optional"/>
+            <xs:attribute name="shareToPayee" type="xs:string" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Amount" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:attribute name="value" type="xs:string" use="optional"/>
+            <xs:attribute name="curr" type="xs:string" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Payer" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Info" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Identity" minOccurs="0" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:attribute name="type" type="xs:string" use="optional"/>
+                        <xs:attribute name="verifiedName" type="xs:string" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="addr" type="xs:string" use="optional"/>
+            <xs:attribute name="name" type="xs:string" use="optional"/>
+            <xs:attribute name="seqNum" type="xs:string" use="optional"/>
+            <xs:attribute name="type" type="xs:string" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Payee" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:attribute name="addr" type="xs:string" use="optional"/>
+            <xs:attribute name="name" type="xs:string" use="optional"/>
+            <xs:attribute name="type" type="xs:string" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="noteType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="y/n"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

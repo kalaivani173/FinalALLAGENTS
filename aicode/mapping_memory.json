@@ -3,5 +3,6 @@
   "ReqPay.Txn": "Txn",
   "ReqPay.Payer": "Payer",
   "ReqPay.Payer.Device": "Device",
-  "UPIPayRequest.Payer": "Payer"
+  "UPIPayRequest.Payer": "Payer",
+  "ReqMandate.Head": "Head"
 }
