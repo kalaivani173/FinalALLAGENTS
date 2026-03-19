@@ -10,6 +10,84 @@ llm = ChatOpenAI(
     temperature=0
 )
 
+# ------------------------------------------------
+# Deterministic DTO patch (no LLM required)
+# ------------------------------------------------
+_XSD_TO_JAVA_TYPE = {
+    "xs:string": "String",
+    "xs:integer": "Integer",
+    "xs:int": "int",
+    "xs:long": "Long",
+    "xs:decimal": "Double",
+    "xs:float": "Float",
+    "xs:boolean": "Boolean",
+    "xs:date": "String",
+    "xs:dateTime": "String",
+    "xs:token": "String",
+    "xs:positiveInteger": "Integer",
+    "xs:nonNegativeInteger": "Integer",
+    "xs:anyURI": "String",
+}
+
+_FIELD_RE = re.compile(r'^\s*private\s+\S+\s+(\w+)\s*;')
+
+
+def _deterministic_dto_patch(java_code: str, payload: dict) -> str:
+    """
+    Adds @XmlAttribute field + getter/setter to a Java DTO without calling an LLM.
+    Works for single-field (attributeName) and multi-field (fieldAdditions) payloads.
+    """
+    additions = payload.get("fieldAdditions") or []
+    if not additions:
+        attr = (payload.get("attributeName") or "").strip()
+        if not attr:
+            return java_code
+        additions = [{
+            "attributeName": attr,
+            "datatype": payload.get("datatype") or "xs:string",
+            "mandatory": bool(payload.get("mandatory", False)),
+            "allowedValues": payload.get("allowedValues") or [],
+        }]
+
+    # Collect existing field names to avoid duplicates
+    existing = set()
+    for line in java_code.splitlines():
+        m = _FIELD_RE.match(line)
+        if m:
+            existing.add(m.group(1))
+
+    new_blocks = []
+    for a in additions:
+        name = (a.get("attributeName") or "").strip()
+        if not name or name in existing:
+            continue
+        java_type = _XSD_TO_JAVA_TYPE.get(a.get("datatype") or "xs:string", "String")
+        use = "required" if a.get("mandatory") else "optional"
+        cap = name[0].upper() + name[1:]
+        block = (
+            f'\n    @XmlAttribute(name = "{name}")\n'
+            f'    private {java_type} {name};\n'
+            f'\n'
+            f'    public {java_type} get{cap}() {{\n'
+            f'        return {name};\n'
+            f'    }}\n'
+            f'\n'
+            f'    public void set{cap}({java_type} {name}) {{\n'
+            f'        this.{name} = {name};\n'
+            f'    }}\n'
+        )
+        new_blocks.append(block)
+        existing.add(name)
+
+    if not new_blocks:
+        return java_code
+
+    insert_at = java_code.rfind("}")
+    if insert_at == -1:
+        return java_code + "".join(new_blocks) + "\n}"
+    return java_code[:insert_at] + "".join(new_blocks) + "}\n"
+
+
 def _balance_java_braces(code: str) -> str:
     """
     Ensures Java braces are balanced.
@@ -74,8 +152,12 @@ Apply the approved change to THIS FILE ONLY.
 If not applicable, return the file UNCHANGED.
 """
 
-    response = llm.invoke(prompt)
-    return _sanitize(response.content)
+    try:
+        response = llm.invoke(prompt)
+        return _sanitize(response.content)
+    except Exception:
+        # LLM unavailable (e.g. no OPENAI_API_KEY) — fall back to deterministic patch
+        return _deterministic_dto_patch(java_code, payload)
 
 
 # ------------------------------------------------

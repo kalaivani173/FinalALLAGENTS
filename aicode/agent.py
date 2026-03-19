@@ -90,18 +90,46 @@ CHANGE_STORE = {}
 # UTIL
 # ------------------------------------------------
 
+_MINIMAL_XSD = """<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="Root">
+    <xs:complexType>
+      <xs:sequence/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>"""
+
+
 def load_existing_xsd(change_id: str):
-    artifact_dir = os.path.join("artifacts", "xsd", change_id)
-
-    if os.path.exists(artifact_dir):
+    # 1. Prefer uploaded artifact for this specific change
+    artifact_dir = os.path.join(_BASE_DIR, "artifacts", "xsd", change_id)
+    if os.path.isdir(artifact_dir):
         for f in os.listdir(artifact_dir):
-            if f.endswith(".xsd"):
+            if f.endswith(".xsd") and not f.endswith("_baseline.xsd"):
                 path = os.path.join(artifact_dir, f)
-                with open(path, "r", encoding="utf-8") as x:
-                    return x.read(), path
+                try:
+                    with open(path, "r", encoding="utf-8") as x:
+                        return x.read(), path
+                except Exception:
+                    pass
 
-    with open(BASE_XSD_PATH, "r", encoding="utf-8") as f:
-        return f.read(), BASE_XSD_PATH
+    # 2. Try the project-level base XSD (may not exist in all deployments)
+    base_abs = os.path.join(_BASE_DIR, BASE_XSD_PATH)
+    for candidate in (BASE_XSD_PATH, base_abs):
+        if os.path.isfile(candidate):
+            try:
+                with open(candidate, "r", encoding="utf-8") as f:
+                    return f.read(), candidate
+            except Exception:
+                pass
+
+    # 3. Write a minimal stub XSD to disk so callers always get a valid file path
+    stub_dir = os.path.join(_BASE_DIR, "artifacts", "xsd", change_id)
+    os.makedirs(stub_dir, exist_ok=True)
+    stub_path = os.path.join(stub_dir, "schema_stub.xsd")
+    with open(stub_path, "w", encoding="utf-8") as f:
+        f.write(_MINIMAL_XSD)
+    return _MINIMAL_XSD, stub_path
 
 
 def _write_baseline_xsd_for_change(change_id: str, api_name: str | None, xsd_text: str) -> str:

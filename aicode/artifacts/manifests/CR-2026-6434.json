@@ -1,0 +1,36 @@
+{
+  "manifest": {
+    "changeId": "CR-2026-6434",
+    "issuer": "NPCI_UPI_SWITCH",
+    "changeType": "ADD_XML_ATTRIBUTE",
+    "apiName": "ReqPay",
+    "summary": "UPI sub product",
+    "impactedPaths": [
+      {
+        "xmlPath": "ReqPay.Txn",
+        "change": "ADD_XML_ATTRIBUTE",
+        "attribute": {
+          "name": "delegate",
+          "datatype": "xs:string",
+          "mandatory": false,
+          "allowedValues": [
+            "Y/N"
+          ]
+        }
+      }
+    ],
+    "xsd": {
+      "path": "http://localhost:8000/npciswitch/xsd/CR-2026-6434/ReqPay.xsd"
+    },
+    "npciStatus": "READY_FOR_ADOPTION",
+    "timestamp": "2026-03-19T06:45:12.684396",
+    "openapi": {
+      "path": "http://localhost:8000/npciswitch/openapi-ui/CR-2026-6434"
+    },
+    "productNote": {
+      "path": "http://localhost:8000/npciswitch/product-note/CR-2026-6434/product_note.md",
+      "summary": "sbmd"
+    }
+  },
+  "signature": null
+}

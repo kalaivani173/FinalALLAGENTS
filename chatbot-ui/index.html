@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>ChangeIQ – NPCI AI Agent</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg-deep:#030712;--bg-card:#0d1117;--bg-panel:#111827;
+  --border:#1f2937;--border-lit:#374151;
+  --teal:#2dd4bf;--teal-dim:#134e4a;
+  --blue:#60a5fa;--gold:#fbbf24;
+  --text-1:#f9fafb;--text-2:#9ca3af;--text-3:#6b7280;
+  --green:#34d399;--red:#f87171;
+}
+html,body{height:100%;font-family:'Inter',sans-serif;background:var(--bg-deep);color:var(--text-1);}
+.screen{position:fixed;inset:0;display:flex;transition:opacity .4s,transform .4s;}
+.screen.hidden{opacity:0;pointer-events:none;transform:scale(.97);}
+
+/* ── LOGIN ── */
+#loginScreen{background:var(--bg-deep);align-items:stretch;}
+.ll{flex:1;background:linear-gradient(135deg,#030712,#0d1117 60%,#0f2027);display:flex;flex-direction:column;justify-content:center;padding:60px;position:relative;overflow:hidden;border-right:1px solid var(--border);}
+.ll::before{content:'';position:absolute;top:-100px;left:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(45,212,191,.13) 0%,transparent 70%);pointer-events:none;}
+.ll::after{content:'';position:absolute;bottom:-80px;right:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(96,165,250,.08) 0%,transparent 70%);pointer-events:none;}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;}
+.ll-brand{display:flex;align-items:center;gap:14px;margin-bottom:52px;z-index:1;position:relative;}
+.ll-icon{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,var(--teal),#0891b2);display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 0 28px rgba(45,212,191,.4);}
+.ll-name{font-size:26px;font-weight:800;}.ll-sub{font-size:11px;color:var(--teal);letter-spacing:.2em;text-transform:uppercase;}
+.ll-hero{position:relative;z-index:1;}.ll-hero h1{font-size:40px;font-weight:800;line-height:1.15;margin-bottom:18px;}.ll-hero h1 span{color:var(--teal);}
+.ll-hero p{font-size:15px;color:var(--text-2);line-height:1.7;max-width:400px;}
+.ll-feats{display:flex;flex-direction:column;gap:13px;margin-top:36px;position:relative;z-index:1;}
+.ll-feat{display:flex;align-items:center;gap:11px;font-size:13.5px;color:var(--text-2);}
+.ll-feat .fi{width:30px;height:30px;border-radius:8px;background:rgba(45,212,191,.1);border:1px solid rgba(45,212,191,.2);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.lr{width:400px;flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:40px 44px;background:var(--bg-card);border-left:1px solid var(--border);}
+.lbox{width:100%;}
+.lbox h2{font-size:22px;font-weight:700;margin-bottom:5px;}.lbox p{font-size:13.5px;color:var(--text-2);margin-bottom:28px;}
+.lf{margin-bottom:16px;}.lf label{display:block;font-size:12.5px;font-weight:500;color:var(--text-2);margin-bottom:5px;}
+.lf input{width:100%;background:var(--bg-panel);border:1px solid var(--border-lit);border-radius:9px;padding:11px 13px;color:var(--text-1);font-size:13.5px;font-family:inherit;outline:none;transition:border-color .2s;}
+.lf input:focus{border-color:var(--teal);}
+.lf input::placeholder{color:var(--text-3);}
+.lbtn{width:100%;padding:12px;border-radius:9px;background:linear-gradient(135deg,var(--teal),#0891b2);color:#000;font-size:14px;font-weight:700;border:none;cursor:pointer;font-family:inherit;transition:all .2s;margin-top:6px;}
+.lbtn:hover{box-shadow:0 0 22px rgba(45,212,191,.45);transform:translateY(-1px);}
+.lerr{color:var(--red);font-size:12.5px;margin-top:5px;display:none;}
+.lfooter{text-align:center;margin-top:18px;font-size:11.5px;color:var(--text-3);}
+
+/* ── APP ── */
+#appScreen{flex-direction:row;}
+.sidebar{width:250px;flex-shrink:0;background:var(--bg-card);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:18px 13px;gap:14px;overflow:hidden;position:relative;}
+.sidebar::before{content:'';position:absolute;top:-50px;left:-50px;width:180px;height:180px;background:radial-gradient(circle,rgba(45,212,191,.09) 0%,transparent 70%);pointer-events:none;}
+.brand{display:flex;align-items:center;gap:9px;padding:0 5px;}
+.b-icon{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--teal),#0891b2);display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 0 14px rgba(45,212,191,.3);flex-shrink:0;}
+.b-name{font-size:15px;font-weight:700;}.b-sub{font-size:10px;color:var(--teal);letter-spacing:.14em;text-transform:uppercase;}
+.div{height:1px;background:var(--border);margin:0 3px;}
+.nl{font-size:10px;font-weight:600;color:var(--text-3);letter-spacing:.12em;text-transform:uppercase;padding:0 7px;}
+.ni{display:flex;align-items:center;gap:8px;padding:8px 9px;border-radius:8px;cursor:pointer;transition:all .18s;font-size:12.5px;color:var(--text-2);border:1px solid transparent;}
+.ni:hover{background:var(--bg-panel);color:var(--text-1);border-color:var(--border);}
+.ni.active{background:var(--teal-dim);color:var(--teal);border-color:rgba(45,212,191,.22);}
+.ni svg{width:14px;height:14px;flex-shrink:0;}
+.nbadge{margin-left:auto;background:var(--teal);color:var(--bg-deep);font-size:10px;font-weight:700;padding:1px 5px;border-radius:99px;}
+.u-card{margin-top:auto;padding:10px;background:var(--bg-panel);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;gap:9px;}
+.u-av{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#7c3aed,#2563eb);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;}
+.u-name{font-size:12.5px;font-weight:600;}.u-role{font-size:10.5px;color:var(--text-3);}
+.lout{font-size:10.5px;color:var(--red);cursor:pointer;padding:2px 5px;border-radius:4px;border:1px solid rgba(248,113,113,.25);}
+.dot{width:6px;height:6px;border-radius:99px;}
+.dot.g{background:var(--green);box-shadow:0 0 5px var(--green);animation:pulse 2s infinite;}
+.dot.y{background:var(--gold);}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.sp{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-2);}
+
+/* ── MAIN ── */
+.main{flex:1;display:flex;flex-direction:column;min-width:0;}
+.topbar{height:56px;border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 22px;gap:11px;background:rgba(13,17,23,.85);backdrop-filter:blur(12px);flex-shrink:0;}
+.topbar-t{font-size:13.5px;font-weight:600;flex:1;color:var(--text-2);}.topbar-t span{color:var(--teal);}
+.chip{display:inline-flex;align-items:center;gap:4px;padding:4px 9px;border-radius:99px;font-size:11px;font-weight:500;border:1px solid var(--border-lit);color:var(--text-2);background:var(--bg-panel);}
+.chip.teal{border-color:rgba(45,212,191,.4);color:var(--teal);background:var(--teal-dim);}
+.chip.red{border-color:rgba(248,113,113,.4);color:var(--red);background:rgba(248,113,113,.08);}
+.chat-wrap{flex:1;overflow:hidden;display:flex;flex-direction:column;}
+.chat-body{flex:1;overflow-y:auto;padding:22px 26px;display:flex;flex-direction:column;gap:16px;scroll-behavior:smooth;}
+.chat-body::-webkit-scrollbar{width:4px;}
+.chat-body::-webkit-scrollbar-thumb{background:var(--border-lit);border-radius:99px;}
+
+/* ── MESSAGES ── */
+.msg{display:flex;gap:9px;max-width:820px;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+.msg.user{flex-direction:row-reverse;align-self:flex-end;}
+.av{width:32px;height:32px;border-radius:9px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:15px;}
+.av.bot{background:linear-gradient(135deg,var(--teal-dim),#1e3a5f);border:1px solid rgba(45,212,191,.28);}
+.av.usr{background:linear-gradient(135deg,#7c3aed,#2563eb);}
+.mb{display:flex;flex-direction:column;gap:2px;}
+.mn{font-size:10.5px;font-weight:600;color:var(--text-3);}
+.msg.user .mn{text-align:right;}
+.bub{padding:11px 15px;border-radius:13px;font-size:13.5px;line-height:1.65;}
+.bub.bot{background:var(--bg-panel);border:1px solid var(--border);border-bottom-left-radius:4px;}
+.bub.user{background:linear-gradient(135deg,#1d4ed8,#7c3aed);color:#fff;border-bottom-right-radius:4px;}
+.hl{color:var(--teal);font-weight:600;}
+.stag{display:inline-block;padding:2px 8px;border-radius:5px;font-size:10.5px;font-weight:700;background:rgba(45,212,191,.13);color:var(--teal);margin-bottom:5px;}
+.bub ul{padding-left:15px;display:flex;flex-direction:column;gap:2px;margin-top:4px;}
+.bub li{font-size:13px;}
+.typing-ind{display:flex;align-items:center;gap:4px;padding:11px 15px;background:var(--bg-panel);border:1px solid var(--border);border-radius:13px;border-bottom-left-radius:4px;width:fit-content;}
+.typing-ind span{width:5px;height:5px;border-radius:99px;background:var(--teal);display:block;opacity:.4;animation:bounce 1.2s infinite;}
+.typing-ind span:nth-child(2){animation-delay:.2s;}.typing-ind span:nth-child(3){animation-delay:.4s;}
+@keyframes bounce{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-5px);opacity:1}}
+
+/* ── INLINE ELEMENTS ── */
+.opts{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px;}
+.opt{padding:6px 13px;border-radius:8px;border:1px solid var(--border-lit);background:var(--bg-card);color:var(--text-2);font-size:13px;cursor:pointer;transition:all .18s;font-family:inherit;}
+.opt:hover:not(:disabled){border-color:var(--teal);color:var(--teal);background:var(--teal-dim);}
+.opt:disabled{opacity:.38;cursor:default;}
+.iform{margin-top:9px;display:flex;flex-direction:column;gap:9px;}
+.ifield{display:flex;flex-direction:column;gap:3px;}
+.ifield label{font-size:12px;color:var(--text-3);font-weight:500;}
+.ii{background:var(--bg-card);border:1px solid var(--border-lit);border-radius:8px;padding:8px 11px;color:var(--text-1);font-size:13.5px;font-family:inherit;outline:none;transition:border-color .2s;width:100%;}
+.ii:focus{border-color:var(--teal);}
+.ii::placeholder{color:var(--text-3);}
+select.ii option{background:var(--bg-panel);}
+.isub{padding:9px 18px;border-radius:8px;background:var(--teal);color:#000;font-size:13.5px;font-weight:700;border:none;cursor:pointer;font-family:inherit;transition:all .18s;align-self:flex-start;margin-top:2px;}
+.isub:hover{background:#14b8a6;box-shadow:0 0 12px rgba(45,212,191,.38);}
+.isub:disabled{opacity:.4;cursor:default;}
+.uz{border:2px dashed var(--border-lit);border-radius:10px;padding:18px;text-align:center;cursor:pointer;transition:all .2s;background:var(--bg-card);}
+.uz:hover{border-color:var(--teal);background:rgba(45,212,191,.04);}
+.uz .uzi{font-size:26px;margin-bottom:5px;}
+.uz p{font-size:13px;color:var(--text-2);}
+.uz input{display:none;}
+.fp{font-size:12px;color:var(--teal);margin-top:5px;}
+.tags-grid{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px;}
+.tc{padding:5px 11px;border-radius:6px;border:1px solid var(--border-lit);background:var(--bg-card);color:var(--text-2);font-size:12px;cursor:pointer;transition:all .18s;font-family:'JetBrains Mono',monospace;}
+.tc:hover{border-color:var(--teal);color:var(--teal);background:var(--teal-dim);}
+.tc.sel{border-color:var(--teal);color:var(--teal);background:var(--teal-dim);}
+.sum{margin-top:9px;background:var(--bg-card);border:1px solid var(--border);border-radius:11px;overflow:hidden;}
+.sum-h{padding:8px 12px;background:rgba(45,212,191,.07);border-bottom:1px solid var(--border);font-size:10.5px;font-weight:700;color:var(--teal);letter-spacing:.08em;text-transform:uppercase;}
+.sum-b{padding:10px 12px;display:flex;flex-direction:column;gap:4px;}
+.sum-r{display:flex;gap:7px;font-size:12.5px;}
+.sum-k{color:var(--text-3);min-width:130px;flex-shrink:0;}
+.sum-v{color:var(--text-1);font-weight:500;}
+.sum-v code{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--teal);}
+.cb{background:#0d1117;border:1px solid var(--border);border-radius:9px;overflow:hidden;margin-top:7px;}
+.cb-h{display:flex;align-items:center;justify-content:space-between;padding:6px 11px;border-bottom:1px solid var(--border);background:var(--bg-panel);}
+.cb-h span{font-size:11px;color:var(--text-3);font-family:'JetBrains Mono',monospace;}
+.cb pre{padding:11px;font-family:'JetBrains Mono',monospace;font-size:11.5px;overflow-x:auto;line-height:1.6;color:#e5e7eb;max-height:320px;}
+.cb pre .kw{color:#c084fc;}.cb pre .str{color:#86efac;}.cb pre .cm{color:#6b7280;}.cb pre .ann{color:#60a5fa;}.cb pre .new{color:#2dd4bf;font-weight:700;}.cb pre .del{color:#f87171;text-decoration:line-through;}
+/* diff viewer */
+.diff-file{margin-top:8px;background:#0d1117;border:1px solid var(--border);border-radius:9px;overflow:hidden;}
+.diff-hdr{padding:6px 12px;background:var(--bg-panel);border-bottom:1px solid var(--border);font-size:11px;color:var(--text-3);font-family:'JetBrains Mono',monospace;display:flex;justify-content:space-between;align-items:center;}
+.diff-body{padding:0;font-family:'JetBrains Mono',monospace;font-size:11px;overflow-x:auto;max-height:260px;overflow-y:auto;}
+.diff-body .dl{display:flex;gap:0;}
+.diff-body .dl .ln{min-width:32px;text-align:right;padding:0 8px;user-select:none;color:var(--text-3);border-right:1px solid var(--border);flex-shrink:0;}
+.diff-body .dl .lc{padding:1px 8px;flex:1;white-space:pre;}
+.diff-body .dl.add{background:rgba(52,211,153,.1);}.diff-body .dl.add .lc{color:var(--green);}
+.diff-body .dl.rem{background:rgba(248,113,113,.1);}.diff-body .dl.rem .lc{color:var(--red);}
+.diff-body .dl.ctx .lc{color:var(--text-2);}
+.arow{display:flex;gap:7px;margin-top:9px;flex-wrap:wrap;}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 15px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .18s;font-family:inherit;}
+.btn.pri{background:var(--teal);color:#000;}.btn.pri:hover{background:#14b8a6;box-shadow:0 0 12px rgba(45,212,191,.38);}
+.btn.sec{background:var(--bg-panel);color:var(--text-2);border:1px solid var(--border-lit);}.btn.sec:hover{border-color:var(--teal);color:var(--teal);}
+.btn.dan{background:rgba(248,113,113,.1);color:var(--red);border:1px solid rgba(248,113,113,.22);}.btn.dan:hover{background:rgba(248,113,113,.18);}
+.btn:disabled{opacity:.38;cursor:default;}
+.spin{display:inline-block;animation:spin 1s linear infinite;margin-right:4px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.status-banner{padding:10px 14px;border-radius:9px;font-size:13px;margin-top:8px;display:flex;align-items:center;gap:8px;}
+.status-banner.ok{background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.25);color:var(--green);}
+.status-banner.err{background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.25);color:var(--red);}
+.status-banner.warn{background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.25);color:var(--gold);}
+
+/* ── INPUT BAR ── */
+.input-bar{border-top:1px solid var(--border);padding:12px 22px 16px;background:rgba(13,17,23,.88);backdrop-filter:blur(12px);flex-shrink:0;}
+.iw{display:flex;align-items:flex-end;gap:7px;background:var(--bg-panel);border:1px solid var(--border-lit);border-radius:11px;padding:8px 11px;transition:border-color .2s;}
+.iw:focus-within{border-color:var(--teal);}
+.iw textarea{flex:1;background:transparent;border:none;outline:none;color:var(--text-1);font-size:13.5px;font-family:inherit;resize:none;max-height:90px;line-height:1.5;}
+.iw textarea::placeholder{color:var(--text-3);}
+.sb{width:32px;height:32px;border-radius:8px;background:var(--teal);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .18s;flex-shrink:0;}
+.sb:hover{background:#14b8a6;box-shadow:0 0 10px rgba(45,212,191,.38);}
+.sb svg{width:14px;height:14px;fill:var(--bg-deep);}
+.ih{font-size:10.5px;color:var(--text-3);text-align:center;margin-top:6px;}
+
+/* ── ROBOT PANEL ── */
+.rp{width:290px;flex-shrink:0;border-left:1px solid var(--border);background:var(--bg-card);display:flex;flex-direction:column;align-items:center;padding:20px 16px;gap:16px;position:relative;overflow:hidden;}
+.rp::after{content:'';position:absolute;bottom:-40px;right:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba(45,212,191,.08) 0%,transparent 70%);pointer-events:none;}
+.rw{position:relative;display:flex;flex-direction:column;align-items:center;}
+.rg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:130px;height:130px;border-radius:99px;background:radial-gradient(circle,rgba(45,212,191,.14) 0%,transparent 70%);pointer-events:none;animation:gp 3s ease-in-out infinite;}
+@keyframes gp{0%,100%{opacity:.5;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.14)}}
+.rs{animation:fl 4s ease-in-out infinite;}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.reye{animation:bl 4s ease-in-out infinite;transform-origin:center;}
+@keyframes bl{0%,88%,100%{transform:scaleY(1)}93%{transform:scaleY(.05)}}
+.rmouth{animation:mw 2.5s ease-in-out infinite;}
+@keyframes mw{0%,100%{d:path("M 52 74 Q 62 82 72 74")}50%{d:path("M 52 78 Q 62 72 72 78")}}
+.rspeech{background:var(--bg-panel);border:1px solid var(--border);border-radius:10px;padding:10px 13px;font-size:12px;color:var(--text-2);text-align:center;line-height:1.5;position:relative;width:100%;}
+.rspeech::before{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);border:7px solid transparent;border-bottom-color:var(--border);border-top:none;}
+.rspeech::after{content:'';position:absolute;top:-7px;left:50%;transform:translateX(-50%);border:7px solid transparent;border-bottom-color:var(--bg-panel);border-top:none;}
+.rspeech strong{color:var(--teal);}
+.sb-title{font-size:10px;font-weight:700;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:9px;}
+.si{display:flex;align-items:center;gap:7px;padding:6px 7px;border-radius:7px;transition:all .2s;margin-bottom:1px;}
+.si.done{background:rgba(52,211,153,.05);}
+.si.cur{background:rgba(45,212,191,.07);}
+.sn{width:19px;height:19px;border-radius:99px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;border:1.5px solid var(--border-lit);color:var(--text-3);flex-shrink:0;}
+.si.done .sn{background:var(--green);border-color:var(--green);color:#000;}
+.si.cur .sn{background:var(--teal);border-color:var(--teal);color:#000;animation:sp 1.5s infinite;}
+@keyframes sp{0%,100%{box-shadow:0 0 0 0 rgba(45,212,191,.5)}50%{box-shadow:0 0 0 5px rgba(45,212,191,0)}}
+.sl{font-size:12px;color:var(--text-2);}
+.si.done .sl{color:var(--green);}.si.cur .sl{color:var(--teal);font-weight:500;}
+.pb-w{width:100%;}.pb{width:100%;background:var(--bg-panel);border:1px solid var(--border);border-radius:99px;height:5px;overflow:hidden;}
+.pbf{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--teal),#0891b2);transition:width .5s ease;}
+.pbl{font-size:10.5px;color:var(--text-3);margin-top:4px;text-align:right;}
+.cr-info{width:100%;background:var(--bg-panel);border:1px solid var(--border);border-radius:9px;padding:11px;display:none;}
+.cr-t{font-size:10px;font-weight:700;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:7px;}
+.cr-r{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid var(--border);}
+.cr-r:last-child{border-bottom:none;}
+.cr-k{font-size:11px;color:var(--text-3);}.cr-v{font-size:11px;font-weight:600;color:var(--teal);}
+#toast{position:fixed;bottom:22px;right:22px;background:var(--bg-panel);border:1px solid var(--teal);color:var(--text-1);padding:12px 16px;border-radius:10px;font-size:13px;box-shadow:0 20px 60px rgba(0,0,0,.6);display:none;z-index:9999;animation:si 0.3s ease;max-width:290px;}
+@keyframes si{from{transform:translateX(26px);opacity:0}to{transform:translateX(0);opacity:1}}
+#toast.show{display:block;}
+#toast .tt{font-weight:700;color:var(--teal);margin-bottom:2px;}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="screen" id="loginScreen">
+  <div class="ll">
+    <div class="grid-bg"></div>
+    <div class="ll-brand">
+      <div class="ll-icon">⚡</div>
+      <div><div class="ll-name">ChangeIQ</div><div class="ll-sub">NPCI · UPI Platform</div></div>
+    </div>
+    <div class="ll-hero">
+      <h1>AI-Powered <span>UPI Change</span><br>Management</h1>
+      <p>Automate API spec changes, generate real Java patches, and deploy directly into your javacoderepo.</p>
+    </div>
+    <div class="ll-feats">
+      <div class="ll-feat"><div class="fi">🧠</div>GPT-4 powered XSD & spec generation</div>
+      <div class="ll-feat"><div class="fi">☕</div>Real Java DTO patches written to javacoderepo</div>
+      <div class="ll-feat"><div class="fi">🔏</div>Cryptographically signed manifests</div>
+      <div class="ll-feat"><div class="fi">🚀</div>Git commit after deploy</div>
+    </div>
+  </div>
+  <div class="lr">
+    <div class="lbox">
+      <h2>Welcome back</h2>
+      <p>Sign in to start managing UPI API changes</p>
+      <div class="lf"><label>Username</label><input type="text" id="lu" placeholder="Enter username" autocomplete="off"/></div>
+      <div class="lf"><label>Password</label><input type="password" id="lp" placeholder="Enter password"/></div>
+      <div class="lerr" id="lerr">Please enter username and password.</div>
+      <button class="lbtn" onclick="doLogin()">Sign In →</button>
+      <div class="lfooter">NPCI Internal Portal · v2.4.1</div>
+    </div>
+  </div>
+</div>
+
+<!-- APP -->
+<div class="screen hidden" id="appScreen">
+  <aside class="sidebar">
+    <div class="brand"><div class="b-icon">⚡</div><div><div class="b-name">ChangeIQ</div><div class="b-sub">NPCI · UPI</div></div></div>
+    <div class="div"></div>
+    <div class="nl">Menu</div>
+    <div class="ni active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>AI Assistant <span class="nbadge">LIVE</span></div>
+    <div class="ni" onclick="toast('Change Requests','Opening...')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>Change Requests</div>
+    <div class="ni" onclick="toast('Developer Portal','Opening...')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>Developer Portal</div>
+    <div class="ni" onclick="toast('Partners','Opening...')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0"/></svg>Partners</div>
+    <div class="div"></div>
+    <div class="sp"><div class="dot g"></div>Backend API<span style="margin-left:auto;color:var(--green);font-weight:600;" id="beStatus">Checking…</span></div>
+    <div class="sp"><div class="dot g" style="animation-delay:.5s"></div>AI Agent<span style="margin-left:auto;color:var(--green);font-weight:600;">Ready</span></div>
+    <div class="sp"><div class="dot y"></div>OpenAI<span style="margin-left:auto;color:var(--gold);font-weight:600;">Standby</span></div>
+    <div class="u-card">
+      <div class="u-av" id="sAv">--</div>
+      <div style="flex:1;min-width:0"><div class="u-name" id="sUser">User</div><div class="u-role">Product Manager</div></div>
+      <div class="lout" onclick="doLogout()">Out</div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-t"><span>ChangeIQ</span> · UPI Change Management Platform</div>
+      <div class="chip teal">🤖 ARIA Active</div>
+      <div class="chip" id="topCr" style="display:none">CR: —</div>
+      <div class="chip" id="backendChip">⚪ Backend</div>
+    </div>
+    <div class="chat-wrap">
+      <div class="chat-body" id="cb"></div>
+      <div class="input-bar">
+        <div class="iw">
+          <textarea id="ui" rows="1" placeholder="Type a message…" onkeydown="hk(event)" oninput="ar(this)"></textarea>
+          <button class="sb" onclick="sendMsg()"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
+        </div>
+        <div class="ih"><kbd style="background:var(--bg-panel);border:1px solid var(--border-lit);padding:1px 5px;border-radius:3px;font-size:9.5px">Enter</kbd> send · <kbd style="background:var(--bg-panel);border:1px solid var(--border-lit);padding:1px 5px;border-radius:3px;font-size:9.5px">Shift+Enter</kbd> newline</div>
+      </div>
+    </div>
+  </div>
+
+  <aside class="rp">
+    <div style="font-size:10px;font-weight:700;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase;align-self:flex-start">AI Agent</div>
+    <div class="rw">
+      <div class="rg"></div>
+      <svg class="rs" width="124" height="156" viewBox="0 0 124 170" fill="none">
+        <line x1="62" y1="10" x2="62" y2="26" stroke="#2dd4bf" stroke-width="2.5" stroke-linecap="round"/>
+        <circle id="ant" cx="62" cy="8" r="5" fill="#2dd4bf">
+          <animate attributeName="r" values="5;7;5" dur="2s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values=".7;1;.7" dur="2s" repeatCount="indefinite"/>
+        </circle>
+        <rect x="22" y="26" width="80" height="64" rx="16" fill="#111827" stroke="#2dd4bf" stroke-width="1.5"/>
+        <g class="reye"><rect x="36" y="46" width="18" height="14" rx="5" fill="#2dd4bf" opacity=".9"/><rect x="40" y="50" width="6" height="6" rx="2" fill="#030712"/></g>
+        <g class="reye" style="animation-delay:.2s"><rect x="70" y="46" width="18" height="14" rx="5" fill="#2dd4bf" opacity=".9"/><rect x="74" y="50" width="6" height="6" rx="2" fill="#030712"/></g>
+        <circle cx="62" cy="68" r="3" fill="#374151"/>
+        <path class="rmouth" d="M 52 74 Q 62 82 72 74" stroke="#2dd4bf" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <rect x="12" y="40" width="10" height="20" rx="5" fill="#1f2937" stroke="#374151" stroke-width="1.5"/>
+        <rect x="15" y="47" width="4" height="6" rx="2" fill="#2dd4bf" opacity=".6"/>
+        <rect x="102" y="40" width="10" height="20" rx="5" fill="#1f2937" stroke="#374151" stroke-width="1.5"/>
+        <rect x="105" y="47" width="4" height="6" rx="2" fill="#2dd4bf" opacity=".6"/>
+        <rect x="54" y="90" width="16" height="12" rx="4" fill="#1f2937" stroke="#374151" stroke-width="1"/>
+        <rect x="18" y="102" width="88" height="56" rx="16" fill="#111827" stroke="#2dd4bf" stroke-width="1.5"/>
+        <rect x="32" y="114" width="60" height="32" rx="8" fill="#0d1117" stroke="#1f2937" stroke-width="1"/>
+        <circle cx="46" cy="122" r="5" fill="#34d399" opacity=".9"/>
+        <circle cx="62" cy="122" r="5" fill="#2dd4bf" opacity=".9"/>
+        <circle cx="78" cy="122" r="5" fill="#60a5fa" opacity=".9"/>
+        <rect x="36" y="134" width="52" height="5" rx="2.5" fill="#1f2937"/>
+        <rect x="36" y="134" id="rProg" width="4" height="5" rx="2.5" fill="#2dd4bf"/>
+        <rect x="2" y="106" width="16" height="40" rx="8" fill="#1f2937" stroke="#374151" stroke-width="1"/>
+        <rect x="106" y="106" width="16" height="40" rx="8" fill="#1f2937" stroke="#374151" stroke-width="1"/>
+        <circle cx="10" cy="150" r="8" fill="#1f2937" stroke="#374151" stroke-width="1"/>
+        <circle cx="114" cy="150" r="8" fill="#1f2937" stroke="#374151" stroke-width="1"/>
+        <rect x="34" y="158" width="18" height="10" rx="5" fill="#1f2937" stroke="#374151" stroke-width="1"/>
+        <rect x="72" y="158" width="18" height="10" rx="5" fill="#1f2937" stroke="#374151" stroke-width="1"/>
+      </svg>
+    </div>
+    <div class="rspeech" id="rsp">Hi! I'm <strong>ARIA</strong> 🤖<br>Your NPCI AI change agent!</div>
+    <div class="div" style="width:100%"></div>
+    <div style="width:100%">
+      <div class="sb-title">Workflow Progress</div>
+      <div class="si cur" id="s1"><div class="sn">1</div><div class="sl">Change Description</div></div>
+      <div class="si" id="s2"><div class="sn">2</div><div class="sl">Change Type</div></div>
+      <div class="si" id="s3"><div class="sn">3</div><div class="sl">File Upload</div></div>
+      <div class="si" id="s4"><div class="sn">4</div><div class="sl">Schema & Fields</div></div>
+      <div class="si" id="s5"><div class="sn">5</div><div class="sl">Confirm & Submit</div></div>
+      <div class="si" id="s6"><div class="sn">6</div><div class="sl">Generate & Deploy</div></div>
+    </div>
+    <div class="pb-w">
+      <div class="pb"><div class="pbf" id="pf" style="width:2%"></div></div>
+      <div class="pbl" id="pl">Step 1 of 6</div>
+    </div>
+    <div class="cr-info" id="crInfo">
+      <div class="cr-t">Session Info</div>
+      <div class="cr-r"><span class="cr-k">CR ID</span><span class="cr-v" id="ciCr">—</span></div>
+      <div class="cr-r"><span class="cr-k">User ID</span><span class="cr-v" id="ciUid">—</span></div>
+      <div class="cr-r"><span class="cr-k">Type</span><span class="cr-v" id="ciType">—</span></div>
+      <div class="cr-r"><span class="cr-k">API</span><span class="cr-v" id="ciApi">—</span></div>
+      <div class="cr-r"><span class="cr-k">Status</span><span class="cr-v" id="ciStat">—</span></div>
+    </div>
+  </aside>
+</div>
+<div id="toast"><div class="tt" id="tt"></div><div id="tb"></div></div>
+
+<script>
+const API = 'http://localhost:8000';
+
+const S = {
+  username:'',abbr:'',crId:'',
+  description:'',productDetails:'',
+  changeType:'',apiName:'',
+  fileRaw:null,fileName:'',xsdContent:'',
+  tags:[],selectedTag:'',
+  attributeName:'',datatype:'xs:string',mandatory:false,allowedValues:'',
+  step:1, generatedPatch:null
+};
+
+const SPEECHES = {
+  1:"What is this change about? Tell me! 👂",
+  2:"What kind of API change do you need? ⬇️",
+  3:"Upload your schema file and I'll handle the rest! 📂",
+  4:"Analysing your schema... 🔍",
+  5:"Review & confirm before I submit! ✅",
+  6:"🚀 Calling the real backend — generating & deploying!"
+};
+
+// ── Backend health check ──────────────────────────────────
+async function checkBackend(){
+  try{
+    const r = await fetch(`${API}/docs`, {signal: AbortSignal.timeout(2500)});
+    if(r.ok){
+      document.getElementById('beStatus').textContent='Online';
+      document.getElementById('beStatus').style.color='var(--green)';
+      document.getElementById('backendChip').textContent='🟢 Backend :8000';
+      document.getElementById('backendChip').classList.add('teal');
+      return true;
+    }
+  }catch(e){}
+  document.getElementById('beStatus').textContent='Offline';
+  document.getElementById('beStatus').style.color='var(--red)';
+  document.getElementById('backendChip').textContent='🔴 Backend Offline';
+  document.getElementById('backendChip').classList.add('red');
+  return false;
+}
+
+// ── LOGIN ──────────────────────────────────────────────────
+function doLogin(){
+  const u=document.getElementById('lu').value.trim();
+  const p=document.getElementById('lp').value.trim();
+  const e=document.getElementById('lerr');
+  if(!u||!p){e.style.display='block';return;}
+  e.style.display='none';
+  S.username=u; S.abbr=u.slice(0,2).toUpperCase();
+  document.getElementById('sAv').textContent=S.abbr;
+  document.getElementById('sUser').textContent=u;
+  document.getElementById('loginScreen').classList.add('hidden');
+  document.getElementById('appScreen').classList.remove('hidden');
+  checkBackend();
+  initChat();
+}
+document.addEventListener('keydown',ev=>{
+  if(ev.key==='Enter'&&!document.getElementById('loginScreen').classList.contains('hidden')) doLogin();
+});
+function doLogout(){
+  document.getElementById('appScreen').classList.add('hidden');
+  document.getElementById('loginScreen').classList.remove('hidden');
+  document.getElementById('cb').innerHTML='';
+  document.getElementById('lu').value='';
+  document.getElementById('lp').value='';
+  resetS();
+}
+function resetS(){
+  Object.assign(S,{username:'',abbr:'',crId:'',description:'',productDetails:'',changeType:'',apiName:'',fileRaw:null,fileName:'',xsdContent:'',tags:[],selectedTag:'',attributeName:'',datatype:'xs:string',mandatory:false,allowedValues:'',step:1,generatedPatch:null});
+  setStep(1);
+  document.getElementById('crInfo').style.display='none';
+  document.getElementById('topCr').style.display='none';
+}
+
+// ── CR ID ─────────────────────────────────────────────────
+function genCrId(){
+  return `CR-${new Date().getFullYear()}-${Math.floor(1000+Math.random()*9000)}`;
+}
+
+// ── PROGRESS ──────────────────────────────────────────────
+function setStep(n){
+  S.step=n;
+  for(let i=1;i<=6;i++){
+    const el=document.getElementById(`s${i}`);
+    if(!el) continue;
+    el.classList.remove('done','cur');
+    if(i<n) el.classList.add('done');
+    else if(i===n) el.classList.add('cur');
+  }
+  const pct=Math.round(((n-1)/6)*100);
+  document.getElementById('pf').style.width=pct+'%';
+  document.getElementById('pl').textContent=`Step ${n} of 6`;
+  document.getElementById('rsp').innerHTML=SPEECHES[n]||SPEECHES[1];
+  document.getElementById('rProg').setAttribute('width',Math.round(52*pct/100));
+}
+function updateCrInfo(extra={}){
+  Object.assign(S,extra);
+  const b=document.getElementById('crInfo');
+  b.style.display='block';
+  document.getElementById('ciCr').textContent=S.crId||'—';
+  document.getElementById('ciUid').textContent=S.abbr||'—';
+  document.getElementById('ciType').textContent=S.changeType||'—';
+  document.getElementById('ciApi').textContent=S.apiName||'—';
+  document.getElementById('ciStat').textContent=S.status||'Draft';
+  if(S.crId){
+    const t=document.getElementById('topCr');
+    t.textContent=`CR: ${S.crId}`; t.style.display='';
+  }
+}
+
+// ── CHAT HELPERS ──────────────────────────────────────────
+function addMsg(html,type='bot'){
+  const c=document.getElementById('cb');
+  const d=document.createElement('div');
+  d.className=`msg ${type==='user'?'user':''}`;
+  const av=type==='user'?`<div class="av usr">${S.abbr||'👤'}</div>`:`<div class="av bot">🤖</div>`;
+  const nm=type==='user'?(S.username||'You'):'ARIA · ChangeIQ AI';
+  d.innerHTML=`${av}<div class="mb"><div class="mn">${nm}</div><div class="bub ${type}">${html}</div></div>`;
+  c.appendChild(d);
+  c.scrollTop=c.scrollHeight;
+  return d;
+}
+function addTyping(){
+  const c=document.getElementById('cb');
+  const d=document.createElement('div');
+  d.className='msg';d.id='ty';
+  d.innerHTML=`<div class="av bot">🤖</div><div class="mb"><div class="mn">ARIA · ChangeIQ AI</div><div class="typing-ind"><span></span><span></span><span></span></div></div>`;
+  c.appendChild(d);c.scrollTop=c.scrollHeight;
+}
+function rmTyping(){const e=document.getElementById('ty');if(e)e.remove();}
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+async function botSay(html,ms=700){addTyping();await wait(ms);rmTyping();return addMsg(html,'bot');}
+
+// ── TOAST ─────────────────────────────────────────────────
+function toast(t,m){
+  document.getElementById('tt').textContent=t;
+  document.getElementById('tb').textContent=m;
+  const el=document.getElementById('toast');
+  el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),3400);
+}
+
+// ── REAL API CALLS ────────────────────────────────────────
+async function apiPost(path,body){
+  const r=await fetch(API+path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(!r.ok){const t=await r.text();throw new Error(`HTTP ${r.status}: ${t}`);}
+  return r.json();
+}
+async function apiGet(path){
+  const r=await fetch(API+path);
+  if(!r.ok){const t=await r.text();throw new Error(`HTTP ${r.status}: ${t}`);}
+  return r.json();
+}
+async function apiPatch(path,body){
+  const r=await fetch(API+path,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(!r.ok){const t=await r.text();throw new Error(`HTTP ${r.status}: ${t}`);}
+  return r.json();
+}
+async function apiUploadFile(changeId,artifactType,file,apiName=''){
+  const fd=new FormData();
+  fd.append('changeId',changeId);
+  fd.append('artifactType',artifactType);
+  fd.append('file',file);
+  if(apiName) fd.append('apiName',apiName);
+  const r=await fetch(`${API}/agent/artifact/upload`,{method:'POST',body:fd});
+  if(!r.ok){const t=await r.text();throw new Error(`HTTP ${r.status}: ${t}`);}
+  return r.json();
+}
+async function apiConvertXml(file){
+  const fd=new FormData();fd.append('file',file);
+  const r=await fetch(`${API}/agent/xsd/convert-sample-xml`,{method:'POST',body:fd});
+  if(!r.ok){const t=await r.text();throw new Error(`HTTP ${r.status}: ${t}`);}
+  return r.json();
+}
+
+// ── INIT ──────────────────────────────────────────────────
+async function initChat(){
+  S.crId=genCrId();
+  updateCrInfo({status:'Draft'});
+  setStep(1);
+  await botSay(`
+    <span class="stag">👋 WELCOME</span><br>
+    Hey <strong class="hl">${S.username}</strong>! I'm <strong>ARIA</strong>, your NPCI AI agent.<br><br>
+    Your session has been assigned Change Request ID:<br>
+    <strong class="hl" style="font-size:15px;font-family:'JetBrains Mono',monospace">${S.crId}</strong><br><br>
+    This ID will track your request end-to-end — through spec generation, Java patch creation, and actual deployment into <strong>javacoderepo</strong>.<br><br>
+    First — <strong>what is this change about?</strong>
+  `,500);
+}
+
+// ── DESCRIPTION ───────────────────────────────────────────
+async function handleDesc(text){
+  S.description=text;
+  addMsg(text,'user');
+  S.step=1.5;
+  await botSay(`
+    <span class="stag">📋 NOTED</span><br>
+    Got it. Now please provide the <strong>product details</strong>:<br>
+    <em style="color:var(--text-3);font-size:12px">(business justification, affected parties, priority, regulatory requirement…)</em>
+  `);
+}
+
+// ── PRODUCT DETAILS ───────────────────────────────────────
+async function handleProdDetails(text){
+  S.productDetails=text;
+  addMsg(text,'user');
+  setStep(2);
+  await botSay(`
+    <span class="stag">✅ SAVED</span><br>
+    Here's what I have so far:
+    <div class="sum"><div class="sum-h">📋 ${S.crId} — Draft</div>
+    <div class="sum-b">
+      <div class="sum-r"><span class="sum-k">CR ID</span><span class="sum-v"><code>${S.crId}</code></span></div>
+      <div class="sum-r"><span class="sum-k">User ID</span><span class="sum-v"><code>${S.abbr}</code></span></div>
+      <div class="sum-r"><span class="sum-k">Description</span><span class="sum-v">${S.description}</span></div>
+      <div class="sum-r"><span class="sum-k">Product Details</span><span class="sum-v">${S.productDetails}</span></div>
+    </div></div><br>
+    Now — <strong>what type of change?</strong>
+    <div class="opts">
+      <button class="opt" onclick="pickType('ADD_XML_ATTRIBUTE','Field Addition')">🔧 Field Addition</button>
+      <button class="opt" onclick="pickType('ADD_NEW_API','New API')">🆕 New API</button>
+      <button class="opt" onclick="pickType('ADD_ELEMENT','Element Addition')">📦 Element Addition</button>
+    </div>
+  `);
+}
+
+// ── CHANGE TYPE ───────────────────────────────────────────
+async function pickType(type,label){
+  disableAll();
+  S.changeType=type;
+  updateCrInfo({status:'File Upload'});
+  addMsg(`Change type: <strong>${label}</strong>`,'user');
+  setStep(3);
+  if(type==='ADD_XML_ATTRIBUTE'){
+    await askUpload();
+  } else {
+    await botSay(`<span class="stag">INFO</span><br>
+      <strong>${label}</strong> flow is coming soon. Switching to Field Addition demo.<br>
+      <div class="opts"><button class="opt" onclick="pickType('ADD_XML_ATTRIBUTE','Field Addition')">🔧 Use Field Addition</button></div>`);
+    setStep(3);
+  }
+}
+
+// ── UPLOAD ────────────────────────────────────────────────
+async function askUpload(){
+  await botSay(`
+    <span class="stag">STEP 3 — UPLOAD</span><br>
+    Upload your <strong>XSD or XML schema file</strong>.<br>
+    <em style="color:var(--text-3);font-size:12px">XML files are auto-converted to XSD via the backend.</em>
+    <div class="iform">
+      <div class="uz" onclick="document.getElementById('sf').click()">
+        <div class="uzi">📄</div><p>Click to select <strong>.xsd</strong> or <strong>.xml</strong></p>
+        <input type="file" id="sf" accept=".xsd,.xml" onchange="onFile(this)"/>
+        <div class="fp" id="fp"></div>
+      </div>
+      <button class="isub" id="upBtn" disabled style="opacity:.4" onclick="doUpload()">Process File →</button>
+    </div>
+  `);
+}
+function onFile(inp){
+  if(!inp.files||!inp.files[0]) return;
+  S.fileObj=inp.files[0];S.fileName=S.fileObj.name;
+  document.getElementById('fp').textContent='✅ '+S.fileName;
+  const b=document.getElementById('upBtn');b.disabled=false;b.style.opacity='1';
+  const fr=new FileReader();fr.onload=e=>{S.fileRaw=e.target.result;};fr.readAsText(S.fileObj);
+}
+
+// ── PROCESS UPLOAD (calls real backend) ──────────────────
+async function doUpload(){
+  if(!S.fileObj){toast('Error','Select a file first.');return;}
+  document.getElementById('upBtn').disabled=true;
+  addMsg(`Uploading: <strong>${S.fileName}</strong>`,'user');
+  setStep(4);
+
+  addTyping();
+  const isXml=S.fileName.toLowerCase().endsWith('.xml');
+  try{
+    let xsdText=S.fileRaw;
+    let convMsg='';
+
+    // Step A: Convert XML→XSD via backend if needed
+    if(isXml){
+      try{
+        const cr=await apiConvertXml(S.fileObj);
+        xsdText=cr.xsd;
+        convMsg='<div class="status-banner ok">✅ XML converted to XSD by backend</div>';
+        toast('XML→XSD','Backend conversion complete ✅');
+      }catch(e){
+        // Fallback to client-side conversion
+        xsdText=clientXmlToXsd(S.fileRaw);
+        convMsg='<div class="status-banner warn">⚠️ Used client-side XML→XSD conversion (backend offline?)</div>';
+      }
+      // Save XSD to blob for upload
+      S.fileObj=new File([xsdText],S.fileName.replace(/\.xml$/i,'.xsd'),{type:'text/xml'});
+    }
+    S.xsdContent=xsdText;
+
+    // Step B: Extract XSD info FIRST so we have apiName before uploading
+    const info=extractXsdInfo(xsdText);
+    S.apiName=info.apiName||S.fileName.replace(/\.(xml|xsd)$/i,'');
+    S.tags=info.tags;
+    updateCrInfo();
+
+    // Step C: Upload XSD artifact to backend (apiName is now known)
+    let uploadMsg='';
+    try{
+      const up=await apiUploadFile(S.crId,'xsd',S.fileObj,S.apiName);
+      uploadMsg=`<div class="status-banner ok">✅ XSD uploaded — <code style="font-size:11px">${up.path||'artifacts/xsd/'+S.crId+'/'+S.apiName+'.xsd'}</code></div>`;
+    }catch(e){
+      uploadMsg=`<div class="status-banner warn">⚠️ Upload to backend failed: ${e.message}. Using local file.</div>`;
+    }
+
+    rmTyping();
+    await addMsg(`
+      <span class="stag">✅ ${isXml?'CONVERTED & ':''}UPLOADED</span>
+      ${convMsg}${uploadMsg}
+      <div class="sum"><div class="sum-h">📐 Schema Info</div><div class="sum-b">
+        <div class="sum-r"><span class="sum-k">File</span><span class="sum-v">${S.fileName}</span></div>
+        <div class="sum-r"><span class="sum-k">API Name (Root)</span><span class="sum-v"><code>${S.apiName}</code></span></div>
+        <div class="sum-r"><span class="sum-k">Tags Found</span><span class="sum-v">${S.tags.length} elements / attributes</span></div>
+      </div></div><br>
+      <strong>All tags extracted. Select the tag to add your new field to:</strong>
+      <div class="tags-grid">${S.tags.map(t=>`<div class="tc" onclick="pickTag('${t}',this)">${t}</div>`).join('')}</div>
+    `,'bot');
+  }catch(e){
+    rmTyping();
+    addMsg(`<div class="status-banner err">❌ Error processing file: ${e.message}</div>`,'bot');
+  }
+}
+
+// ── TAG SELECTION ─────────────────────────────────────────
+function pickTag(tag,el){
+  document.querySelectorAll('.tc').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');S.selectedTag=tag;
+  if(!document.getElementById('fconf')) showFieldConfig();
+}
+async function showFieldConfig(){
+  await botSay(`
+    <span class="stag">STEP 4 — FIELD CONFIG</span><br>
+    Adding to: <strong class="hl">${S.selectedTag}</strong><br><br>
+    Configure your new field:
+    <div class="iform" id="fconf">
+      <div class="ifield"><label>New Field / Attribute Name</label><input class="ii" id="fn" placeholder="e.g. bindingMode, deviceType…"/></div>
+      <div class="ifield"><label>Data Type</label>
+        <select class="ii" id="ft">
+          <option>xs:string</option><option>xs:integer</option><option>xs:decimal</option>
+          <option>xs:boolean</option><option>xs:date</option><option>xs:dateTime</option>
+          <option>xs:token</option><option>xs:positiveInteger</option><option>xs:nonNegativeInteger</option>
+        </select>
+      </div>
+      <div class="ifield"><label>Requirement</label>
+        <select class="ii" id="fq"><option value="optional">Optional</option><option value="mandatory">Mandatory</option></select>
+      </div>
+      <div class="ifield"><label>Allowed Values (comma-separated, optional)</label><input class="ii" id="fa" placeholder="e.g. SINGLE,MULTI,NONE"/></div>
+      <button class="isub" onclick="goConfirm()">Continue →</button>
+    </div>
+  `);
+}
+
+// ── CONFIRM ───────────────────────────────────────────────
+async function goConfirm(){
+  const fn=document.getElementById('fn')?.value?.trim();
+  if(!S.selectedTag){toast('Error','Select a tag first.');return;}
+  if(!fn){toast('Error','Enter a field name.');return;}
+  S.attributeName=fn;
+  S.datatype=document.getElementById('ft')?.value||'xs:string';
+  S.mandatory=document.getElementById('fq')?.value==='mandatory';
+  S.allowedValues=document.getElementById('fa')?.value?.trim()||'';
+  disableAll();
+  addMsg(`New field: <strong>${fn}</strong> (${S.datatype}, ${S.mandatory?'Mandatory':'Optional'})`,'user');
+  setStep(5);
+  updateCrInfo({status:'Pending Confirmation'});
+
+  const avList=S.allowedValues?S.allowedValues.split(',').map(s=>s.trim()).filter(Boolean):[];
+  await botSay(`
+    <span class="stag">STEP 5 — REVIEW & CONFIRM</span><br>
+    Review your complete change request before submitting to the backend:
+    <div class="sum"><div class="sum-h">📋 Final Change Request — ${S.crId}</div><div class="sum-b">
+      <div class="sum-r"><span class="sum-k">CR ID</span><span class="sum-v"><code>${S.crId}</code></span></div>
+      <div class="sum-r"><span class="sum-k">User ID</span><span class="sum-v"><code>${S.abbr}</code></span></div>
+      <div class="sum-r"><span class="sum-k">Description</span><span class="sum-v">${S.description}</span></div>
+      <div class="sum-r"><span class="sum-k">Product Details</span><span class="sum-v">${S.productDetails}</span></div>
+      <div class="sum-r"><span class="sum-k">Change Type</span><span class="sum-v">Field Addition</span></div>
+      <div class="sum-r"><span class="sum-k">API Name</span><span class="sum-v">${S.apiName}</span></div>
+      <div class="sum-r"><span class="sum-k">XSD File</span><span class="sum-v">${S.fileName}</span></div>
+      <div class="sum-r"><span class="sum-k">Target Tag</span><span class="sum-v"><code>${S.selectedTag}</code></span></div>
+      <div class="sum-r"><span class="sum-k">New Attribute</span><span class="sum-v"><code>${S.attributeName}</code></span></div>
+      <div class="sum-r"><span class="sum-k">Data Type</span><span class="sum-v">${S.datatype}</span></div>
+      <div class="sum-r"><span class="sum-k">Mandatory</span><span class="sum-v">${S.mandatory?'✅ Yes':'❌ No'}</span></div>
+      ${avList.length?`<div class="sum-r"><span class="sum-k">Allowed Values</span><span class="sum-v">${avList.join(', ')}</span></div>`:''}
+    </div></div>
+    <div class="arow">
+      <button class="btn pri" onclick="realSubmit()">✅ Confirm & Submit to Backend</button>
+      <button class="btn sec" onclick="doEdit()">✏️ Edit Details</button>
+    </div>
+  `);
+}
+
+// ── EDIT ──────────────────────────────────────────────────
+async function doEdit(){
+  disableAll();
+  addMsg('I want to edit the details.','user');
+  await botSay(`
+    <span class="stag">✏️ EDIT</span><br>Update the fields:
+    <div class="iform">
+      <div class="ifield"><label>Target Tag</label>
+        <select class="ii" id="et">${S.tags.map(t=>`<option ${t===S.selectedTag?'selected':''}>${t}</option>`).join('')}</select>
+      </div>
+      <div class="ifield"><label>Field Name</label><input class="ii" id="ef" value="${S.attributeName}"/></div>
+      <div class="ifield"><label>Data Type</label>
+        <select class="ii" id="edt">${['xs:string','xs:integer','xs:decimal','xs:boolean','xs:date','xs:dateTime','xs:token','xs:positiveInteger','xs:nonNegativeInteger'].map(t=>`<option ${t===S.datatype?'selected':''}>${t}</option>`).join('')}</select>
+      </div>
+      <div class="ifield"><label>Requirement</label>
+        <select class="ii" id="eq"><option value="optional" ${!S.mandatory?'selected':''}>Optional</option><option value="mandatory" ${S.mandatory?'selected':''}>Mandatory</option></select>
+      </div>
+      <div class="ifield"><label>Allowed Values</label><input class="ii" id="eav" value="${S.allowedValues}"/></div>
+      <button class="isub" onclick="saveEdit()">Save & Reconfirm →</button>
+    </div>
+  `);
+}
+async function saveEdit(){
+  S.selectedTag=document.getElementById('et')?.value||S.selectedTag;
+  S.attributeName=document.getElementById('ef')?.value?.trim()||S.attributeName;
+  S.datatype=document.getElementById('edt')?.value||S.datatype;
+  S.mandatory=document.getElementById('eq')?.value==='mandatory';
+  S.allowedValues=document.getElementById('eav')?.value?.trim()||'';
+  addMsg('Updated the details.','user');
+  await goConfirm();
+}
+
+// ── REAL SUBMIT (calls all real backend endpoints) ────────
+async function realSubmit(){
+  disableAll();
+  addMsg('Confirmed. Submitting to backend.','user');
+  setStep(6);
+  updateCrInfo({status:'Processing'});
+
+  const avList=S.allowedValues?S.allowedValues.split(',').map(s=>s.trim()).filter(Boolean):[];
+
+  // ─ Progress messages
+  async function step(icon,msg,fn){
+    addTyping();
+    try{
+      const res=await fn();
+      rmTyping();
+      return res;
+    }catch(e){
+      rmTyping();
+      addMsg(`<div class="status-banner err">❌ ${msg} failed: ${e.message}<br><small>Is the backend running at <code>http://localhost:8000</code>?<br>Run <code>start_backend.ps1</code> to start it.</small></div>`,'bot');
+      throw e;
+    }
+  }
+
+  try{
+    // ─────────────────────────────────────────────────────
+    // 1. Save Change Request to backend store
+    // ─────────────────────────────────────────────────────
+    await step('📝','Save CR',()=>apiPost('/npciswitch/change-requests',{
+      changeId: S.crId,
+      description: S.description,
+      productNoteSummary: S.productDetails,
+      changeType: 'field-addition',   // deploy endpoint needs this exact value
+      apiName: S.apiName,
+      currentStatus: 'Pending Approval',
+      receivedDate: new Date().toISOString(),
+      updatedOn: new Date().toISOString(),
+    }));
+
+    // ─────────────────────────────────────────────────────
+    // 2. Generate XSD spec (AI-powered)
+    // ─────────────────────────────────────────────────────
+    addMsg('<span class="spin">⏳</span> Calling AI to generate updated XSD spec…','bot');
+    const specBody={
+      change_id: S.crId,
+      apiName: S.apiName,
+      changeType: 'ADD_XML_ATTRIBUTE',
+      xmlPath: `${S.apiName}.${S.selectedTag}`,
+      attributeName: S.attributeName,
+      datatype: S.datatype,
+      mandatory: S.mandatory,
+      allowedValues: avList,
+      description: S.description,
+      xsdContent: S.xsdContent,
+    };
+    const specRes=await step('📐','Spec generation',()=>apiPost('/npciswitch/spec/generate',specBody));
+
+    const newXsd=specRes.newXsd||specRes.xsd||'(XSD in backend)';
+    await addMsg(`
+      <span class="stag">✅ XSD SPEC GENERATED</span><br>
+      AI has generated the updated XSD. Approval status: <strong class="hl">${specRes.approvalStatus||'PENDING'}</strong>
+      <div class="cb"><div class="cb-h"><span>${S.apiName}.xsd</span>
+        <button class="btn sec" style="padding:2px 8px;font-size:10.5px" onclick="navigator.clipboard.writeText(this.closest('.cb').querySelector('pre').innerText);toast('Copied!','XSD copied')">📋 Copy</button>
+      </div><pre>${escHtml(newXsd).slice(0,1800)}${newXsd.length>1800?'\n…(truncated)':''}</pre></div>
+    `,'bot');
+
+    // ─────────────────────────────────────────────────────
+    // 3. Product approves spec
+    // ─────────────────────────────────────────────────────
+    await step('✅','Product approval',()=>apiPost(`/npciswitch/spec/approve/${S.crId}`,{}));
+    addMsg('<div class="status-banner ok">✅ Spec approved by Product Team</div>','bot');
+    updateCrInfo({status:'Spec Approved'});
+
+    // ─────────────────────────────────────────────────────
+    // 4. Generate real Java patch (calls AI + reads javacoderepo)
+    // ─────────────────────────────────────────────────────
+    addMsg('<span class="spin">⏳</span> Generating Java patch — reading javacoderepo DTOs…','bot');
+    const patchRes=await step('☕','Java patch generation',()=>apiGet(`/npciswitch/dev/patch/${S.crId}`));
+    S.generatedPatch=patchRes;
+
+    // Check for backend-level error in patch response (non-HTTP errors returned as 200)
+    if(patchRes.error){
+      const errMap={
+        'INVALID_CHANGE_ID':'Change ID not found in backend — spec generation may have been skipped.',
+        'SPEC_NOT_APPROVED':'Spec was not approved before requesting patch.',
+        'JAVA_MAPPING_NOT_FOUND':`Could not map the selected XML element to a Java DTO class.<br><small>xmlPath: <code>${patchRes.message||''}</code><br>Ensure javacoderepo contains DTOs matching your XML elements.</small>`,
+        'JAVA_FILE_NOT_FOUND':'Mapped Java class file not found in javacoderepo.',
+        'INVALID_PAYLOAD':'xmlPath or attributeName missing from spec payload.',
+      };
+      const msg=errMap[patchRes.error]||patchRes.message||patchRes.error;
+      await addMsg(`<div class="status-banner err">❌ Patch generation error: <strong>${patchRes.error}</strong><br>${msg}</div>`,'bot');
+      return;
+    }
+
+    const results=patchRes.results||[];
+    let diffHtml='';
+    results.forEach(r=>{
+      const fname=(r.file||r.fileName||'file.java').split(/[\/\\]/).pop();
+      const isNew=r.type==='NEW_FILE';
+      const diffLines=buildDiffView(r.oldCode||'',r.newCode||'');
+      diffHtml+=`
+      <div class="diff-file">
+        <div class="diff-hdr">
+          <span>${isNew?'🆕':''} ${fname}</span>
+          <span style="color:${isNew?'var(--teal)':'var(--green)'};">${isNew?'NEW FILE':'PATCHED'} • ${r.type}</span>
+        </div>
+        <div class="diff-body">${diffLines}</div>
+      </div>`;
+    });
+
+    if(results.length===0){
+      await addMsg(`<div class="status-banner err">❌ No Java files were patched.<br>
+        <small>This usually means the selected tag (<code>${S.selectedTag}</code>) could not be matched to any Java DTO in javacoderepo.<br>
+        Try selecting a different tag that corresponds to a Java DTO class (e.g., <code>Payer</code>, <code>Txn</code>, <code>Head</code>).</small></div>`,'bot');
+      return;
+    }
+
+    await addMsg(`
+      <span class="stag">☕ REAL JAVA PATCH READY</span><br>
+      <strong>${results.length} file(s)</strong> generated from reading actual javacoderepo source:
+      ${diffHtml}
+      <div class="arow">
+        <button class="btn pri" onclick="doApproveAndDeploy()">🚀 Approve & Deploy to javacoderepo</button>
+        <button class="btn sec" onclick="downloadPatch()">⬇️ Download Patch</button>
+      </div>
+    `,'bot');
+    updateCrInfo({status:'Patch Ready'});
+
+  }catch(e){
+    // Error already shown inline above
+    console.error(e);
+  }
+}
+
+// ── APPROVE & REAL DEPLOY ────────────────────────────────
+async function doApproveAndDeploy(){
+  disableAll();
+  addMsg('Approving and deploying to real javacoderepo.','user');
+
+  addTyping();
+  try{
+    // 1. Guard: must have patch results to deploy
+    const results=S.generatedPatch?.results||[];
+    if(results.length===0){
+      rmTyping();
+      addMsg(`<div class="status-banner err">❌ Cannot deploy: no Java patch files available.<br>
+        <small>Patch generation must succeed before deploying. Go back and ensure the patch was generated successfully.</small></div>`,'bot');
+      return;
+    }
+
+    // 2. Save files from patch result into CR store (needed by deploy endpoint)
+    const filesPayload=results.map(r=>({
+      fileName: (r.file||'file.java').split(/[\/\\]/).pop(),
+      filePath: r.file||r.filePath||'',
+      oldCode: r.oldCode||'',
+      newCode: r.newCode||'',
+      diff: r.diff||'',
+    }));
+    await apiPatch(`/npciswitch/change-requests/${S.crId}`,{
+      currentStatus:'Approved',
+      files: filesPayload,
+    });
+
+    // 2. Check deploy eligibility
+    const elig=await apiGet(`/npciswitch/deploy/eligibility/${S.crId}`);
+    if(!elig.eligible){
+      rmTyping();
+      addMsg(`<div class="status-banner warn">⚠️ Not eligible to deploy: ${elig.reason}</div>`,'bot');
+      return;
+    }
+
+    // 3. Actually deploy — writes files to javacoderepo on disk
+    const deployRes=await apiPost(`/npciswitch/deploy/${S.crId}`,{});
+    rmTyping();
+
+    const deployed=deployRes.deployedFiles||[];
+    const errors=deployRes.errors||[];
+    const git=deployRes.gitCommitPush||{};
+
+    let deployedRows=deployed.map(d=>`
+      <div class="sum-r">
+        <span class="sum-k" style="word-break:break-all;min-width:unset;flex:1">${d.targetPath||d.file||'file'}</span>
+        <span class="sum-v" style="color:var(--green);flex-shrink:0">✅ Written</span>
+      </div>`).join('');
+
+    let errRows=errors.map(e=>`
+      <div class="sum-r">
+        <span class="sum-k" style="color:var(--red);word-break:break-all">${e.filePath||e.file||'?'}</span>
+        <span class="sum-v" style="color:var(--red)">${e.error||'Error'}</span>
+      </div>`).join('');
+
+    const gitInfo=git.ok
+      ? `<div class="sum-r"><span class="sum-k">Git Commit</span><span class="sum-v"><code>${git.commitHash||'committed'}</code></span></div>
+         <div class="sum-r"><span class="sum-k">Branch</span><span class="sum-v">${git.branch||'current'}</span></div>
+         <div class="sum-r"><span class="sum-k">Pushed</span><span class="sum-v">${git.pushed?'✅ Yes':'📌 Commit only'}</span></div>`
+      : `<div class="sum-r"><span class="sum-k">Git</span><span class="sum-v" style="color:var(--gold)">⚠️ ${git.message||'Skipped'}</span></div>`;
+
+    const isSuccess=deployRes.success;
+    updateCrInfo({status:isSuccess?'Deployed':'Deploy Error'});
+
+    await addMsg(`
+      <span class="stag">${isSuccess?'✅ DEPLOYED':'❌ DEPLOY FAILED'}</span><br>
+      ${isSuccess?'<div class="status-banner ok">🎉 Real files written to <strong>javacoderepo</strong> on disk!</div>':'<div class="status-banner err">Deployment had errors.</div>'}
+      <div class="sum"><div class="sum-h">🗂️ Deploy Audit — ${S.crId}</div><div class="sum-b">
+        <div class="sum-r"><span class="sum-k">CR ID</span><span class="sum-v"><code>${S.crId}</code></span></div>
+        <div class="sum-r"><span class="sum-k">User ID</span><span class="sum-v"><code>${S.abbr}</code></span></div>
+        <div class="sum-r"><span class="sum-k">javacoderepo root</span><span class="sum-v" style="font-size:11px;word-break:break-all">${deployRes.javacoderepoRoot||'see .env'}</span></div>
+        <div class="sum-r"><span class="sum-k">Files Deployed</span><span class="sum-v">${deployed.length}</span></div>
+        ${deployedRows}
+        ${errRows}
+        <div class="sum-r"><span class="sum-k">Timestamp</span><span class="sum-v">${new Date().toLocaleString()}</span></div>
+        ${gitInfo}
+        <div class="sum-r"><span class="sum-k">Status</span><span class="sum-v" style="color:${isSuccess?'var(--green)':'var(--red)'}">${isSuccess?'✅ SUCCESS':'❌ ERRORS'}</span></div>
+      </div></div>
+      ${deployRes.warning?`<div class="status-banner warn">⚠️ ${deployRes.warning}</div>`:''}
+      <div class="arow">
+        <button class="btn pri" onclick="startNew()">🔄 New Change Request</button>
+        <button class="btn sec" onclick="toast('Manifest','Generating manifest...')">🔏 View Manifest</button>
+      </div>
+    `,'bot');
+
+    // Mark all done
+    for(let i=1;i<=6;i++){const e=document.getElementById(`s${i}`);if(e){e.classList.remove('cur');e.classList.add('done');}}
+    document.getElementById('pf').style.width='100%';
+    document.getElementById('pl').textContent='Deployed ✅';
+    document.getElementById('rsp').innerHTML='🎉 <strong>Done!</strong><br>Real files written to javacoderepo!';
+    document.getElementById('rProg').setAttribute('width',52);
+    if(isSuccess) toast('✅ Deployed!',`CR ${S.crId} written to javacoderepo.`);
+
+  }catch(e){
+    rmTyping();
+    addMsg(`<div class="status-banner err">❌ Deploy failed: ${e.message}<br><small>Check that backend is running and javacoderepo path is set in .env</small></div>`,'bot');
+  }
+}
+
+// ── DOWNLOAD PATCH ────────────────────────────────────────
+function downloadPatch(){
+  const results=S.generatedPatch?.results||[];
+  if(!results.length){toast('Error','No patch to download.');return;}
+  let txt=`ChangeIQ Patch — ${S.crId}\n${'='.repeat(60)}\n\n`;
+  results.forEach(r=>{
+    const fname=(r.file||'file.java').split(/[\/\\]/).pop();
+    txt+=`${'─'.repeat(60)}\nFile: ${fname}\nType: ${r.type}\nPath: ${r.file||''}\n${'─'.repeat(60)}\n`;
+    txt+=`// ── NEW CODE ──\n${r.newCode||''}\n\n`;
+  });
+  const blob=new Blob([txt],{type:'text/plain'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=`patch-${S.crId}.txt`;
+  a.click();
+  toast('Downloaded',`patch-${S.crId}.txt`);
+}
+
+// ── START NEW ─────────────────────────────────────────────
+async function startNew(){
+  document.getElementById('cb').innerHTML='';
+  const prev={username:S.username,abbr:S.abbr};
+  resetS();
+  Object.assign(S,prev);
+  await initChat();
+}
+
+// ── DIFF VIEWER ───────────────────────────────────────────
+function buildDiffView(oldCode,newCode){
+  if(!oldCode&&!newCode) return '<div class="dl ctx"><span class="lc">(empty)</span></div>';
+  const oldLines=oldCode?oldCode.split('\n'):[];
+  const newLines=newCode?newCode.split('\n'):[];
+  let html='';
+  const maxLines=Math.max(oldLines.length,newLines.length);
+  // Simple unified diff: show added/removed
+  if(!oldCode){
+    // All new
+    return newLines.slice(0,60).map((l,i)=>
+      `<div class="dl add"><span class="ln">${i+1}</span><span class="lc">+ ${escHtml(l)}</span></div>`
+    ).join('')+(newLines.length>60?'<div class="dl ctx"><span class="lc">…</span></div>':'');
+  }
+  // Compare
+  const shown=[];
+  for(let i=0;i<Math.max(oldLines.length,newLines.length)&&shown.length<80;i++){
+    const o=oldLines[i],n=newLines[i];
+    if(o===n) shown.push(`<div class="dl ctx"><span class="ln">${i+1}</span><span class="lc">  ${escHtml(o||'')}</span></div>`);
+    else{
+      if(o!==undefined) shown.push(`<div class="dl rem"><span class="ln">${i+1}</span><span class="lc">- ${escHtml(o)}</span></div>`);
+      if(n!==undefined) shown.push(`<div class="dl add"><span class="ln">${i+1}</span><span class="lc">+ ${escHtml(n)}</span></div>`);
+    }
+  }
+  return shown.join('');
+}
+function escHtml(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+// ── XSD HELPERS ───────────────────────────────────────────
+function extractXsdInfo(xsdStr){
+  const elemNames=new Set();
+  let apiName='';
+
+  // Primary: regex-based extraction — works reliably across all namespace prefixes
+  // Match xs:element, xsd:element, or plain element with a name attribute
+  const elemRx=/<(?:xs:|xsd:)?element\b[^>]*\bname="([^"]+)"/gi;
+  let m;
+  while((m=elemRx.exec(xsdStr))!==null){
+    const n=m[1];
+    if(n&&!n.startsWith('xs:')&&!n.startsWith('xsd:')){
+      elemNames.add(n);
+      if(!apiName) apiName=n;
+    }
+  }
+
+  // Secondary: try DOMParser for any element names the regex missed
+  try{
+    const doc=new DOMParser().parseFromString(xsdStr,'text/xml');
+    // querySelectorAll('element') matches local-name "element" in XML mode (Chrome/Firefox)
+    doc.querySelectorAll('element').forEach(e=>{
+      const n=e.getAttribute('name');
+      if(n&&!n.startsWith('xs:')) elemNames.add(n);
+    });
+    if(!apiName){
+      const first=doc.querySelector('element');
+      if(first) apiName=first.getAttribute('name')||'';
+    }
+  }catch(e){}
+
+  // Remove XSD built-in type names and schema keywords that leak in
+  const SKIP=new Set(['xs:string','xs:integer','xs:decimal','xs:boolean','xs:date','xs:dateTime',
+    'xs:token','xs:positiveInteger','xs:nonNegativeInteger','xs:anyURI','xs:long','xs:float',
+    'required','optional','qualified','unqualified','unbounded','extension','restriction',
+    'sequence','choice','all','annotation','documentation','simpleType','complexType',
+    'simpleContent','complexContent','import','include','enumeration']);
+  SKIP.forEach(i=>elemNames.delete(i));
+
+  const tags=[...elemNames].filter(t=>t&&t.length>0).slice(0,60);
+  return{apiName,tags};
+}
+
+function clientXmlToXsd(xmlStr){
+  // Recursive XML→XSD builder — handles any nesting depth
+  try{
+    const doc=new DOMParser().parseFromString(xmlStr,'text/xml');
+    const root=doc.documentElement;
+    if(root.nodeName==='parsererror'||root.querySelector&&root.querySelector('parsererror'))
+      throw new Error('XML parse error');
+
+    // Build a complex element block (with minOccurs/maxOccurs on the element tag itself)
+    function buildComplex(node,indent,extraAttrs=''){
+      const tag=node.localName||node.tagName;
+      const children=Array.from(node.children);
+      const xmlAttrs=Array.from(node.attributes||[]);
+      // Count occurrences of each child tag to detect repeated elements
+      const counts=new Map();
+      children.forEach(c=>{ const t=c.localName||c.tagName; counts.set(t,(counts.get(t)||0)+1); });
+      // First occurrence of each tag
+      const firstByTag={};
+      children.forEach(c=>{ const t=c.localName||c.tagName; if(!firstByTag[t]) firstByTag[t]=c; });
+      const uniqueTags=[...new Set(children.map(c=>c.localName||c.tagName))];
+
+      if(uniqueTags.length===0&&xmlAttrs.length===0){
+        // Leaf — simple type
+        return `${indent}<xs:element name="${tag}" type="xs:string" minOccurs="0"${extraAttrs}/>\n`;
+      }
+      let s=`${indent}<xs:element name="${tag}" minOccurs="0"${extraAttrs}>\n`;
+      s+=`${indent}  <xs:complexType>\n`;
+      if(uniqueTags.length>0){
+        s+=`${indent}    <xs:sequence>\n`;
+        uniqueTags.forEach(ct=>{
+          const maxO=counts.get(ct)>1?' maxOccurs="unbounded"':'';
+          s+=buildComplex(firstByTag[ct],indent+'      ',maxO);
+        });
+        s+=`${indent}    </xs:sequence>\n`;
+      }
+      xmlAttrs.forEach(a=>{
+        s+=`${indent}    <xs:attribute name="${a.name}" type="xs:string" use="optional"/>\n`;
+      });
+      s+=`${indent}  </xs:complexType>\n`;
+      s+=`${indent}</xs:element>\n`;
+      return s;
+    }
+
+    let xsd='<?xml version="1.0" encoding="UTF-8"?>\n';
+    xsd+='<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">\n';
+    // Root element — no minOccurs needed at top level
+    const rootTag=root.localName||root.tagName;
+    const rootChildren=Array.from(root.children);
+    const rootAttrs=Array.from(root.attributes||[]);
+    const rootCounts=new Map();
+    rootChildren.forEach(c=>{ const t=c.localName||c.tagName; rootCounts.set(t,(rootCounts.get(t)||0)+1); });
+    const rootFirst={};
+    rootChildren.forEach(c=>{ const t=c.localName||c.tagName; if(!rootFirst[t]) rootFirst[t]=c; });
+    const rootUnique=[...new Set(rootChildren.map(c=>c.localName||c.tagName))];
+
+    if(rootUnique.length===0&&rootAttrs.length===0){
+      xsd+=`  <xs:element name="${rootTag}" type="xs:string"/>\n`;
+    } else {
+      xsd+=`  <xs:element name="${rootTag}">\n`;
+      xsd+=`    <xs:complexType>\n`;
+      if(rootUnique.length>0){
+        xsd+=`      <xs:sequence>\n`;
+        rootUnique.forEach(ct=>{
+          const maxO=rootCounts.get(ct)>1?' maxOccurs="unbounded"':'';
+          xsd+=buildComplex(rootFirst[ct],'        ',maxO);
+        });
+        xsd+=`      </xs:sequence>\n`;
+      }
+      rootAttrs.forEach(a=>{
+        xsd+=`      <xs:attribute name="${a.name}" type="xs:string" use="optional"/>\n`;
+      });
+      xsd+=`    </xs:complexType>\n`;
+      xsd+=`  </xs:element>\n`;
+    }
+    xsd+='</xs:schema>';
+    return xsd;
+  }catch(e){
+    return xmlStr; // return raw as fallback
+  }
+}
+
+// ── INPUT HANDLER ─────────────────────────────────────────
+async function sendMsg(){
+  const inp=document.getElementById('ui');
+  const text=inp.value.trim();if(!text)return;
+  inp.value='';inp.style.height='auto';
+  if(S.step===1&&!S.description){await handleDesc(text);}
+  else if(S.step===1.5){await handleProdDetails(text);}
+  else{
+    addMsg(text,'user');
+    const lo=text.toLowerCase();
+    if(lo.includes('help')) await botSay(`I can help with:<ul><li>🔧 Field Addition — real backend integration</li><li>🆕 New API — coming soon</li><li>Type <code>status</code> to check session</li></ul>`);
+    else if(lo.includes('status')) await botSay(`CR: <code>${S.crId}</code> · User: <code>${S.abbr}</code> · Step: ${S.step} · Status: ${S.status||'Draft'}`);
+    else await botSay(`Received. Use the action buttons above to continue, or type <code>help</code>.`);
+  }
+}
+function disableAll(){document.querySelectorAll('.opt,.btn,.isub,.tc').forEach(b=>b.disabled=true);}
+function hk(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
+function ar(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,90)+'px';}
+
+// Check backend on load
+setTimeout(checkBackend,1000);
+</script>
+</body>
+</html>

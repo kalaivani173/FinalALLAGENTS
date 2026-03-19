@@ -1,4 +1,5 @@
 import os
+import re
 from fastapi import UploadFile
 
 # Absolute path so files are always created under project root, not cwd
@@ -47,9 +48,18 @@ def save_artifact(
     target_dir = os.path.join(BASE_ARTIFACT_DIR, dir_name, change_id)
     os.makedirs(target_dir, exist_ok=True)
 
+    # Read content upfront so XSD uploads can self-derive their api_name
+    content = file.file.read()
+
     if dir_name == "xsd" and key == "xsd":
         if not api_name:
-            raise ValueError("apiName is required for XSD upload")
+            # Auto-derive api_name from the first xs:element/@name in the XSD,
+            # falling back to the uploaded filename stem (without extension).
+            m = re.search(rb'<(?:xs:|xsd:)?element\b[^>]+\bname="([^"]+)"', content)
+            if m:
+                api_name = m.group(1).decode("utf-8", errors="replace").strip()
+            if not api_name:
+                api_name = os.path.splitext(file.filename or "schema")[0] or "schema"
         filename = f"{api_name}.xsd"
     else:
         filename = file.filename or "uploaded"
@@ -57,7 +67,6 @@ def save_artifact(
     path = os.path.join(target_dir, filename)
     path = os.path.abspath(path)
 
-    content = file.file.read()
     with open(path, "wb") as f:
         f.write(content)
 

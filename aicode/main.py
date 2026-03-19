@@ -12,6 +12,7 @@ load_dotenv(_env_path, override=True)
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Body
 from fastapi.responses import FileResponse, PlainTextResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 from enum import Enum
 from typing import Optional
 from pydantic import BaseModel, Field, ConfigDict, AliasChoices
@@ -50,6 +51,15 @@ except ImportError:
     sign_payload = verify_signature = load_public_key = None
 
 app = FastAPI(title="NPCI AI Agent")
+
+# ---- CORS: allow chatbot UI on port 5500 (and any origin in dev) ----
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # ---- Change request store (for Developer dashboard; survives across Product submit) ----
 class ChangeRequestRecord(BaseModel):
