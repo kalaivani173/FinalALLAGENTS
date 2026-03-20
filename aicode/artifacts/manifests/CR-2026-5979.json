@@ -1,0 +1,36 @@
+{
+  "manifest": {
+    "changeId": "CR-2026-5979",
+    "issuer": "NPCI_UPI_SWITCH",
+    "changeType": "ADD_XML_ATTRIBUTE",
+    "apiName": "ReqPay",
+    "summary": "adding new feild",
+    "impactedPaths": [
+      {
+        "xmlPath": "ReqPay.Txn",
+        "change": "ADD_XML_ATTRIBUTE",
+        "attribute": {
+          "name": "delegate",
+          "datatype": "xs:string",
+          "mandatory": false,
+          "allowedValues": [
+            "Y/N"
+          ]
+        }
+      }
+    ],
+    "xsd": {
+      "path": "http://localhost:8000/npciswitch/xsd/CR-2026-5979/ReqPay.xsd"
+    },
+    "npciStatus": "READY_FOR_ADOPTION",
+    "timestamp": "2026-03-20T07:27:37.855314",
+    "openapi": {
+      "path": "http://localhost:8000/npciswitch/openapi-ui/CR-2026-5979"
+    },
+    "productNote": {
+      "path": "http://localhost:8000/npciswitch/product-note/CR-2026-5979/product_note.md",
+      "summary": "binding mode in device tag"
+    }
+  },
+  "signature": null
+}

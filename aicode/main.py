@@ -49,6 +49,15 @@ except Exception as _pkg_err:
     _PKG_AVAILABLE = False
     print(f"[WARN] Product Kit Generator unavailable: {_pkg_err}")
 
+# Product Canvas router
+try:
+    from product_canvas_router import router as product_canvas_router
+    _CANVAS_AVAILABLE = True
+except Exception as _canvas_err:
+    product_canvas_router = None
+    _CANVAS_AVAILABLE = False
+    print(f"[WARN] Product Canvas Router unavailable: {_canvas_err}")
+
 
 try:
     from crypto.signing import sign_payload, verify_signature
@@ -72,6 +81,10 @@ app.add_middleware(
 # ---- Product Kit Generator router ----
 if _PKG_AVAILABLE and product_kit_router:
     app.include_router(product_kit_router)
+
+# ---- Product Canvas router ----
+if _CANVAS_AVAILABLE and product_canvas_router:
+    app.include_router(product_canvas_router)
 
 # ---- Change request store (for Developer dashboard; survives across Product submit) ----
 class ChangeRequestRecord(BaseModel):
@@ -362,6 +375,14 @@ def clear_change_requests():
     CHANGE_REQUESTS_STORE.clear()
     _save_change_requests_store()
     return {"success": True, "message": "All change requests cleared."}
+
+
+@app.post("/orchestrator/clear")
+def clear_orchestrator_state():
+    """Clear all orchestrator change-ID entries from memory and disk."""
+    ORCHESTRATOR_STATE.clear()
+    _save_orchestrator_state()
+    return {"success": True, "message": "Orchestrator state cleared."}
 
 
 @app.delete("/npciswitch/change-requests/{changeId}")
