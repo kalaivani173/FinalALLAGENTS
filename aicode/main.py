@@ -677,6 +677,52 @@ def list_partners():
     return load_partners()
 
 
+def _save_partners(data: dict):
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "partners.json")
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2)
+
+
+class PartnerBody(BaseModel):
+    partnerId: str
+    endpoint: str
+
+
+@app.post("/npciswitch/partners")
+def add_partner(body: PartnerBody):
+    partners = load_partners()
+    pid = body.partnerId.strip().upper().replace(" ", "_")
+    if not pid:
+        raise HTTPException(status_code=422, detail="partnerId is required")
+    if pid in partners:
+        raise HTTPException(status_code=409, detail=f"Partner '{pid}' already exists")
+    partners[pid] = {"endpoint": body.endpoint.strip()}
+    _save_partners(partners)
+    return {"status": "CREATED", "partnerId": pid, "endpoint": body.endpoint.strip()}
+
+
+@app.patch("/npciswitch/partners/{partnerId}")
+def update_partner(partnerId: str, body: PartnerBody):
+    partners = load_partners()
+    pid = partnerId.strip().upper()
+    if pid not in partners:
+        raise HTTPException(status_code=404, detail=f"Partner '{pid}' not found")
+    partners[pid]["endpoint"] = body.endpoint.strip()
+    _save_partners(partners)
+    return {"status": "UPDATED", "partnerId": pid, "endpoint": body.endpoint.strip()}
+
+
+@app.delete("/npciswitch/partners/{partnerId}")
+def delete_partner(partnerId: str):
+    partners = load_partners()
+    pid = partnerId.strip().upper()
+    if pid not in partners:
+        raise HTTPException(status_code=404, detail=f"Partner '{pid}' not found")
+    del partners[pid]
+    _save_partners(partners)
+    return {"status": "DELETED", "partnerId": pid}
+
+
 @app.get("/npciswitch/xsd/{changeId}/{filename}")
 def get_xsd_file(changeId: str, filename: str):
     """Serve XSD file for same-service hosting. Path in manifest uses xsd_web_path (paths.py)."""
